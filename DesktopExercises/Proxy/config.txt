@@ -1,0 +1,7 @@
+localServerPort = http://*:8000/
+writeMethod = dataBase;logTxt;console;console;logTxt
+--Para customizar um html indique o tipo e caso tenha algum parâmetro, separe com ?
+--Ex: removeTag?script
+customizeHtml = removeTag?link;script
+customizeImage = Proxy.Customizers.ImagesCustomizer.TransformImageGray
+logFile = C:\Users\Joaoc\Documents\GitHub\DesktopExercises\Proxy\log.txt

@@ -1,0 +1,20 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<prism:PrismApplication xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:prism="clr-namespace:Prism.DryIoc;assembly=Prism.DryIoc.Forms"           
+             x:Class="ChatApp.App">
+    <Application.Resources>
+        <OnPlatform x:Key="PostFontIcon" x:TypeArguments="x:String">
+            <On Platform="Android" Value="chat1.ttf#Regular" />
+            <On Platform="iOS" Value="icons" />
+        </OnPlatform>
+        <OnPlatform x:Key="OffIcon" x:TypeArguments="x:String">
+            <On Platform="Android" Value="off.ttf#Regular" />
+            <On Platform="iOS" Value="icons" />
+        </OnPlatform>
+        <OnPlatform x:Key="ImageIcon" x:TypeArguments="x:String">
+            <On Platform="Android" Value="image.ttf#Regular" />
+            <On Platform="iOS" Value="icons" />
+        </OnPlatform>
+    </Application.Resources>
+</prism:PrismApplication>

@@ -1,0 +1,22 @@
+﻿
+// https://xamgirl.com/xaml-markup-extension-in-xamarin-forms
+
+
+3 - Pensar na Integração da Foto no ToDoList
+
+https://blog.logrocket.com/how-to-build-chatroom-app-react-firebase/
+
+
+Colocar nome do Usuário na tela Princiapal;
+
+Criar novo banco = Nome, Status; - Passar esse nome para o Mensagens;
+
+Tela de cadastro de User;
+
+Colocar hora da mensagemm;
+
+Brind - colcoar separador de data.
+
+https://github.com/step-up-labs/firebase-database-dotnet
+
+Pegar a Exception da senha

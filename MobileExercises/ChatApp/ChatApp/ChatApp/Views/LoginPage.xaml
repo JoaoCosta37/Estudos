@@ -1,0 +1,247 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:mark="clr-namespace:ChatApp.Views.Markup"
+             xmlns:sys="clr-namespace:System;assembly=netstandard"
+             x:Class="ChatApp.Views.LoginPage">
+
+    <ContentPage.Resources>
+        <Style TargetType="Label">
+            <Setter Property="TextColor" Value="White"></Setter>
+        </Style>
+        <Style TargetType="Entry">
+            <Setter Property="TextColor" Value="White"></Setter>
+        </Style>
+    </ContentPage.Resources>
+
+    <StackLayout BackgroundColor="Black">
+        <Grid Margin="0,50">
+            <Grid.Resources>
+                <Style TargetType="Button">
+                    <Style.Setters>
+                        <Setter Property="FontSize" Value="30"/>
+                        <Setter Property="TextColor" Value="white"/>
+                        <Setter Property="FontAttributes" Value="Italic"/>
+                        <Setter Property="Padding" Value="0"/>
+                        <Setter Property="VerticalOptions" Value="Center"/>
+                        <Setter Property="BorderColor" Value="CadetBlue"/>
+                        <Setter Property="BackgroundColor" Value="Transparent"/>
+                        <Setter Property="Opacity" Value="0.5"/>
+                    </Style.Setters>
+                </Style>
+                <Style TargetType="BoxView">
+                    <Style.Setters>
+                        <Setter Property="Margin" Value="0"/>
+                        <Setter Property="VerticalOptions" Value="Center"/>
+                        <Setter Property="HorizontalOptions" Value="Center"/>
+                    </Style.Setters>
+                </Style>
+            </Grid.Resources>
+
+
+            <Grid.RowDefinitions>
+                <RowDefinition Height="45" />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition />
+                <ColumnDefinition />
+            </Grid.ColumnDefinitions>
+
+            <Button Command="{Binding SwitchLoginModeCommand}">
+                <Button.CommandParameter>
+                    <sys:Boolean>True</sys:Boolean>
+                </Button.CommandParameter>
+                <Button.Style>
+                    <Style TargetType="Button">
+                            <Style.Setters>
+                                <Setter Property="FontSize" Value="30"/>
+                                <Setter Property="TextColor" Value="white"/>
+                                <Setter Property="FontAttributes" Value="Italic"/>
+                                <Setter Property="Padding" Value="0"/>
+                                <Setter Property="VerticalOptions" Value="Center"/>
+                                <Setter Property="BorderColor" Value="CadetBlue"/>
+                                <Setter Property="BackgroundColor" Value="Transparent"/>
+                                <Setter Property="Opacity" Value="0.5"/>
+                            </Style.Setters>
+                        <Style.Triggers>
+                            <DataTrigger TargetType="Button"
+                                     Binding="{Binding IsLoginMode, Mode=TwoWay}">
+                                <DataTrigger.Value>
+                                    <sys:Boolean>True</sys:Boolean>
+                                </DataTrigger.Value>
+                                <Setter Property="FontSize" Value="30"/>
+                                <Setter Property="TextColor" Value="CadetBlue"/>
+                                <Setter Property="FontAttributes" Value="Italic"/>
+                                <Setter Property="Padding" Value="0"/>
+                                <Setter Property="VerticalOptions" Value="Center"/>
+                                <Setter Property="BorderColor" Value="CadetBlue"/>
+                                <Setter Property="BackgroundColor" Value="Transparent"/>
+                                <Setter Property="FontAttributes" Value="Bold"/>
+                                <Setter Property="Opacity" Value="1"/>
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </Button.Style>
+                <Button.Text>
+                    <mark:MessageExtention MessageKey="Login"/>
+                </Button.Text>
+            </Button>
+            <Button Command="{Binding SwitchLoginModeCommand}" Grid.Column="1">
+                <Button.CommandParameter>
+                    <sys:Boolean>False</sys:Boolean>
+                </Button.CommandParameter>
+                <Button.Style>
+                    <Style TargetType="Button">
+                        <Style.Setters>
+                            <Setter Property="FontSize" Value="30"/>
+                            <Setter Property="TextColor" Value="white"/>
+                            <Setter Property="FontAttributes" Value="Italic"/>
+                            <Setter Property="Padding" Value="0"/>
+                            <Setter Property="VerticalOptions" Value="Center"/>
+                            <Setter Property="BorderColor" Value="CadetBlue"/>
+                            <Setter Property="BackgroundColor" Value="Transparent"/>
+                            <Setter Property="Opacity" Value="0.5"/>
+                        </Style.Setters>
+
+                        <!--https://learn.microsoft.com/en-us/xamarin/xamarin-forms/user-interface/styles/xaml/inheritance-->
+
+                        <Style.Triggers>
+                            <DataTrigger TargetType="Button"
+                                     Binding="{Binding IsLoginMode, Mode=TwoWay}">
+                                <DataTrigger.Value>
+                                    <sys:Boolean>False</sys:Boolean>
+                                </DataTrigger.Value>
+                                <Setter Property="FontSize" Value="30"/>
+                                <Setter Property="TextColor" Value="CadetBlue"/>
+                                <Setter Property="FontAttributes" Value="Italic"/>
+                                <Setter Property="Padding" Value="0"/>
+                                <Setter Property="VerticalOptions" Value="Center"/>
+                                <Setter Property="BorderColor" Value="CadetBlue"/>
+                                <Setter Property="BackgroundColor" Value="Transparent"/>
+                                <Setter Property="FontAttributes" Value="Bold"/>
+                                <Setter Property="Opacity" Value="1"/>
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </Button.Style>
+                <Button.Text>
+                    <mark:MessageExtention MessageKey="SingUp"/>
+                </Button.Text>
+            </Button>
+        </Grid>
+
+        <StackLayout>
+            <StackLayout.Resources>
+                <Style TargetType="StackLayout">
+                    <Style.Setters>
+                        <Setter Property="Margin" Value="20,10"/>
+                    </Style.Setters>
+                </Style>
+                <Style TargetType="Frame">
+                    <Style.Setters>
+                        <Setter Property="CornerRadius" Value="8"/>
+                        <Setter Property="BackgroundColor" Value="Transparent"/>
+                        <Setter Property="BorderColor" Value="CadetBlue"/>
+                        <Setter Property="Padding" Value="0"/>
+                    </Style.Setters>
+                </Style>
+                <Style TargetType="Entry">
+                    <Style.Setters>
+                        <Setter Property="FontSize" Value="15"/>
+                        <Setter Property="TextColor" Value="white"/>
+                    </Style.Setters>
+                </Style>
+                <Style TargetType="Label">
+                    <Style.Setters>
+                        <Setter Property="FontSize" Value="25"/>
+                        <Setter Property="TextColor" Value="white"/>
+                        
+                    </Style.Setters>
+                </Style>
+            </StackLayout.Resources>
+            <StackLayout>
+                <Label>
+                    <Label.Text>
+                        <mark:MessageExtention MessageKey="User"/>
+                    </Label.Text>
+                </Label>
+                <Frame>
+                    <Entry Text="{Binding User}"/>
+                </Frame>
+            </StackLayout>
+            <StackLayout >
+                <Label>
+                    <Label.Text>
+                        <mark:MessageExtention MessageKey="Password"/>
+                    </Label.Text>
+                </Label>
+                <Frame>
+                    <Entry Text="{Binding Password}"
+                           IsPassword="true"/>
+                </Frame>
+            </StackLayout>
+            <StackLayout >
+                <StackLayout.Style>
+                    <Style TargetType="StackLayout">
+                        <Style.Triggers>
+                            <DataTrigger TargetType="StackLayout"
+                                     Binding="{Binding IsLoginMode}">
+                                <DataTrigger.Value>
+                                    <sys:Boolean>True</sys:Boolean>
+                                </DataTrigger.Value>
+                                <Setter Property="IsVisible" Value="false"/>
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </StackLayout.Style>
+
+                <StackLayout>
+                <Label>
+                    <Label.Text>
+                        <mark:MessageExtention MessageKey="ConfirmPassword"/>
+                    </Label.Text>
+                </Label>
+                    <Frame>
+                        <Entry Text="{Binding ConfirmPassword}"
+                           IsPassword="true"/>
+                    </Frame>
+                </StackLayout>
+
+                <StackLayout>
+                    
+
+
+                    <Label>
+                        <Label.Text>
+                            <mark:MessageExtention MessageKey="Name"/>
+                        </Label.Text>
+                    </Label>
+                    <Frame>
+                        <Entry Text="{Binding Name}"/>
+                    </Frame>
+                </StackLayout>
+
+
+            </StackLayout>
+            
+
+            <StackLayout>
+                <Frame BorderColor="White"
+                   BackgroundColor="CadetBlue"
+                   HorizontalOptions="End">
+                    <Button BackgroundColor="Transparent"
+                        TextColor="White"
+                        Padding="50,0"
+                        Command="{Binding ConfirmCommand}">
+                        <Button.Text>
+                            <mark:MessageExtention MessageKey="Confirm"/>
+                        </Button.Text>
+                    </Button>
+                </Frame>
+            </StackLayout>
+
+
+        </StackLayout>
+    </StackLayout>
+
+</ContentPage>

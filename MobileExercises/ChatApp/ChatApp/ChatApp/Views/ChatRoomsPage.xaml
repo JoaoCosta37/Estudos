@@ -1,0 +1,117 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:view="clr-namespace:ChatApp.Views"
+             xmlns:vm="clr-namespace:ChatApp.ViewModels"
+             xmlns:prism="http://prismlibrary.com"
+             xmlns:mark="clr-namespace:ChatApp.Views.Markup"
+             x:Class="ChatApp.Views.ChatRoomsPage">
+
+    <StackLayout BackgroundColor="Black"
+                 Orientation="Vertical"
+                 VerticalOptions="FillAndExpand">
+        <StackLayout.Resources>
+            <Style TargetType="Label">
+                <Setter Property="TextColor" Value="White"/>
+            </Style>
+            <Style TargetType="Button">
+                <Setter Property="TextColor" Value="White"/>
+            </Style>
+        </StackLayout.Resources>
+
+        <StackLayout BackgroundColor="Transparent">
+            <StackLayout Orientation="Vertical">
+
+                <StackLayout Orientation="Horizontal"
+                         HorizontalOptions="Center">
+                    <Label Text="{x:Static view:ChatIcons.ChatIcon}"
+                       FontFamily="{StaticResource PostFontIcon}"
+                       VerticalOptions="Center"
+                       FontSize="55"
+                       Margin="0"/>
+                    <Label TextColor="White"
+                       HorizontalOptions="Center"
+                       Margin="0,20"
+                       FontSize="35">
+                        <Label.Text>
+                            <mark:MessageExtention MessageKey="ChatRoom"/>
+                        </Label.Text>
+                    </Label>
+                </StackLayout>
+                <Label>
+                    <Label.Text>
+                        <mark:MessageExtention MessageKey="Hello"/>
+                    </Label.Text>
+                </Label>
+                <Label Text="{Binding UserName}"/>
+            </StackLayout>
+            <Label
+               TextColor="White"
+               HorizontalOptions="Center"
+               FontSize="17">
+                <Label.Text>
+                    <mark:MessageExtention MessageKey="ChooseChatRoom"/>
+                </Label.Text>
+            </Label>
+        </StackLayout>
+        <StackLayout Margin="20,10"
+                     Orientation="Vertical"
+                     VerticalOptions="FillAndExpand">
+            <FlexLayout Wrap="Wrap"
+                        AlignItems="Center"
+                        JustifyContent="SpaceAround"
+                        BindableLayout.ItemsSource="{Binding ChatRoomsVm}">
+                <BindableLayout.ItemTemplate>
+                    <DataTemplate>
+                        <Frame WidthRequest="160"
+                               Padding="0"
+                               CornerRadius="10"
+                               HasShadow="True"
+                               BackgroundColor="Transparent">
+                            <StackLayout Orientation="Vertical"
+                                         Padding="10"
+                                         HorizontalOptions="FillAndExpand">
+                                <Button Text="{Binding Description}"
+                                        Command="{Binding OpenChatRoomCommand, Source={RelativeSource AncestorType={x:Type vm:ChatRoomsPageViewModel}}}"
+                                        CommandParameter="{Binding .}"
+                                        FontSize="Large"
+                                        BackgroundColor="#555555"
+                                        HeightRequest="80"/>
+                            </StackLayout>
+                        </Frame>
+                    </DataTemplate>
+                </BindableLayout.ItemTemplate>
+            </FlexLayout>
+        </StackLayout>
+
+        <StackLayout Orientation="Horizontal">
+
+            <Frame HorizontalOptions="Start"
+                   HeightRequest="25"
+                   CornerRadius="25"
+                   Padding="0"
+                   BackgroundColor="IndianRed"
+                   Margin="10,0,0,0">
+                <Button Text="{x:Static view:OffIcons.OffIcon}"
+                        FontFamily="{StaticResource OffIcon}"
+                        FontSize="30"
+                        WidthRequest="50"
+                        BackgroundColor="Transparent"
+                        Command="{Binding SingOutCommand}"/>
+
+            </Frame>
+
+            <StackLayout HorizontalOptions="EndAndExpand"
+                     VerticalOptions="End"
+                     Margin="0,0,20,0">
+                <Button Command="{prism:NavigateTo  {x:Static view:Routes.NewChatRoomPageRoute}}"
+                    BackgroundColor="DodgerBlue">
+                    <Button.Text>
+                        <mark:MessageExtention MessageKey="NewChat"/>
+                    </Button.Text>
+                </Button>
+            </StackLayout>
+        </StackLayout>
+    </StackLayout>
+
+</ContentPage>

@@ -1,0 +1,19 @@
+﻿
+
+
+1 - Ler os métodos da String;
+
+3 - https://github.com/MrDesjardins/SimpleHttpProxy/blob/master/SimpleHttpProxy/Program.cs
+
+
+
+
+
+
+
+
+=================
+
+GetConfig
+
+ --- Criar uma implementação que leia xml

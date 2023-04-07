@@ -1,0 +1,169 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:conv="clr-namespace:TimeRecorderApp.Views.Converters"
+             xmlns:mark="clr-namespace:TimeRecorderApp.Views.Markup"
+             xmlns:sys="clr-namespace:System;assembly=netstandard"
+             xmlns:views="clr-namespace:TimeRecorderApp.Views"
+             x:Class="TimeRecorderApp.Views.TimerPage"
+             
+             >
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <conv:TimeSpanToStringConverter x:Key="timeSpanToStringConv"/>
+            <conv:TimeSpanToColorConverter x:Key="timeSpanToColorConv"/>
+        </ResourceDictionary>
+        <Style TargetType="StackLayout">
+            <Setter Property="BackgroundColor" Value="#1f2123"/>
+        </Style>
+    </ContentPage.Resources>
+
+    <StackLayout VerticalOptions="FillAndExpand">
+
+        <StackLayout.Resources>
+            <ResourceDictionary>
+                <Style x:Key="btnStyleBase" TargetType="Button">
+                    <Setter Property="Padding" Value="0"/>
+                    <Setter Property="BackgroundColor" Value="#3f658f"/>
+                    <Setter Property="TextColor" Value="White"/>
+                    <Setter Property="FontSize" Value="30"/>
+                </Style>
+                <Style TargetType="Frame">
+                    <Setter Property="Padding" Value="0"/>
+                    <Setter Property="CornerRadius" Value="20"/>
+                    <Setter Property="WidthRequest" Value="120"/>
+                    <Setter Property="HeightRequest" Value="40"/>
+                </Style>
+            </ResourceDictionary>
+        </StackLayout.Resources>
+
+        <StackLayout Orientation="Horizontal" Margin="20">
+            <StackLayout.Resources>
+                <ResourceDictionary>
+                    <Style TargetType="Label">
+                        <Setter Property="TextColor" Value="White"/>
+                        <Setter Property="VerticalOptions" Value="Center"/>
+                    </Style>
+                </ResourceDictionary>
+            </StackLayout.Resources>
+            <Label FontSize="15">
+                <Label.Text>
+                    <mark:MessageExtention MessageKey="BankOfHours"/>
+                </Label.Text>
+                
+            </Label>
+            <Label Text="{Binding BankOfHoursVm, Converter={StaticResource timeSpanToStringConv}}"
+                   FontSize="20" TextColor="{Binding BankOfHoursVm, Converter={StaticResource timeSpanToColorConv}}">
+                <!--<Label.Style>
+                    <Style TargetType="Label">
+                        <Style.Triggers>
+                            <DataTrigger TargetType="Label" Binding="{Binding BankOfHoursVm, Mode=TwoWay}">
+                                <DataTrigger.Value>
+                                    <sys:Boolean>True</sys:Boolean>
+                                </DataTrigger.Value>
+                                <Setter Property="IsEnabled" Value="false"></Setter>
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </Label.Style>-->
+            </Label>
+        </StackLayout>
+
+        <StackLayout Orientation="Vertical"
+                     VerticalOptions="CenterAndExpand"
+                     HorizontalOptions="Center">
+            <StackLayout>
+
+                <Label HorizontalOptions="Center">
+                    <Label.FormattedText>
+                        <FormattedString>
+                            <Span Text="{Binding CurrentTime, Converter={StaticResource timeSpanToStringConv}, ConverterParameter=1}"
+                                  FontSize="90"
+                                  TextColor="White"
+                                  FontFamily="DigitalClock"/>
+                        </FormattedString>
+                    </Label.FormattedText>
+                </Label>
+                <Label VerticalOptions="Center" HorizontalOptions="Center">
+                    <Label.FormattedText>
+                        <FormattedString>
+                            <Span Text="{Binding CurrentTime, Converter={StaticResource timeSpanToStringConv}, ConverterParameter=2}" 
+                                  FontSize="50"
+                                  TextColor="White"
+                                  FontFamily="DigitalClock"/>
+                        </FormattedString>
+                    </Label.FormattedText>
+                </Label>
+            </StackLayout>
+
+            <StackLayout Orientation="Vertical"
+                         VerticalOptions="Start"
+                         HorizontalOptions="CenterAndExpand"
+                         Margin="0,50,0,0">
+                
+
+                <StackLayout>
+                    <Frame Margin="0,0,0,30"
+                           Padding="0"
+                           CornerRadius="25"
+                           HeightRequest="50">
+
+                        <Button Text="{x:Static views:FontIcons.PlayIcon}"
+                                FontFamily="{x:StaticResource PostFontIcon}"
+                                FontSize="35"
+                                Command="{Binding StartCommand}"
+                                IsEnabled="True"
+                                WidthRequest="50">
+
+                            <Button.Style>
+                                <Style TargetType="Button" BasedOn="{x:StaticResource btnStyleBase}">
+                                    <Style.Triggers>
+                                        <DataTrigger TargetType="Button" Binding="{Binding TimesheetViewModel.IsRunning, Mode=TwoWay}">
+                                            <DataTrigger.Value>
+                                                <sys:Boolean>True</sys:Boolean>
+                                            </DataTrigger.Value>
+                                            <Setter Property="IsEnabled" Value="false"></Setter>
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </Button.Style>
+                        </Button>
+                    </Frame>
+
+                </StackLayout>
+                <StackLayout Orientation="Horizontal">
+                    <Frame>
+                        <Button Text="{x:Static views:FontIcons.PauseIcon}"
+                                FontFamily="{x:StaticResource PostFontIcon}"
+                        Command="{Binding PauseCommand}"
+                        IsEnabled="{Binding TimesheetViewModel.IsRunning}"
+                        Style="{x:StaticResource btnStyleBase}"/>
+                    </Frame>
+                    <Frame>
+                        <Button Text="{x:Static views:FontIcons.StopIcon}"
+                                FontFamily="{x:StaticResource PostFontIcon}"
+                        Command="{Binding StopCommand}"
+                        IsEnabled="{Binding IsRunningCanStop}"
+                        Style="{x:StaticResource btnStyleBase}"/>
+                    </Frame>
+                </StackLayout>
+            </StackLayout>
+        </StackLayout>
+        <StackLayout Orientation="Horizontal"
+                     VerticalOptions="End"
+                     HorizontalOptions="End"
+                     Margin="15">
+            <Frame WidthRequest="40">
+
+                <Button Text="{x:Static views:FontIcons.UpdateIcon}"
+                        FontFamily="{x:StaticResource PostFontIcon}"
+                        Style="{x:StaticResource btnStyleBase}"
+                        TextColor="White"
+                        Command="{Binding GoStartCommand}"/>
+            </Frame>
+        </StackLayout>
+
+
+    </StackLayout>
+
+</ContentPage>

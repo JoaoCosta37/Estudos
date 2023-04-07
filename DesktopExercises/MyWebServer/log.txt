@@ -1,0 +1,336 @@
+
+
+Request #: 1
+http://localhost:8000/
+GET
+localhost:8000
+Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/107.0.0.0 Safari/537.36
+
+Request #: 1
+http://localhost:8000/style.css
+GET
+localhost:8000
+Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/107.0.0.0 Safari/537.36
+
+Request #: 1
+http://localhost:8000/favicon.ico
+GET
+localhost:8000
+Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/107.0.0.0 Safari/537.36
+
+Request #: 1
+http://localhost:8000/
+GET
+localhost:8000
+Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/107.0.0.0 Safari/537.36
+
+Request #: 1
+http://localhost:8000/style.css
+GET
+localhost:8000
+Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/107.0.0.0 Safari/537.36
+
+Request #: 1
+http://localhost:8000/favicon.ico
+GET
+localhost:8000
+Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/107.0.0.0 Safari/537.36
+
+Request #: 1
+http://localhost:8000/help-page.html
+GET
+localhost:8000
+Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/107.0.0.0 Safari/537.36
+
+Request #: 1
+http://localhost:8000/favicon.ico
+GET
+localhost:8000
+Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/107.0.0.0 Safari/537.36
+
+Request #: 1
+http://localhost:8000/
+GET
+localhost:8000
+Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/107.0.0.0 Safari/537.36
+
+Request #: 1
+http://localhost:8000/
+GET
+localhost:8000
+Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/107.0.0.0 Safari/537.36
+
+Request #: 1
+http://localhost:8000/
+GET
+localhost:8000
+Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/107.0.0.0 Safari/537.36
+
+Request #: 1
+http://localhost:8000/style.css
+GET
+localhost:8000
+Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/107.0.0.0 Safari/537.36
+
+Request #: 1
+http://localhost:8000/favicon.ico
+GET
+localhost:8000
+Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/107.0.0.0 Safari/537.36
+
+Request #: 1
+http://localhost:8000/
+GET
+localhost:8000
+Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/107.0.0.0 Safari/537.36
+
+Request #: 1
+http://localhost:8000/style.css
+GET
+localhost:8000
+Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/107.0.0.0 Safari/537.36
+
+Request #: 1
+http://localhost:8000/favicon.ico
+GET
+localhost:8000
+Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/107.0.0.0 Safari/537.36
+
+Request #: 1
+http://localhost:8000/
+GET
+localhost:8000
+Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/107.0.0.0 Safari/537.36
+
+Request #: 1
+http://localhost:8000/style.css
+GET
+localhost:8000
+Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/107.0.0.0 Safari/537.36
+
+Request #: 1
+http://localhost:8000/favicon.ico
+GET
+localhost:8000
+Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/107.0.0.0 Safari/537.36
+
+Request #: 1
+http://localhost:8000/index.html
+GET
+localhost:8000
+Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/107.0.0.0 Safari/537.36
+
+Request #: 1
+http://localhost:8000/style.css
+GET
+localhost:8000
+Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/107.0.0.0 Safari/537.36
+
+Request #: 1
+http://localhost:8000/favicon.ico
+GET
+localhost:8000
+Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/107.0.0.0 Safari/537.36
+
+Request #: 1
+http://localhost:8000/index.html
+GET
+localhost:8000
+Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/107.0.0.0 Safari/537.36
+
+Request #: 1
+http://localhost:8000/style.css
+GET
+localhost:8000
+Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/107.0.0.0 Safari/537.36
+
+Request #: 1
+http://localhost:8000/favicon.ico
+GET
+localhost:8000
+Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/107.0.0.0 Safari/537.36
+
+Request #: 1
+http://localhost:8000/index.html
+GET
+localhost:8000
+Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/107.0.0.0 Safari/537.36
+
+Request #: 1
+http://localhost:8000/style.css
+GET
+localhost:8000
+Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/107.0.0.0 Safari/537.36
+
+Request #: 1
+http://localhost:8000/favicon.ico
+GET
+localhost:8000
+Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/107.0.0.0 Safari/537.36
+
+Request #: 1
+http://localhost:8000/index.html/teste
+GET
+localhost:8000
+Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/107.0.0.0 Safari/537.36
+
+Request #: 1
+http://localhost:8000/favicon.ico
+GET
+localhost:8000
+Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/107.0.0.0 Safari/537.36
+
+Request #: 1
+http://localhost:8000/t.html
+GET
+localhost:8000
+Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/107.0.0.0 Safari/537.36
+
+Request #: 1
+http://localhost:8000/favicon.ico
+GET
+localhost:8000
+Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/107.0.0.0 Safari/537.36
+
+Listening for connections on http://localhost:8000/
+Request #: 1
+http://localhost:8000/
+GET
+localhost:8000
+Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/107.0.0.0 Safari/537.36
+
+Request #: 2
+http://localhost:8000/style.css
+GET
+localhost:8000
+Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/107.0.0.0 Safari/537.36
+
+Request #: 3
+http://localhost:8000/favicon.ico
+GET
+localhost:8000
+Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/107.0.0.0 Safari/537.36
+
+Request #: 4
+http://localhost:8000/help-page.html
+GET
+localhost:8000
+Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/107.0.0.0 Safari/537.36
+
+Request #: 5
+http://localhost:8000/favicon.ico
+GET
+localhost:8000
+Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/107.0.0.0 Safari/537.36
+
+Request #: 6
+http://localhost:8000/tesdas
+GET
+localhost:8000
+Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/107.0.0.0 Safari/537.36
+
+Request #: 7
+http://localhost:8000/favicon.ico
+GET
+localhost:8000
+Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/107.0.0.0 Safari/537.36
+
+22112022233931Listening for connections on http://localhost:8000/
+22112022233938Request #: 1
+22112022233938http://localhost:8000/
+22112022233938GET
+22112022233938localhost:8000
+22112022233938Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/107.0.0.0 Safari/537.36
+22112022233938
+22112022233938Request #: 2
+22112022233938http://localhost:8000/style.css
+22112022233938GET
+22112022233938localhost:8000
+22112022233938Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/107.0.0.0 Safari/537.36
+22112022233938
+22112022233939Request #: 3
+22112022233939http://localhost:8000/favicon.ico
+22112022233939GET
+22112022233939localhost:8000
+22112022233939Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/107.0.0.0 Safari/537.36
+22112022233939
+22112022233941Request #: 4
+22112022233941http://localhost:8000/conection-information.html
+22112022233941GET
+22112022233941localhost:8000
+22112022233941Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/107.0.0.0 Safari/537.36
+22112022233941
+22112022233941Request #: 5
+22112022233941http://localhost:8000/style.css
+22112022233941GET
+22112022233941localhost:8000
+22112022233941Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/107.0.0.0 Safari/537.36
+22112022233941
+22112022233941Request #: 6
+22112022233941http://localhost:8000/favicon.ico
+22112022233941GET
+22112022233941localhost:8000
+22112022233941Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/107.0.0.0 Safari/537.36
+22112022233941
+22112022233945Request #: 7
+22112022233945http://localhost:8000/tadfasdas
+22112022233945GET
+22112022233945localhost:8000
+22112022233945Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/107.0.0.0 Safari/537.36
+22112022233945
+22112022233945Request #: 8
+22112022233945http://localhost:8000/favicon.ico
+22112022233945GET
+22112022233945localhost:8000
+22112022233945Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/107.0.0.0 Safari/537.36
+22112022233945
+22112022234642 Listening for connections on http://localhost:8000/
+22112022234650 Request #: 1
+22112022234650 http://localhost:8000/
+22112022234650 GET
+22112022234650 localhost:8000
+22112022234650 Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/107.0.0.0 Safari/537.36
+22112022234650 
+22112022234650 Request #: 2
+22112022234650 http://localhost:8000/style.css
+22112022234650 GET
+22112022234650 localhost:8000
+22112022234650 Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/107.0.0.0 Safari/537.36
+22112022234650 
+22112022234650 Request #: 3
+22112022234650 http://localhost:8000/favicon.ico
+22112022234650 GET
+22112022234650 localhost:8000
+22112022234650 Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/107.0.0.0 Safari/537.36
+22112022234650 
+22112022234652 Request #: 4
+22112022234652 http://localhost:8000/conection-information.html
+22112022234652 GET
+22112022234652 localhost:8000
+22112022234652 Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/107.0.0.0 Safari/537.36
+22112022234652 
+22112022234652 Request #: 5
+22112022234652 http://localhost:8000/style.css
+22112022234652 GET
+22112022234652 localhost:8000
+22112022234652 Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/107.0.0.0 Safari/537.36
+22112022234652 
+22112022234652 Request #: 6
+22112022234652 http://localhost:8000/favicon.ico
+22112022234652 GET
+22112022234652 localhost:8000
+22112022234652 Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/107.0.0.0 Safari/537.36
+22112022234652 
+22112022234656 Request #: 7
+22112022234656 http://localhost:8000/teste
+22112022234656 GET
+22112022234656 localhost:8000
+22112022234656 Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/107.0.0.0 Safari/537.36
+22112022234656 
+22112022234656 Request #: 8
+22112022234656 http://localhost:8000/favicon.ico
+22112022234656 GET
+22112022234656 localhost:8000
+22112022234656 Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/107.0.0.0 Safari/537.36
+22112022234656 
+28112022231449 Listening for connections on http://localhost:8000/

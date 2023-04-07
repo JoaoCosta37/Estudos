@@ -1,0 +1,7 @@
+url = http://localhost:8000/
+mainPage = index.html
+folder = C:\Users\Joaoc\Documents\GitHub\DesktopExercises\INetPub\WWRoot
+availableFile = available-files.html
+errorPath = \error
+writeMethod = logTxt
+logFile = C:\Users\Joaoc\Documents\GitHub\DesktopExercises\MyWebServer\log.txt

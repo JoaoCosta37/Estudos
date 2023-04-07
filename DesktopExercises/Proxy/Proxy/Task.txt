@@ -1,0 +1,18 @@
+﻿
+
+Permita no Config gravar em mais de um log; (Ex: writeMethod = Console;Txt) ok Bug no Logger - para montar a lista de loggers
+
+Adicionar uma coluna de data quando for banco de dados; ok
+
+Factory para tratar o customizador Html e de Imagem  ok
+
+Criar um Helper(Ajudante) pro HtmlAgilityPack 
+
+Criar um customizador que remove link, script ok
+
+Pesquisar como faz tratar autorização no Proxy
+
+
+
+
+
