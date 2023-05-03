@@ -1,28 +1,74 @@
-﻿using System;
+﻿using PomodoroApp.ViewModels;
+using PomodoroApp.Views;
+using Prism;
+using Prism.DryIoc;
+using Prism.Ioc;
+using System;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
 namespace PomodoroApp
 {
-    public partial class App : Application
+    public partial class App : PrismApplication
     {
         public App()
+           : this(null)
+        {
+
+        }
+        public App(IPlatformInitializer initializer)
+            : this(initializer, true)
+        {
+
+        }
+
+        public App(IPlatformInitializer initializer, bool setFormsDependencyResolver)
+            : base(initializer, setFormsDependencyResolver)
+        {
+
+        }
+
+
+        protected override async void OnInitialized()
         {
             InitializeComponent();
+            await NavigationService.NavigateAsync(nameof(MainPage));
 
-            MainPage = new MainPage();
         }
-
-        protected override void OnStart()
+        protected override void RegisterTypes(IContainerRegistry containerRegistry)
         {
-        }
+            containerRegistry.RegisterForNavigation<NavigationPage>();
+            containerRegistry.RegisterForNavigation<MainPage, MainPageViewModel>();
+            //containerRegistry.Register<IFirebaseClientFactory, FirebaseClientFactory>();
+            //containerRegistry.Register<IRequiredHoursService, RequiredHoursService>();
+            //containerRegistry.Register<IMessageService, MessageService>();
 
-        protected override void OnSleep()
-        {
-        }
+            //containerRegistry.Register<IUserProvider, UserProvider>();
 
-        protected override void OnResume()
-        {
+            //containerRegistry.Register<UserService>();
+
+            //containerRegistry.Register<IUserService>(() => {
+            //    var userService = containerRegistry.GetContainer().Resolve<UserService>();
+            //    return new UserServiceWithCache(userService);
+
+            //});
+
+
+            var container = containerRegistry.GetContainer();
+
+            //container.RegisterDelegate<ServiceFactory>(r => r.Resolve);
+            //container.RegisterMany(new[] { typeof(IMediator).GetAssembly() }, Registrator.Interfaces);
+            //container.RegisterMany(typeof(NewChatRoom.Handler).GetAssembly().GetTypes().Where(t => t.IsMediatorHandler()));
+            //container.RegisterMany(typeof(NewChatRoom.CommandValidator).GetAssembly().GetTypes().Where(t => t.IsPipeline()));
+
+
+            //container.Register(typeof(IPipelineBehavior<,>), typeof(RequestPreProcessorBehavior<,>), ifAlreadyRegistered: IfAlreadyRegistered.AppendNewImplementation);
+            //container.Register(typeof(IPipelineBehavior<,>), typeof(RequestPostProcessorBehavior<,>), ifAlreadyRegistered: IfAlreadyRegistered.AppendNewImplementation);
+
+
+            //containerRegistry.Register<IAuth>(() => DependencyService.Get<IAuth>());
+
+
         }
     }
 }

@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 using Xamarin.Forms;
 using System.Timers;
 
-namespace PomodoroApp
+namespace PomodoroApp.Views
 {
     public partial class MainPage : ContentPage
     {
