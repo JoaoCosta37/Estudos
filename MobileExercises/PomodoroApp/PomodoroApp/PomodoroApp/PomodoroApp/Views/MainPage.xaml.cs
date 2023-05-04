@@ -8,16 +8,20 @@ using System.Text;
 using System.Threading.Tasks;
 using Xamarin.Forms;
 using System.Timers;
+using PomodoroApp.ViewModels;
 
 namespace PomodoroApp.Views
 {
     public partial class MainPage : ContentPage
     {
         private Timer timer;
-        private TimeSpan currentTime;
         private float startAngle = 270;
         private float sweepAngle = 359;
-        private TimeSpan pomodoro = TimeSpan.FromSeconds(10);
+        //private TimeSpan pomodoro = TimeSpan.FromSeconds(60);
+
+        MainPageViewModel viewModel { get => this.BindingContext as MainPageViewModel; } 
+
+
         public MainPage()
         {
             InitializeComponent();
@@ -34,13 +38,22 @@ namespace PomodoroApp.Views
             SKCanvas canvas = surface.Canvas;
 
             canvas.Clear();
-            SKPoint center = new SKPoint(info.Width / 2, info.Height / 2);
+            SKPoint referencesPoint = new SKPoint(info.Width / 2, info.Height / 3);
 
+            float externalRadius = Math.Min(info.Width / 2, info.Height / 2) - 2 * 80;
 
-            float radius = Math.Min(info.Width / 2, info.Height / 2) - 2 * 50;
+            canvas.DrawCircle(referencesPoint.X, referencesPoint.Y, externalRadius, new SKPaint()
+            {
+                Color = SKColors.White,
+                Style = SKPaintStyle.Stroke,
+                StrokeWidth = 30,
+            }) ;
+            
+            float innerRadius = externalRadius - 50;
+          
 
-            SKRect rect = new SKRect(center.X - radius, center.Y - radius,
-                         center.X + radius, center.Y + radius);
+            SKRect rect = new SKRect(referencesPoint.X - innerRadius, referencesPoint.Y - innerRadius,
+                         referencesPoint.X + innerRadius, referencesPoint.Y + innerRadius);
 
             //SKRect rect = new SKRect(100, 100, info.Width - 100, info.Height - 100);
 
@@ -53,21 +66,24 @@ namespace PomodoroApp.Views
                 using (SKPaint fillPaint = new SKPaint())
                 using (SKPaint outlinePaint = new SKPaint())
                 {
-                    path.MoveTo(center);
+                    path.MoveTo(referencesPoint);
                     path.ArcTo(rect, startAngle, sweepAngle, false);
                 }
 
                 canvas.DrawPath(path, new SKPaint()
                 {
-                    Color = SKColors.Green,
+                    Color = SKColors.White,
                     Style = SKPaintStyle.Fill,
                 });
 
             }
         }
-        private void DrawByParameter()
+        private void UpdateDraw()
         {
-            var porcentTime = 100 - (currentTime.TotalSeconds * 100)/pomodoro.TotalSeconds;
+            var porcentTime = 100 - (viewModel.CurrentTime.TotalSeconds * 100)/viewModel.Pomodoro.TotalSeconds;
+            
+            //var porcentTime = 
+            
             this.sweepAngle = (float)(360d * porcentTime) / 100;
             SkCanvasView.InvalidateSurface();
         }
@@ -84,13 +100,14 @@ namespace PomodoroApp.Views
 
         private void Timer_Elapsed(object sender, ElapsedEventArgs e)
         {
-            if (currentTime == pomodoro)
+            if (viewModel.RemainingTime == TimeSpan.Zero)
             {
                 this.timer.Stop();
+                return;
                 //var action = Application.Current.MainPage.DisplayAlert("Fim", "Timer Encerrado", "OK");
             }
-            currentTime = currentTime.Add(TimeSpan.FromSeconds(1));
-            DrawByParameter();
+            viewModel.CurrentTime = viewModel.CurrentTime.Add(TimeSpan.FromSeconds(1));
+            UpdateDraw();
         }
     }
 }
