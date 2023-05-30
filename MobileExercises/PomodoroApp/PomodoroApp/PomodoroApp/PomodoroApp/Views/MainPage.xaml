@@ -2,28 +2,108 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:es="Xamarin"
+             xmlns:control="clr-namespace:CarouselView.FormsPlugin.Abstractions;assembly=CarouselView.FormsPlugin.Abstractions"
              xmlns:conv="clr-namespace:PomodoroApp.Views.Converters"
              xmlns:forms="clr-namespace:SkiaSharp.Views.Forms;assembly=SkiaSharp.Views.Forms"
              x:Class="PomodoroApp.Views.MainPage">
     <ContentPage.Resources>
         <conv:TimeSpanToStringConverter x:Key="timeSpanToStringConv"/>
     </ContentPage.Resources>
-    <StackLayout >
-        <StackLayout BackgroundColor="#4f3960">
+    <StackLayout BackgroundColor="#4f3960"
+                 VerticalOptions="FillAndExpand">
+        <StackLayout >
+            <forms:SKCanvasView x:Name="SkCanvasView"
+                                HeightRequest="400"
+                                WidthRequest="400"
+                                VerticalOptions="Start"
+                                HorizontalOptions="CenterAndExpand"
+                                PaintSurface="SkCanvasView_PaintSurface">
+            </forms:SKCanvasView>
         
-        <forms:SKCanvasView x:Name="SkCanvasView" 
-                            HeightRequest="500" 
-                            WidthRequest="500" 
-                            VerticalOptions="FillAndExpand" 
-                            HorizontalOptions="FillAndExpand"
-                            PaintSurface="SkCanvasView_PaintSurface"/>
-        
-    </StackLayout>
-        <StackLayout>
-            <Label Text="{Binding RemainingTime,Converter={StaticResource timeSpanToStringConv}}">
-                
-            </Label>
         </StackLayout>
+        <StackLayout>
+            <Label Text="{Binding RemainingTime,Converter={StaticResource timeSpanToStringConv}}"
+                   TextColor="White"
+                   FontSize="30"
+                   HorizontalOptions="Center">
+            </Label>
+            
+        </StackLayout>
+        <StackLayout BackgroundColor="Transparent">
+
+            <!--<Picker x:Name="pcTime" HorizontalOptions="FillAndExpand" TextColor="White">
+                <Picker.Items>
+                    <x:String>Masculino</x:String>
+                    <x:String>Feminino</x:String>
+                </Picker.Items>
+            </Picker>-->
+
+            <control:CarouselViewControl Orientation="Vertical"
+                                         InterPageSpacing="10"
+                                         ItemsSource="{Binding TimesList}"
+                                         VerticalOptions="Center"
+                                         HorizontalOptions="Center"
+                                         InfiniteScrolling="True"
+                                         SelectedItem="{Binding SelectedItem}"
+                                         ShowArrows="True"
+                                         ArrowsSize="10"
+                                         VerticalArrowsPosition="Left"
+                                         ArrowsBackgroundColor="Transparent"
+                                         ArrowsTintColor="White"
+                                         WidthRequest="130"
+                                         HeightRequest="20">
+                <control:CarouselViewControl.ItemTemplate>
+                    <DataTemplate>
+                        <Label Text="{Binding Description}"
+                                               FontSize="Medium"
+                                               FontAttributes="Bold"
+                                               VerticalTextAlignment="Center" 
+                                               HorizontalTextAlignment="Center" 
+                                               TextColor="White"
+                                               HorizontalOptions="Center"/>
+                    </DataTemplate>
+                </control:CarouselViewControl.ItemTemplate>
+            </control:CarouselViewControl>
+
+            <!--<ListView ItemsSource="{Binding TimesList}" HasUnevenRows="True">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <ContentView BackgroundColor="Transparent">
+                                <Frame CornerRadius="10"
+                                       HeightRequest="30"
+                                       WidthRequest="50">
+                                    <StackLayout>
+                                        <Label Text="{Binding Description}"
+                                               FontSize="Medium"
+                                               FontAttributes="Bold"
+                                               VerticalTextAlignment="Center" 
+                                               HorizontalTextAlignment="Center" 
+                                               HorizontalOptions="Center"/>
+
+                                            <control:CarouselViewControl Grid.Column="0"
+                                             Grid.Row="1"
+                                             ShowIndicators="True" 
+                                             Orientation="Horizontal">
+
+                                            --><!--<control:CarouselViewControl.ItemTemplate>
+                                                <DataTemplate>
+                                                 <Label Text="{Binding .}" />
+                                                 </DataTemplate>
+                                </control:CarouselViewControl.ItemTemplate>
+                                            </control:CarouselViewControl>--><!--
+                                    </StackLayout>
+                                </Frame>
+                            </ContentView>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>-->
+            
+        </StackLayout>
+        <StackLayout.GestureRecognizers>
+            <TapGestureRecognizer Command="{Binding TimeControllerCommand}" />
+        </StackLayout.GestureRecognizers>
     </StackLayout>
 
 
