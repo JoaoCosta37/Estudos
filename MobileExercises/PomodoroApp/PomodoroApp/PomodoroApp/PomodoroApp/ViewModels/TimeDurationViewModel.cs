@@ -1,4 +1,5 @@
-﻿using PomodoroApp.Models;
+﻿using PomodoroApp.Enums;
+using PomodoroApp.Models;
 using Prism.Mvvm;
 using System;
 using System.Collections.Generic;
@@ -24,12 +25,12 @@ namespace PomodoroApp.ViewModels
             }
         }
 
-        public string Description
+        public TimeType TimeType
         {
-            get => TimeDuration.Description;
+            get => TimeDuration.TimeType;
             set
             {
-                this.TimeDuration.Description = value;
+                this.TimeDuration.TimeType = value;
                 RaisePropertyChanged();
             }
         }

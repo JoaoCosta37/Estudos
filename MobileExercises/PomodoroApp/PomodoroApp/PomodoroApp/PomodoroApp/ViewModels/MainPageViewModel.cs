@@ -8,27 +8,50 @@ using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 using System.Net;
 using PomodoroApp.Models;
+using Prism.Navigation;
+using PomodoroApp.Repositorys;
+using PomodoroApp.Singles;
+using Prism.Events;
+using PomodoroApp.ViewModels.Events;
+using System.Xml.Schema;
 
 namespace PomodoroApp.ViewModels
 {
-    public class MainPageViewModel : BindableBase
+    public class MainPageViewModel : BindableBase, INavigationAware
     {
         private TimeSpan pomodoro;
         private TimeSpan currentTime;
         private TimeSpan remainingTime;
         private Timer timer;
         private bool start = false;
-        private List<TimeDurationViewModel> timesList;
-        public MainPageViewModel()
+        private List<TimeDurationViewModel> timesList = new List<TimeDurationViewModel>();
+        private PomodoroControlViewModel pomodoroControl;
+        public string backgColor;
+        private readonly INavigationService navigationService;
+        private readonly BackgColorRepository backgColorRepository;
+        private readonly TimeDurationRepository timeDurationRepository;
+        private readonly PomodoroControlRepository pomodoroControlRepository;
+        private readonly IEventAggregator eventAggregator;
+
+        public MainPageViewModel(INavigationService navigationService,
+                                 BackgColorRepository backgColorRepository,
+                                 TimeDurationRepository timeDurationRepository,
+                                 PomodoroControlRepository pomodoroControlRepository,
+                                 IEventAggregator eventAggregator)
         {
-            this.reset();
+            this.navigationService = navigationService;
+            this.backgColorRepository = backgColorRepository;
+            this.timeDurationRepository = timeDurationRepository;
+            this.pomodoroControlRepository = pomodoroControlRepository;
+            this.eventAggregator = eventAggregator;
+
             this.TimeControllerCommand = new Command((() => timeController()));
-            this.timesList = new List<TimeDurationViewModel>()
-            {
-                new TimeDurationViewModel(new TimeDuration(){Description="POMODORO", Duration=TimeSpan.FromMinutes(.8)} ),
-                new TimeDurationViewModel(new TimeDuration(){Description="PAUSA", Duration=TimeSpan.FromMinutes(.1)} ),
-                new TimeDurationViewModel(new TimeDuration(){Description="PAUSA LONGA", Duration=TimeSpan.FromMinutes(.4)} ),
-            };
+
+            this.eventAggregator.GetEvent<ConfigChangedEvent>().Subscribe(ConfigEventHandler);
+
+            this.reset();
+            this.setTimeList();
+            this.setPomodoroControl();
         }
         public TimeDurationViewModel SelectedItem
         {
@@ -36,6 +59,7 @@ namespace PomodoroApp.ViewModels
             {
                 this.Pomodoro = value.TimeDuration.Duration;
                 RaisePropertyChanged();
+                RaisePropertyChanged("CurrentTime");
             }
         }
         public List<TimeDurationViewModel> TimesList
@@ -45,6 +69,28 @@ namespace PomodoroApp.ViewModels
             {
                 this.timesList = value;
                 RaisePropertyChanged();
+            }
+        }
+        public PomodoroControlViewModel PomodoroControl
+        {
+            get => this.pomodoroControl;
+            set
+            {
+                this.pomodoroControl = value;
+                RaisePropertyChanged();
+            }
+
+        }
+        public string BackgColor
+        {
+            get
+            {
+                var result = BackgColorInstance.Instance;
+                return result;
+            }
+            set
+            {
+                BackgColorInstance.Instance = value;
             }
         }
         public bool Start
@@ -75,6 +121,7 @@ namespace PomodoroApp.ViewModels
                 RaisePropertyChanged();
             }
         }
+        public bool IsRunning => this.timer.Enabled;
         public TimeSpan CurrentTime
         {
             get => this.currentTime;
@@ -86,6 +133,32 @@ namespace PomodoroApp.ViewModels
             }
         }
         public Command TimeControllerCommand { get; set; }
+
+        private void ConfigEventHandler(ConfigChangedEventArgs args)
+        {
+            if (args.ConfigName == nameof(this.BackgColor))
+            {
+                RaisePropertyChanged(nameof(this.BackgColor));
+            }
+        }
+
+        private void timeController()
+        {
+            if (!this.Start)
+            {
+                this.Start = true;
+                this.timerStart();
+            }
+            else if (this.timer.Enabled)
+            {
+                this.timer.Stop();
+                RaisePropertyChanged(nameof(CurrentTime));
+            }
+            else
+            {
+                this.timerStart();
+            }
+        }
 
         private void timerStart()
         {
@@ -111,29 +184,24 @@ namespace PomodoroApp.ViewModels
                 this.reset();
             }
         }
-        private void timeController()
+
+        private void setTimeList()
         {
-            if (!this.Start)
+            var timeL = this.timeDurationRepository.GetTimeDurationListAsync().Result;
+            foreach (var time in timeL)
             {
-                this.Start = true;
-                this.timerStart();
-            }
-            else if (this.timer.Enabled)
-            {
-                this.timer.Stop();
-                RaisePropertyChanged(nameof(CurrentTime));
-            }
-            else
-            {
-                this.timerStart();
+                this.TimesList.Add(new TimeDurationViewModel(time));
             }
         }
-
-        public bool IsRunning => this.timer.Enabled;
+        private void setPomodoroControl()
+        {
+            var pomodoroC = this.pomodoroControlRepository.GetPomodoroControlAsync().Result;
+            this.pomodoroControl = new PomodoroControlViewModel(pomodoroC);
+        }
 
         private void reset()
         {
-            if(this.timer != null)
+            if (this.timer != null)
             {
                 this.timer.Stop();
                 this.timer = null;
@@ -143,6 +211,16 @@ namespace PomodoroApp.ViewModels
             this.CurrentTime = new TimeSpan();
         }
 
+        public void OnNavigatedFrom(INavigationParameters parameters)
+        {
+            //parameters.Add("backgColor", BackgColorInstance.Instance);
+
+        }
+
+        public void OnNavigatedTo(INavigationParameters parameters)
+        {
+            RaisePropertyChanged(nameof(this.BackgColor));
+        }
     }
 
 

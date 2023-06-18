@@ -1,4 +1,5 @@
-﻿using PomodoroApp.ViewModels;
+﻿using PomodoroApp.Repositorys;
+using PomodoroApp.ViewModels;
 using PomodoroApp.Views;
 using Prism;
 using Prism.DryIoc;
@@ -14,7 +15,6 @@ namespace PomodoroApp
         public App()
            : this(null)
         {
-
         }
         public App(IPlatformInitializer initializer)
             : this(initializer, true)
@@ -29,23 +29,26 @@ namespace PomodoroApp
         }
 
 
+
         protected override async void OnInitialized()
         {
             InitializeComponent();
-            await NavigationService.NavigateAsync(nameof(MainPage));
-
+            await NavigationService.NavigateAsync(nameof(ConfigPage));
         }
         protected override void RegisterTypes(IContainerRegistry containerRegistry)
         {
             containerRegistry.RegisterForNavigation<NavigationPage>();
             containerRegistry.RegisterForNavigation<MainPage, MainPageViewModel>();
+            containerRegistry.RegisterForNavigation<ConfigPage, ConfigPageViewModel>();
+            containerRegistry.Register<BackgColorRepository>();
+            containerRegistry.Register<TimeDurationRepository>();
+            containerRegistry.Register<PomodoroControlRepository>();
             //containerRegistry.Register<IFirebaseClientFactory, FirebaseClientFactory>();
             //containerRegistry.Register<IRequiredHoursService, RequiredHoursService>();
             //containerRegistry.Register<IMessageService, MessageService>();
 
             //containerRegistry.Register<IUserProvider, UserProvider>();
 
-            //containerRegistry.Register<UserService>();
 
             //containerRegistry.Register<IUserService>(() => {
             //    var userService = containerRegistry.GetContainer().Resolve<UserService>();

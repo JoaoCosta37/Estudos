@@ -1,0 +1,23 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+              xmlns:forms="clr-namespace:SkiaSharp.Views.Forms;assembly=SkiaSharp.Views.Forms"
+             xmlns:tt="clr-namespace:TouchTracking.Forms;assembly=TouchTracking.Forms"
+             x:Class="PaintApp.MainPage">
+
+    <StackLayout BackgroundColor="AntiqueWhite" Orientation="Vertical" VerticalOptions="FillAndExpand">
+        <forms:SKCanvasView x:Name="SkCanvasView"
+                                HeightRequest="400"
+                                WidthRequest="400"
+                                VerticalOptions="FillAndExpand"
+                                HorizontalOptions="CenterAndExpand"
+                                PaintSurface="SkCanvasView_PaintSurface">
+        </forms:SKCanvasView>
+        <Button Text="SAVE" Command="{Binding SaveCommand}"></Button>
+        <StackLayout.Effects>
+            <tt:TouchEffect Capture="True" TouchAction="TouchEffect_TouchAction"/>
+        </StackLayout.Effects>
+    </StackLayout>
+    
+
+</ContentPage>

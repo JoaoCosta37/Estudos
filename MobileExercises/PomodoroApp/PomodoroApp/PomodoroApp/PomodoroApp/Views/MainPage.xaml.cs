@@ -19,12 +19,12 @@ namespace PomodoroApp.Views
 
         private float startAngle = 270;
         private float sweepAngle = 359;
-        private float referenceRadius;
+        private float externalRadius;
         private SKPaint partitionCircle = new SKPaint()
         {
-            Color = SKColors.Blue,
+            Color = SKColors.White,
             Style = SKPaintStyle.Stroke,
-            StrokeWidth = 30,
+            StrokeWidth = 20,
         };
         private SKPaint internalCiclePaint = new SKPaint()
         {
@@ -44,9 +44,19 @@ namespace PomodoroApp.Views
         public MainPage()
         {
             InitializeComponent();
-
+            
             this.BindingContextChanged += MainPage_BindingContextChanged;
         }
+        //protected override void OnAppearing()
+        //{
+        //    base.OnAppearing();
+        //    BindingContext
+        //}
+        //protected override bool OnBackButtonPressed()
+        //{
+        //    viewModel.BackgColor = viewModel.BackgColor;
+        //    return true;
+        //}
 
         private void MainPage_BindingContextChanged(object sender, EventArgs e)
         {
@@ -58,7 +68,7 @@ namespace PomodoroApp.Views
 
         private void ViewModel_PropertyChanged(object sender, PropertyChangedEventArgs e)
         {
-            if (e.PropertyName == nameof(MainPageViewModel.CurrentTime))
+            if (e.PropertyName == nameof(MainPageViewModel.CurrentTime) || e.PropertyName == nameof(MainPageViewModel.Pomodoro))
             {
                 UpdateDraw();
             }
@@ -74,20 +84,22 @@ namespace PomodoroApp.Views
 
             this.referencesPoint = new SKPoint(info.Width / 2, info.Height / 2);
 
-            this.referenceRadius = Math.Min(referencesPoint.X, referencesPoint.Y) - 140;
+            this.externalRadius = Math.Min(referencesPoint.X, referencesPoint.Y) - 140;
 
             this.drawExternalCircle(canvas);
 
             this.drawInternalCircle(canvas);
 
+            this.drawCircleDivider(canvas);
+
         }
         private void drawExternalCircle(SKCanvas canvas)
         {
-            canvas.DrawCircle(referencesPoint.X, referencesPoint.Y, referenceRadius, externalCiclePaint);
+            canvas.DrawCircle(referencesPoint.X, referencesPoint.Y, externalRadius, externalCiclePaint);
         }
         private void drawInternalCircle(SKCanvas canvas)
         {
-            float innerRadius = referenceRadius - 50;
+            float innerRadius = externalRadius - 50;
 
             SKRect rect = new SKRect(referencesPoint.X - innerRadius, referencesPoint.Y - innerRadius,
                          referencesPoint.X + innerRadius, referencesPoint.Y + innerRadius);
@@ -136,6 +148,31 @@ namespace PomodoroApp.Views
 
             canvas.DrawPath(path2, internalCiclePaint);
         }
+        private void drawCircleDivider(SKCanvas canvas)
+        {
+            if(viewModel.Pomodoro == null || viewModel.Pomodoro.TotalMinutes < 1)
+            {
+                return;
+            }
+            float radius = externalRadius + 70;
+
+            SKRect rect = new SKRect(referencesPoint.X - radius, referencesPoint.Y - radius,
+                         referencesPoint.X + radius, referencesPoint.Y + radius);
+            int dividersQuantity = (int)viewModel.Pomodoro.TotalMinutes;
+            var degree = 360 / dividersQuantity;
+            var point = 270f;
+
+            for (int i = 1; i <= dividersQuantity; i++)
+            {
+                float inicialArc = Convert.ToSingle(adjustDegree(point - .5f));
+                float endArc = 1f;
+
+                canvas.DrawArc(rect, inicialArc, endArc, false, partitionCircle);
+
+                point += degree;
+                point = adjustDegree(point);
+            }
+        }
         private void drawPause(SKCanvas canvas)
         {
             SKRect pauseRectLeft = new SKRect(referencesPoint.X - 95, referencesPoint.Y - 100,
@@ -162,6 +199,18 @@ namespace PomodoroApp.Views
 
             this.sweepAngle = (float)(360d * porcentTime) / 100;
             SkCanvasView.InvalidateSurface();
+        }
+        private float adjustDegree(float degree)
+        {
+            if (degree > 360)
+            {
+                degree -= 360;
+            }
+            else if (degree < 0)
+            {
+                degree = 360 + degree;
+            }
+            return degree;
         }
 
     }

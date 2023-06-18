@@ -1,0 +1,241 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:conv="clr-namespace:PomodoroApp.Views.Converters"
+             xmlns:mark="clr-namespace:PomodoroApp.Views.Markup"
+             x:Class="PomodoroApp.Views.ConfigPage">
+    <ContentPage.Resources>
+        <conv:StringToColorConverter x:Key="stringToColorConv"/>
+        <conv:WidthToHeightConverter x:Key="widthToHeightConv"/>
+        <ResourceDictionary>
+            <Style x:Key="ColorWithTransp" TargetType="Button">
+                <Setter Property="BackgroundColor" Value="White"/>
+            </Style>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <ContentPage.Content>
+        <StackLayout BackgroundColor="{Binding BackgColor, Converter={StaticResource stringToColorConv}, ConverterParameter=1}">
+            <StackLayout>
+                <StackLayout.Resources>
+                    <ResourceDictionary>
+                        <Style TargetType="Label">
+                            <Setter Property="TextColor" Value="white"/>
+                        </Style>
+                        <Style TargetType="Frame">
+                            <!--<Setter Property="CornerRadius" Value="15"/>-->
+                            <Setter Property="Margin" Value="0"/>
+                            <Setter Property="Padding" Value="0"/>
+
+                            <!--<Setter Property="BackgroundColor" Value="#20ffffff"/>-->
+                        </Style>
+
+                    </ResourceDictionary>
+                </StackLayout.Resources>
+                <StackLayout>
+                    <Label>
+                        <Label.Text>
+                            <mark:MessageExtention MessageKey="Durations"/>
+                        </Label.Text>
+                    </Label>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="0.30*"/>
+                            <ColumnDefinition Width="0.30*"/>
+                            <ColumnDefinition Width="0.30*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="100"/>
+                        </Grid.RowDefinitions>
+                        <Frame Grid.Column="0">
+                            <Label Text="POMODORO"/>
+                        </Frame>
+                        <Frame Grid.Column="1">
+                        </Frame>
+                        <Frame Grid.Column="2">
+                            <Label Text="POMODORO"/>
+                        </Frame>
+                    </Grid>
+                </StackLayout>
+                <Label>
+                    <Label.Text>
+                        <mark:MessageExtention MessageKey="ColorTheme"/>
+                    </Label.Text>
+                </Label>
+                <Frame BackgroundColor="#20ffffff"
+                       Margin="20,0"
+                       CornerRadius="10"
+                       Padding="10"
+                       HorizontalOptions="CenterAndExpand"
+                       >
+                    <Frame.Resources>
+                        <ResourceDictionary>
+                            <Style TargetType="Button">
+                                <Setter Property="CornerRadius" Value="10"/>
+                            </Style>
+                        </ResourceDictionary>
+                    </Frame.Resources>
+                    <Grid x:Name="ColorThemeGrid" HorizontalOptions="Center">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition />
+                            <ColumnDefinition />
+                            <ColumnDefinition />
+                            <ColumnDefinition />
+                            <ColumnDefinition />
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition />
+                            <RowDefinition />
+                            <RowDefinition />
+                            <RowDefinition />
+                        </Grid.RowDefinitions>
+                        <Button Grid.Column="0"
+                                Grid.Row="0"
+                                BackgroundColor="#4f3960"
+                                Command="{Binding AlterBackgroudColorCommand}"
+                                CommandParameter="{Binding Source={RelativeSource Self}, Path=BackgroundColor}"/>
+                        <Button Grid.Column="0"
+                                Grid.Row="1"
+                                BackgroundColor="#4f3960"
+                                Command="{Binding AlterBackgroudColorCommand}"
+                                CommandParameter="{Binding Source={RelativeSource Self}, Path=BackgroundColor}"/>
+                        <Button Grid.Column="0"
+                                Grid.Row="2"
+                                BackgroundColor="#4f3960"
+                                Command="{Binding AlterBackgroudColorCommand}"
+                                CommandParameter="{Binding Source={RelativeSource Self}, Path=BackgroundColor}"/>
+                        <Button Grid.Column="0"
+                                Grid.Row="3"
+                                BackgroundColor="#4f3960"
+                                Command="{Binding AlterBackgroudColorCommand}"
+                                CommandParameter="{Binding Source={RelativeSource Self}, Path=BackgroundColor}"/>
+                        <Button Grid.Column="1"
+                                Grid.Row="0"
+                                BackgroundColor="#4f3960"
+                                Command="{Binding AlterBackgroudColorCommand}"
+                                CommandParameter="{Binding Source={RelativeSource Self}, Path=BackgroundColor}"/>
+                        <Button Grid.Column="1"
+                                Grid.Row="1"
+                                BackgroundColor="#4f3960"
+                                Command="{Binding AlterBackgroudColorCommand}"
+                                CommandParameter="{Binding Source={RelativeSource Self}, Path=BackgroundColor}"/>
+                        <Button Grid.Column="1"
+                                Grid.Row="2"
+                                BackgroundColor="#4f3960"
+                                Command="{Binding AlterBackgroudColorCommand}"
+                                CommandParameter="{Binding Source={RelativeSource Self}, Path=BackgroundColor}"/>
+                        <Button Grid.Column="1"
+                                Grid.Row="3"
+                                BackgroundColor="#4f3960"
+                                Command="{Binding AlterBackgroudColorCommand}"
+                                CommandParameter="{Binding Source={RelativeSource Self}, Path=BackgroundColor}"/>
+                        <Button Grid.Column="2"
+                                Grid.Row="0"
+                                BackgroundColor="#4f3960"
+                                Command="{Binding AlterBackgroudColorCommand}"
+                                CommandParameter="{Binding Source={RelativeSource Self}, Path=BackgroundColor}"/>
+                        <Button Grid.Column="2"
+                                Grid.Row="1"
+                                BackgroundColor="#4f3960"
+                                Command="{Binding AlterBackgroudColorCommand}"
+                                CommandParameter="{Binding Source={RelativeSource Self}, Path=BackgroundColor}"/>
+                        <Button Grid.Column="2"
+                                Grid.Row="2"
+                                BackgroundColor="#4f3960"
+                                Command="{Binding AlterBackgroudColorCommand}"
+                                CommandParameter="{Binding Source={RelativeSource Self}, Path=BackgroundColor}"/>
+                        <Button Grid.Column="2"
+                                Grid.Row="3"
+                                BackgroundColor="#4f3960"
+                                Command="{Binding AlterBackgroudColorCommand}"
+                                CommandParameter="{Binding Source={RelativeSource Self}, Path=BackgroundColor}"/>
+                        <Button Grid.Column="3"
+                                Grid.Row="0"
+                                BackgroundColor="#4f3960"
+                                Command="{Binding AlterBackgroudColorCommand}"
+                                CommandParameter="{Binding Source={RelativeSource Self}, Path=BackgroundColor}"/>
+                        <Button Grid.Column="3"
+                                Grid.Row="1"
+                                BackgroundColor="#4f3960"
+                                Command="{Binding AlterBackgroudColorCommand}"
+                                CommandParameter="{Binding Source={RelativeSource Self}, Path=BackgroundColor}"/>
+                        <Button Grid.Column="3"
+                                Grid.Row="2"
+                                BackgroundColor="#4f3960"
+                                Command="{Binding AlterBackgroudColorCommand}"
+                                CommandParameter="{Binding Source={RelativeSource Self}, Path=BackgroundColor}"/>
+                        <Button Grid.Column="3"
+                                Grid.Row="3"
+                                BackgroundColor="#4f3960"
+                                Command="{Binding AlterBackgroudColorCommand}"
+                                CommandParameter="{Binding Source={RelativeSource Self}, Path=BackgroundColor}"/>
+                        <Button Grid.Column="4"
+                                Grid.Row="0"
+                                BackgroundColor="#4f3960"
+                                Command="{Binding AlterBackgroudColorCommand}"
+                                CommandParameter="{Binding Source={RelativeSource Self}, Path=BackgroundColor}"/>
+                        <Button Grid.Column="4"
+                                Grid.Row="1"
+                                BackgroundColor="#4f3960"
+                                Command="{Binding AlterBackgroudColorCommand}"
+                                CommandParameter="{Binding Source={RelativeSource Self}, Path=BackgroundColor}"/>
+                        <Button Grid.Column="4"
+                                Grid.Row="2"
+                                BackgroundColor="#4f3960"
+                                Command="{Binding AlterBackgroudColorCommand}"
+                                CommandParameter="{Binding Source={RelativeSource Self}, Path=BackgroundColor}"/>
+                        <Button Grid.Column="4"
+                                Grid.Row="3"
+                                BackgroundColor="#4f3960"
+                                Command="{Binding AlterBackgroudColorCommand}"
+                                CommandParameter="{Binding Source={RelativeSource Self}, Path=BackgroundColor}"/>
+                    </Grid>
+                </Frame>
+            </StackLayout>
+            <StackLayout Orientation="Horizontal">
+                <StackLayout.Resources>
+                    <Style TargetType="Button">
+                        <Setter Property="HeightRequest" Value="80"/>
+                        <Setter Property="WidthRequest" Value="80"/>
+                    </Style>
+                </StackLayout.Resources>
+                <Button Command="{Binding AlterBackgroudColorCommand}"
+                        CommandParameter="#555555"
+                        BackgroundColor="Black"/>
+            </StackLayout>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="0.25*"/>
+                    <ColumnDefinition Width="0.25*"/>
+                    <ColumnDefinition Width="0.25*"/>
+                    <ColumnDefinition Width="0.25*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="100"/>
+                </Grid.RowDefinitions>
+                <Button Grid.Column="0"
+                        Command="{Binding AlterBackgroudColorCommand}"
+                        CommandParameter="#4f3960"
+                        BackgroundColor="#4f3960"/>
+                <Button Grid.Column="1"
+                        Command="{Binding AlterBackgroudColorCommand}"
+                        CommandParameter="#0000fa"
+                        BackgroundColor="#0000fa"/>
+                <Button Grid.Column="2"
+                        Command="{Binding AlterBackgroudColorCommand}"
+                        CommandParameter="#ffffff"
+                        BackgroundColor="#ffffff"/>
+                <Button Grid.Column="3"
+                        Command="{Binding AlterBackgroudColorCommand}"
+                        CommandParameter="#555555"
+                        BackgroundColor="black"/>
+                <!--"-->
+            </Grid>
+            <Frame Grid.Column="1"
+                   BackgroundColor="#20ffffff"
+                   HeightRequest="50"
+                   WidthRequest="50">
+                <Button Text="TESTE" TextColor="White"/>
+            </Frame>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

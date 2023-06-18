@@ -5,12 +5,29 @@
              xmlns:control="clr-namespace:CarouselView.FormsPlugin.Abstractions;assembly=CarouselView.FormsPlugin.Abstractions"
              xmlns:conv="clr-namespace:PomodoroApp.Views.Converters"
              xmlns:forms="clr-namespace:SkiaSharp.Views.Forms;assembly=SkiaSharp.Views.Forms"
+             xmlns:mark="clr-namespace:PomodoroApp.Views.Markup"
+             xmlns:views="clr-namespace:PomodoroApp.Views"
              x:Class="PomodoroApp.Views.MainPage">
     <ContentPage.Resources>
         <conv:TimeSpanToStringConverter x:Key="timeSpanToStringConv"/>
+        <conv:StringToColorConverter x:Key="stringToColorConv"/>
     </ContentPage.Resources>
-    <StackLayout BackgroundColor="#4f3960"
-                 VerticalOptions="FillAndExpand">
+    <StackLayout BackgroundColor="{Binding BackgColor, Converter={StaticResource stringToColorConv},ConverterParameter = 1}"
+                 VerticalOptions="FillAndExpand"
+                 Padding="10,10,10,0">
+        <StackLayout>
+            <Button BackgroundColor="Transparent"
+                    HorizontalOptions="End"
+                    Text="{x:Static views:FontIcons.ConfigIcon}"
+                    FontFamily="{x:StaticResource PostFontIcon}"
+                    FontSize="35"
+                    WidthRequest="40"
+                    HeightRequest="40"
+                    Padding="0"
+                    Margin="0"
+                    TextColor="White"
+                    Command="{mark:NavigationCommand Route={x:Type views:ConfigPage} }"/>
+        </StackLayout>
         <StackLayout >
             <forms:SKCanvasView x:Name="SkCanvasView"
                                 HeightRequest="400"
@@ -19,7 +36,10 @@
                                 HorizontalOptions="CenterAndExpand"
                                 PaintSurface="SkCanvasView_PaintSurface">
             </forms:SKCanvasView>
-        
+
+            <StackLayout.GestureRecognizers>
+                <TapGestureRecognizer Command="{Binding TimeControllerCommand}" />
+            </StackLayout.GestureRecognizers>
         </StackLayout>
         <StackLayout>
             <Label Text="{Binding RemainingTime,Converter={StaticResource timeSpanToStringConv}}"
@@ -27,7 +47,7 @@
                    FontSize="30"
                    HorizontalOptions="Center">
             </Label>
-            
+
         </StackLayout>
         <StackLayout BackgroundColor="Transparent">
 
@@ -54,7 +74,7 @@
                                          HeightRequest="20">
                 <control:CarouselViewControl.ItemTemplate>
                     <DataTemplate>
-                        <Label Text="{Binding Description}"
+                        <Label Text="{Binding TimeType}"
                                                FontSize="Medium"
                                                FontAttributes="Bold"
                                                VerticalTextAlignment="Center" 
@@ -65,45 +85,10 @@
                 </control:CarouselViewControl.ItemTemplate>
             </control:CarouselViewControl>
 
-            <!--<ListView ItemsSource="{Binding TimesList}" HasUnevenRows="True">
-                <ListView.ItemTemplate>
-                    <DataTemplate>
-                        <ViewCell>
-                            <ContentView BackgroundColor="Transparent">
-                                <Frame CornerRadius="10"
-                                       HeightRequest="30"
-                                       WidthRequest="50">
-                                    <StackLayout>
-                                        <Label Text="{Binding Description}"
-                                               FontSize="Medium"
-                                               FontAttributes="Bold"
-                                               VerticalTextAlignment="Center" 
-                                               HorizontalTextAlignment="Center" 
-                                               HorizontalOptions="Center"/>
 
-                                            <control:CarouselViewControl Grid.Column="0"
-                                             Grid.Row="1"
-                                             ShowIndicators="True" 
-                                             Orientation="Horizontal">
 
-                                            --><!--<control:CarouselViewControl.ItemTemplate>
-                                                <DataTemplate>
-                                                 <Label Text="{Binding .}" />
-                                                 </DataTemplate>
-                                </control:CarouselViewControl.ItemTemplate>
-                                            </control:CarouselViewControl>--><!--
-                                    </StackLayout>
-                                </Frame>
-                            </ContentView>
-                        </ViewCell>
-                    </DataTemplate>
-                </ListView.ItemTemplate>
-            </ListView>-->
-            
         </StackLayout>
-        <StackLayout.GestureRecognizers>
-            <TapGestureRecognizer Command="{Binding TimeControllerCommand}" />
-        </StackLayout.GestureRecognizers>
+
     </StackLayout>
 
 
