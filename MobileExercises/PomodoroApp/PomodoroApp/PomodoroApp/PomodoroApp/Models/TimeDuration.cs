@@ -8,9 +8,21 @@ namespace PomodoroApp.Models
 {
     public class TimeDuration
     {
-        [PrimaryKey,AutoIncrement]
+        [PrimaryKey, AutoIncrement]
         public int Id { get; set; }
-        public TimeType TimeType { get; set; }
         public TimeSpan Duration { get; set; }
+
+        [Column("TimeType")]
+        public int TimeTypeValue { get; set; }
+
+        [Ignore]
+        public TimeType TimeType
+        {
+            get => (TimeType)TimeTypeValue;
+            set
+            {
+                TimeTypeValue = (int)value;
+            }
+        }
     }
 }

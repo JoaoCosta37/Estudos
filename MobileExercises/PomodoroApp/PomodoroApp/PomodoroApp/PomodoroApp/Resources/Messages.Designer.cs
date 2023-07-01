@@ -151,6 +151,15 @@ namespace PomodoroApp.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to RESTART.
+        /// </summary>
+        internal static string Restart {
+            get {
+                return ResourceManager.GetString("Restart", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to SHOW NOTIFICATION.
         /// </summary>
         internal static string ShowNotification {

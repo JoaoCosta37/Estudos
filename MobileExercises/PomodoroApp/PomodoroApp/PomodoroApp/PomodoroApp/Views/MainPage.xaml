@@ -11,8 +11,9 @@
     <ContentPage.Resources>
         <conv:TimeSpanToStringConverter x:Key="timeSpanToStringConv"/>
         <conv:StringToColorConverter x:Key="stringToColorConv"/>
+        <conv:NegateBooleanConverter x:Key="negateBooleanConv"/>
     </ContentPage.Resources>
-    <StackLayout BackgroundColor="{Binding BackgColor, Converter={StaticResource stringToColorConv},ConverterParameter = 1}"
+    <StackLayout BackgroundColor="{Binding BackgColor}"
                  VerticalOptions="FillAndExpand"
                  Padding="10,10,10,0">
         <StackLayout>
@@ -26,6 +27,7 @@
                     Padding="0"
                     Margin="0"
                     TextColor="White"
+                    IsEnabled="{Binding IsStarted, Converter={StaticResource negateBooleanConv}}"
                     Command="{mark:NavigationCommand Route={x:Type views:ConfigPage} }"/>
         </StackLayout>
         <StackLayout >
@@ -41,52 +43,74 @@
                 <TapGestureRecognizer Command="{Binding TimeControllerCommand}" />
             </StackLayout.GestureRecognizers>
         </StackLayout>
-        <StackLayout>
+        <StackLayout BackgroundColor="Transparent">
+            <StackLayout.Resources>
+                <ResourceDictionary>
+                    <Style TargetType="Label">
+                        <Setter Property="FontSize" Value="20"/>
+                        <Setter Property="VerticalOptions" Value="CenterAndExpand"/>
+                        <Setter Property="HorizontalOptions" Value="Center"/>
+                        <Setter Property="TextColor" Value="White"/>
+                        <Setter Property="VerticalTextAlignment" Value="Center"/>
+                        <Setter Property="HorizontalTextAlignment" Value="Center"/>
+                    </Style>
+                </ResourceDictionary>
+            </StackLayout.Resources>
+
+            <StackLayout WidthRequest="130"
+                         HeightRequest="40"
+                         IsVisible="{Binding IsStarted, Converter={StaticResource negateBooleanConv}}"
+                         Orientation="Vertical">
+
+                <control:CarouselViewControl Orientation="Vertical"
+                                             InterPageSpacing="10"
+                                             ItemsSource="{Binding TimesList}"
+                                             VerticalOptions="CenterAndExpand"
+                                             HorizontalOptions="Center"
+                                             InfiniteScrolling="True"
+                                             SelectedItem="{Binding SelectedItem, Mode=TwoWay}"
+                                             ShowArrows="True"
+                                             ArrowsSize="12"
+                                             VerticalArrowsPosition="Left"
+                                             ArrowsBackgroundColor="Transparent"
+                                             ArrowsTintColor="White"
+                                             WidthRequest="130"
+                                             HeightRequest="30">
+                    <control:CarouselViewControl.ItemTemplate>
+                        <DataTemplate>
+                            <Label Text="{Binding TimeType}"/>
+                        </DataTemplate>
+                    </control:CarouselViewControl.ItemTemplate>
+                </control:CarouselViewControl>
+            </StackLayout>
+
+            <StackLayout WidthRequest="130"
+                         HeightRequest="40"
+                         Orientation="Vertical"
+                         IsVisible="{Binding IsStarted}">
+                <Label Text="{Binding PomodoroControlVm.CurrentType}"
+                       HeightRequest="30"/>
+            </StackLayout>
+
+
             <Label Text="{Binding RemainingTime,Converter={StaticResource timeSpanToStringConv}}"
                    TextColor="White"
-                   FontSize="30"
+                   FontSize="20"
                    HorizontalOptions="Center">
             </Label>
 
         </StackLayout>
-        <StackLayout BackgroundColor="Transparent">
-
-            <!--<Picker x:Name="pcTime" HorizontalOptions="FillAndExpand" TextColor="White">
-                <Picker.Items>
-                    <x:String>Masculino</x:String>
-                    <x:String>Feminino</x:String>
-                </Picker.Items>
-            </Picker>-->
-
-            <control:CarouselViewControl Orientation="Vertical"
-                                         InterPageSpacing="10"
-                                         ItemsSource="{Binding TimesList}"
-                                         VerticalOptions="Center"
-                                         HorizontalOptions="Center"
-                                         InfiniteScrolling="True"
-                                         SelectedItem="{Binding SelectedItem}"
-                                         ShowArrows="True"
-                                         ArrowsSize="10"
-                                         VerticalArrowsPosition="Left"
-                                         ArrowsBackgroundColor="Transparent"
-                                         ArrowsTintColor="White"
-                                         WidthRequest="130"
-                                         HeightRequest="20">
-                <control:CarouselViewControl.ItemTemplate>
-                    <DataTemplate>
-                        <Label Text="{Binding TimeType}"
-                                               FontSize="Medium"
-                                               FontAttributes="Bold"
-                                               VerticalTextAlignment="Center" 
-                                               HorizontalTextAlignment="Center" 
-                                               TextColor="White"
-                                               HorizontalOptions="Center"/>
-                    </DataTemplate>
-                </control:CarouselViewControl.ItemTemplate>
-            </control:CarouselViewControl>
-
-
-
+        <StackLayout VerticalOptions="EndAndExpand" HorizontalOptions="Center">
+            <Button BackgroundColor="Transparent"
+                    TextColor="White"
+                    FontSize="Large"
+                    Command="{Binding RestartCommand}"
+                    IsVisible="{Binding IsRunning, Converter={StaticResource negateBooleanConv} ,Mode=OneWay}"
+                    >
+                <Button.Text>
+                    <mark:MessageExtention MessageKey="Restart"/>
+                </Button.Text>
+            </Button>
         </StackLayout>
 
     </StackLayout>

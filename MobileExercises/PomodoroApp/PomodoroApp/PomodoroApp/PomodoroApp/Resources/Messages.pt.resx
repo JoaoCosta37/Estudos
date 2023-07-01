@@ -147,6 +147,9 @@
   <data name="PomodoroUntilLongBreack" xml:space="preserve">
     <value>POMODOROS ATÉ PAUSA LONGA</value>
   </data>
+  <data name="Restart" xml:space="preserve">
+    <value>Reiniciar</value>
+  </data>
   <data name="ShowNotification" xml:space="preserve">
     <value>MOSTRAR NOTIFICAÇÃO</value>
   </data>

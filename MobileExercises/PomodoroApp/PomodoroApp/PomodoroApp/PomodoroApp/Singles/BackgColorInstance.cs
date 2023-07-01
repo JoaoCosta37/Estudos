@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using System.Text;
+using Xamarin.Forms;
 
 namespace PomodoroApp.Singles
 {
@@ -13,7 +14,7 @@ namespace PomodoroApp.Singles
     {
         private static BackgColor instance;
         private static BackgColorRepository backgColorRepository;
-        public static string Instance
+        public static Color Instance
         {
             get
             {
@@ -27,7 +28,6 @@ namespace PomodoroApp.Singles
             set
             {
                 instance.Color = value;
-                updateBackgColor();
             }
         }
         private static void setBackgColor()
@@ -36,7 +36,7 @@ namespace PomodoroApp.Singles
             var backgColor = backgColorRepository.GetBackgColor().Result;
             instance = backgColor;
         }
-        private static void updateBackgColor()
+        public static void UpdateBackgColor()
         {
             backgColorRepository.SaveBackgColorAsync(instance);
         }

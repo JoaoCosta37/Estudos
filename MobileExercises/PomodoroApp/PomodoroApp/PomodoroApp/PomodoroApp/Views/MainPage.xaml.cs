@@ -2,7 +2,6 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -104,7 +103,7 @@ namespace PomodoroApp.Views
             SKRect rect = new SKRect(referencesPoint.X - innerRadius, referencesPoint.Y - innerRadius,
                          referencesPoint.X + innerRadius, referencesPoint.Y + innerRadius);
              
-            if (!viewModel.Start)
+            if (!viewModel.IsStarted)
             {
                 drawTriangle(canvas, innerRadius); 
             }

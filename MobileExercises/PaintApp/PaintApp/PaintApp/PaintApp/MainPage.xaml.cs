@@ -19,6 +19,7 @@ namespace PaintApp
     {
         Dictionary<long, SKPath> inProgressPaths = new Dictionary<long, SKPath>();
         List<SKPath> completedPaths = new List<SKPath>();
+        
 
         private SKPaint paint = new SKPaint()
         {
@@ -32,8 +33,25 @@ namespace PaintApp
         public MainPage()
         {
             InitializeComponent();
-            BindingContext = new MainPageViewModel();
+            var vm = new MainPageViewModel();
+            BindingContext = vm;
+
+            vm.OnStreamLoaded += Vm_OnStreamLoaded;
         }
+        SKBitmap imageBitmap;
+        private void Vm_OnStreamLoaded(Stream obj)
+        {
+           
+            using (Stream stream = obj)
+            {
+
+                imageBitmap = SKBitmap.Decode(stream);
+
+             
+            }
+            SkCanvasView.InvalidateSurface();
+        }
+
         private void SkCanvasView_PaintSurface(object sender, SkiaSharp.Views.Forms.SKPaintSurfaceEventArgs args)
         {
             SKImageInfo info = args.Info;
@@ -41,6 +59,11 @@ namespace PaintApp
             SKCanvas canvas = surface.Canvas;
 
             canvas.Clear();
+
+            if (imageBitmap != null)
+            {
+                canvas.DrawBitmap(imageBitmap,200,200);
+            }
 
             //foreach(var path in paths)
             //{
@@ -58,18 +81,18 @@ namespace PaintApp
 
             var image = args.Surface.Snapshot();
 
-           var data = image.Encode(SKEncodedImageFormat.Png, 80);
+           //var data = image.Encode(SKEncodedImageFormat.Png, 80);
 
-            var pathProvider = DependencyService.Get<IPathProvider>();
+            //var pathProvider = DependencyService.Get<IPathProvider>();
 
-            var folder = Environment.GetFolderPath(Environment.SpecialFolder.PrinterShortcuts);
-            var file = System.IO.Path.Combine(pathProvider.GetImagesPath(), "image.png");
+            //var folder = Environment.GetFolderPath(Environment.SpecialFolder.PrinterShortcuts);
+            //var file = System.IO.Path.Combine(pathProvider.GetImagesPath(), "image.png");
             
-            var stream = File.OpenWrite(file);
+            //var stream = File.OpenWrite(file);
 
-            data.SaveTo(stream);
+            //data.SaveTo(stream);
 
-
+            
 
         }
 

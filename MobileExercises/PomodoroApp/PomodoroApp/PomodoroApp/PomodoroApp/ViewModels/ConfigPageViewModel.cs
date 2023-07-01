@@ -1,4 +1,5 @@
 ﻿using PomodoroApp.Models;
+using PomodoroApp.Repositorys;
 using PomodoroApp.Singles;
 using PomodoroApp.ViewModels.Events;
 using Prism.Events;
@@ -15,14 +16,18 @@ namespace PomodoroApp.ViewModels
     public class ConfigPageViewModel : BindableBase, INavigationAware
     {
         //private List<TimeDurationViewModel> timesList = new List<TimeDurationViewModel>();
+        private PomodoroControlViewModel pomodoroControlVm;
         private readonly IEventAggregator eventAggregator;
+        private readonly PomodoroControlRepository pomodoroControlRepository;
 
-        public ConfigPageViewModel(IEventAggregator eventAggregator)
+        public ConfigPageViewModel(IEventAggregator eventAggregator, PomodoroControlRepository pomodoroControlRepository)
         {
+            this.PomodoroControlVm = new PomodoroControlViewModel (pomodoroControlRepository.GetPomodoroControlAsync().Result);
             this.AlterBackgroudColorCommand = new Command(((x) => alterBackgroudColor(x)));
             this.eventAggregator = eventAggregator;
+            this.pomodoroControlRepository = pomodoroControlRepository;
         }
-        public string BackgColor
+        public Color BackgColor
         {
             get { return BackgColorInstance.Instance; }
             set
@@ -30,35 +35,42 @@ namespace PomodoroApp.ViewModels
                 BackgColorInstance.Instance = value;
                 RaisePropertyChanged(); 
             }
+
+        }
+        public PomodoroControlViewModel PomodoroControlVm
+        {
+            get => this.pomodoroControlVm;
+            set
+            {
+                this.pomodoroControlVm = value;
+                RaisePropertyChanged();
+            }
+        }
+        public List<TimeDuration> TimesList
+        {
+            get => PomodoroControlVm.Durations;
+            set
+            {
+                this.PomodoroControlVm.Durations = value;
+                RaisePropertyChanged();
+            }
         }
         public Command AlterBackgroudColorCommand { get; set; }
-        //private void setBackgColor()
-        //{
-        //    var result = this.BackgColor = backgColorRepository.GetBackgColor().Result;
-        //    if(result != null)
-        //    {
-
-        //    }
-        //}
         private void alterBackgroudColor(object colorHex)
         {
-            BackgColorInstance.Instance = (string)colorHex;
+            BackgColorInstance.Instance = (Color)colorHex;
             RaisePropertyChanged(nameof(this.BackgColor));
             eventAggregator.GetEvent<ConfigChangedEvent>().Publish(new ConfigChangedEventArgs() { ConfigName = nameof(this.BackgColor)});
         }
         public void OnNavigatedFrom(INavigationParameters parameters)
         {
-            //parameters.Add("backgColor", BackgColorInstance.Instance);
 
         }
 
         public void OnNavigatedTo(INavigationParameters parameters)
         {
-            //string bc = parameters.GetValue<string>("backgColor");
-            //if (bc != null)
-            //{
-            //    BackgColorInstance.Instance = bc;
-            //}
+            //var pomodoroControl = parameters.GetValue<PomodoroControlViewModel>("PomodoroControl");
+            //this.pomodoroControlVm = pomodoroControl;
         }
     }
 }

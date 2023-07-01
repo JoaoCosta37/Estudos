@@ -1,10 +1,15 @@
-﻿using PomodoroApp.Repositorys;
+﻿using DryIoc;
+using MediatR;
+using PomodoroApp.Features;
+using PomodoroApp.MediatR;
+using PomodoroApp.Repositorys;
 using PomodoroApp.ViewModels;
 using PomodoroApp.Views;
 using Prism;
 using Prism.DryIoc;
 using Prism.Ioc;
 using System;
+using System.Linq;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -33,7 +38,7 @@ namespace PomodoroApp
         protected override async void OnInitialized()
         {
             InitializeComponent();
-            await NavigationService.NavigateAsync(nameof(ConfigPage));
+            await NavigationService.NavigateAsync(nameof(Views.ConfigPage));
         }
         protected override void RegisterTypes(IContainerRegistry containerRegistry)
         {
@@ -41,7 +46,7 @@ namespace PomodoroApp
             containerRegistry.RegisterForNavigation<MainPage, MainPageViewModel>();
             containerRegistry.RegisterForNavigation<ConfigPage, ConfigPageViewModel>();
             containerRegistry.Register<BackgColorRepository>();
-            containerRegistry.Register<TimeDurationRepository>();
+            //containerRegistry.Register<TimeDurationRepository>();
             containerRegistry.Register<PomodoroControlRepository>();
             //containerRegistry.Register<IFirebaseClientFactory, FirebaseClientFactory>();
             //containerRegistry.Register<IRequiredHoursService, RequiredHoursService>();
@@ -59,10 +64,10 @@ namespace PomodoroApp
 
             var container = containerRegistry.GetContainer();
 
-            //container.RegisterDelegate<ServiceFactory>(r => r.Resolve);
-            //container.RegisterMany(new[] { typeof(IMediator).GetAssembly() }, Registrator.Interfaces);
-            //container.RegisterMany(typeof(NewChatRoom.Handler).GetAssembly().GetTypes().Where(t => t.IsMediatorHandler()));
-            //container.RegisterMany(typeof(NewChatRoom.CommandValidator).GetAssembly().GetTypes().Where(t => t.IsPipeline()));
+            container.RegisterDelegate<ServiceFactory>(r => r.Resolve);
+            container.RegisterMany(new[] { typeof(IMediator).GetAssembly() }, Registrator.Interfaces);
+            container.RegisterMany(typeof(UpdatePomodoroControl.Handler).GetAssembly().GetTypes().Where(t => t.IsMediatorHandler()));
+            //container.RegisterMany(typeof(UpdatePomodoroControl.CommandValidator).GetAssembly().GetTypes().Where(t => t.IsPipeline()));
 
 
             //container.Register(typeof(IPipelineBehavior<,>), typeof(RequestPreProcessorBehavior<,>), ifAlreadyRegistered: IfAlreadyRegistered.AppendNewImplementation);

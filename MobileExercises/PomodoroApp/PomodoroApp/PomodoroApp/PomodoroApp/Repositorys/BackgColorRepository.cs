@@ -2,8 +2,10 @@
 using PomodoroApp.Models;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Text;
 using System.Threading.Tasks;
+using Xamarin.Forms;
 
 namespace PomodoroApp.Repositorys
 {
@@ -17,9 +19,10 @@ namespace PomodoroApp.Repositorys
         }
         public Task<BackgColor> GetBackgColor()
         {
-            var result =  database.Database.Table<BackgColor>().FirstOrDefaultAsync();
-            if(result.Result == null)
+            var result = database.Database.Table<BackgColor>().FirstOrDefaultAsync();
+            if (result.Result == null)
             {
+                //this.DeleteBackgColorAsync(result.Result);
                 setDefault();
                 return GetBackgColor();
             }
@@ -27,7 +30,7 @@ namespace PomodoroApp.Repositorys
         }
         private void setDefault()
         {
-            var bc = new BackgColor() { Color = "#4f3960" };
+            var bc = new BackgColor() { Color = Color.FromHex("#4f3960") };
             this.SaveBackgColorAsync(bc);
         }
         //public Task<List<BackgColor>> GetClients()
@@ -46,7 +49,7 @@ namespace PomodoroApp.Repositorys
             }
         }
 
-        public Task<int> DeleteTimesheetAsync(Models.BackgColor item)
+        public Task<int> DeleteBackgColorAsync(Models.BackgColor item)
         {
             return database.Database.DeleteAsync(item);
         }

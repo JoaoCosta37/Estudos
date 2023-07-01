@@ -1,4 +1,5 @@
-﻿using PomodoroApp.Models;
+﻿using PomodoroApp.Enums;
+using PomodoroApp.Models;
 using Prism.Mvvm;
 using System;
 using System.Collections.Generic;
@@ -32,7 +33,16 @@ namespace PomodoroApp.ViewModels
                 RaisePropertyChanged();
             }
         }
-        public bool PomodoroFineshed
+        public int PomodoroTimesBeforeLongPause
+        {
+            get { return PomodoroControl.PomodoroTimesBeforeLongPause; }
+            set
+            {
+                this.PomodoroControl.PomodoroTimesBeforeLongPause = value;
+                RaisePropertyChanged();
+            }
+        }
+        public bool PomodoroFinished
         {
             get { return PomodoroControl.PomodoroFinished; }
             set
@@ -41,12 +51,35 @@ namespace PomodoroApp.ViewModels
                 RaisePropertyChanged();
             }
         }
-        public bool CanLongTime
+        public int DailyTotal
         {
-            get { return PomodoroControl.CanLongTime; }
+            get { return PomodoroControl.DailyTotal; }
             set
             {
-                this.PomodoroControl.CanLongTime = value;
+                this.PomodoroControl.DailyTotal = value;
+                RaisePropertyChanged();
+            }
+        }
+        public TimeType CurrentType
+        {
+            get {
+                return this.PomodoroControl.CurrentType;
+                //var result = (TimeType)Enum.Parse(typeof(TimeType), PomodoroControl.CurrentType);
+                //return result;
+            }
+            set
+            {
+                //this.PomodoroControl.CurrentType = value.ToString();
+                this.PomodoroControl.CurrentType = value;
+                RaisePropertyChanged();
+            }
+        }
+        public List<TimeDuration> Durations
+        {
+            get { return PomodoroControl.Durations; }
+            set
+            {
+                this.PomodoroControl.Durations = value;
                 RaisePropertyChanged();
             }
         }

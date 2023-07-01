@@ -13,7 +13,7 @@ namespace PomodoroApp.DAL
         public static readonly AsyncLazy<PomodoroDataBase> Instance = new AsyncLazy<PomodoroDataBase>(async () =>
         {
             var instance = new PomodoroDataBase();
-            var result = await instance.Database.CreateTablesAsync<BackgColor, TimeDuration, PomodoroControl>();
+            var result = await instance.Database.CreateTablesAsync<BackgColor, PomodoroControl>();
             return instance;
         });
         public PomodoroDataBase()

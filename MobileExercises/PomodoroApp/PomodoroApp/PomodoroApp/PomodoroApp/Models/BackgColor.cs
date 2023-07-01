@@ -1,8 +1,8 @@
 ﻿using SQLite;
 using System;
 using System.Collections.Generic;
-using System.Drawing;
 using System.Text;
+using Xamarin.Forms;
 
 namespace PomodoroApp.Models
 {
@@ -10,6 +10,13 @@ namespace PomodoroApp.Models
     {
         [PrimaryKey, AutoIncrement]
         public int Id { get; set; }
-        public string Color { get; set; }
+        [Column("Color")]
+        public string ColorHex { get; set; }
+        [Ignore]
+        public Color Color
+        {
+            get => Color.FromHex(ColorHex);
+            set => ColorHex = value.ToHex();
+        }
     }
 }
