@@ -112,12 +112,22 @@
                         </ListView.ItemTemplate>
                         
                     </ListView>-->
-                    <StackLayout Orientation="Vertical" VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand"  BackgroundColor="Black" >
-                        <ListView ItemsSource="{Binding TimesList}">
-                            <ListView.ItemTemplate>
-                                <DataTemplate>
-                                    <ViewCell>
-                                        <!--<Grid FlowDirection="LeftToRight">
+                    <StackLayout BackgroundColor="Black">
+                        <RelativeLayout HeightRequest="100" BackgroundColor="DarkBlue">
+
+                            <ListView ItemsSource="{Binding TimesList}"
+                                      RowHeight="100"
+                                      Rotation="270"
+                                      BackgroundColor="Transparent"
+                                      RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width,Factor=0.5, Constant=-50}"
+                                      RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width,Factor=-0.5, Constant=50}"
+                                      RelativeLayout.HeightConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width,Factor=1}"
+                                      RelativeLayout.WidthConstraint="{ConstraintExpression Type=Constant,Constant=100}"
+                                      >
+                                <ListView.ItemTemplate>
+                                    <DataTemplate>
+                                        <ViewCell>
+                                            <!--<Grid FlowDirection="LeftToRight">
                                             <Grid.ColumnDefinitions>
                                                 <ColumnDefinition Width="0.30*"/>
                                                 <ColumnDefinition Width="0.30*"/>
@@ -128,11 +138,11 @@
                                             </Grid.RowDefinitions>
                                             <Label  BackgroundColor="White" Text="{Binding TimeType}" TextColor="BLue"/>
                                         </Grid>-->
-                                        <ViewCell.View>
-                                            <StackLayout Orientation="Horizontal">
-                                                <Label BackgroundColor="White" Text="{Binding TimeType}" TextColor="BLue"/>
-                                            </StackLayout>
-                                            <!--<Grid>
+                                            <ViewCell.View>
+                                                <StackLayout BackgroundColor="Pink" Orientation="Horizontal" Rotation="90">
+                                                    <Label BackgroundColor="White" Text="{Binding TimeType}" TextColor="BLue"/>
+                                                </StackLayout>
+                                                <!--<Grid>
                                                 <Grid.ColumnDefinitions>
                                                     <ColumnDefinition Width="0.30*"/>
                                                     <ColumnDefinition Width="0.30*"/>
@@ -141,11 +151,12 @@
                                                 <Label  BackgroundColor="White" Text="{Binding TimeType}" TextColor="BLue"/>
                                             </Grid>-->
 
-                                        </ViewCell.View>
-                                    </ViewCell>
-                            </DataTemplate>
-                        </ListView.ItemTemplate>
-                    </ListView>
+                                            </ViewCell.View>
+                                        </ViewCell>
+                                    </DataTemplate>
+                                </ListView.ItemTemplate>
+                            </ListView>
+                        </RelativeLayout>
                         <!--<Grid WidthRequest="300" BackgroundColor="AntiqueWhite" HorizontalOptions="FillAndExpand" VerticalOptions="CenterAndExpand">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="*"/>
