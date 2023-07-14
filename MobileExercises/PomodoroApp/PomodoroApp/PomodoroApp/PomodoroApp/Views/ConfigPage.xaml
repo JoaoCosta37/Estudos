@@ -3,10 +3,12 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:conv="clr-namespace:PomodoroApp.Views.Converters"
              xmlns:mark="clr-namespace:PomodoroApp.Views.Markup"
+             xmlns:views="clr-namespace:PomodoroApp.Views"
              x:Class="PomodoroApp.Views.ConfigPage">
     <ContentPage.Resources>
         <conv:StringToColorConverter x:Key="stringToColorConv"/>
         <conv:WidthToHeightConverter x:Key="widthToHeightConv"/>
+        <conv:TimeListToStringConverter x:Key="timeListToStringConv"/>
         <ResourceDictionary>
             <Style x:Key="ColorWithTransp" TargetType="Button">
                 <Setter Property="BackgroundColor" Value="White"/>
@@ -19,187 +21,111 @@
                 <StackLayout.Resources>
                     <ResourceDictionary>
                         <Style TargetType="Label">
-                            <Setter Property="TextColor" Value="white"/>
+                            <Setter Property="TextColor" Value="White"/>
                         </Style>
                         <Style TargetType="Frame">
                             <Setter Property="Margin" Value="0"/>
                             <Setter Property="Padding" Value="0"/>
                         </Style>
-
+                        <Style x:Key="SubTitle" TargetType="Label">
+                            <Setter Property="HorizontalOptions" Value="Center"/>
+                            <Setter Property="Margin" Value="0,15"/>
+                            <Setter Property="FontSize" Value="Large"/>
+                            <Setter Property="TextColor" Value="White"/>
+                        </Style>
                     </ResourceDictionary>
                 </StackLayout.Resources>
                 <StackLayout HorizontalOptions="FillAndExpand">
-                    <Label>
+                    <Label Style="{StaticResource SubTitle}">
                         <Label.Text>
                             <mark:MessageExtention MessageKey="Durations"/>
                         </Label.Text>
                     </Label>
-                    <!--<CarouselView ItemsSource="{Binding TimesList}">
-                        <CarouselView.ItemTemplate>
-                            <DataTemplate>
-                                -->
-                    <!--<Grid>
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="0.30*"/>
-                                        <ColumnDefinition Width="0.30*"/>
-                                        <ColumnDefinition Width="0.30*"/>
-                                    </Grid.ColumnDefinitions>
-                                    <Grid.RowDefinitions>
-                                        <RowDefinition Height="10"/>
-                                    </Grid.RowDefinitions>
-                                    <Label  BackgroundColor="White" Text="{Binding TimeType}" TextColor="BLue"/>
-                                </Grid>-->
-                    <!--
-                                <StackLayout HeightRequest="100">
-                                    <Label  BackgroundColor="White" Text="{Binding TimeType}" TextColor="BLue"/>
-                                </StackLayout>
-                            </DataTemplate>
-                        </CarouselView.ItemTemplate>
-                        <CarouselView.ItemsLayout>
-                            <LinearItemsLayout Orientation="Horizontal"/>
-                        </CarouselView.ItemsLayout>
-                    </CarouselView>-->
-                    <!--<ListView 
-                              ItemsSource="{Binding TimesList}">
-                        <ListView.ItemTemplate>
-                            <DataTemplate>
-                                <ViewCell>
-                                    <Grid FlowDirection="LeftToRight">
-                                        <Grid.ColumnDefinitions>
-                                            <ColumnDefinition Width="0.30*"/>
-                                            <ColumnDefinition Width="0.30*"/>
-                                            <ColumnDefinition Width="0.30*"/>
-                                        </Grid.ColumnDefinitions>
-                                        <Grid.RowDefinitions>
-                                            <RowDefinition Height="auto"/>
-                                        </Grid.RowDefinitions>
-                                        <Label  BackgroundColor="White" Text="{Binding TimeType}" TextColor="BLue"/>
-                                    </Grid>
-                                    -->
-                    <!--<ViewCell.View>
-                                        <StackLayout Orientation="Horizontal">
-                                            <Label BackgroundColor="White" Text="{Binding TimeType}" TextColor="BLue"/>
-                                        </StackLayout>
-                                        -->
-                    <!--<Grid>
-                                            <Grid.ColumnDefinitions>
-                                                <ColumnDefinition Width="0.30*"/>
-                                                <ColumnDefinition Width="0.30*"/>
-                                                <ColumnDefinition Width="0.30*"/>
-                                            </Grid.ColumnDefinitions>
-                                            <Label  BackgroundColor="White" Text="{Binding TimeType}" TextColor="BLue"/>
-                                        </Grid>-->
-                    <!--
-
-                                    </ViewCell.View>-->
-                    <!--
-                                </ViewCell>
-                            </DataTemplate>
-                        </ListView.ItemTemplate>
-                    </ListView>-->
-                    <!--<ListView ItemsSource="{Binding TimesList}">
-                        <ListView.ItemTemplate>
-                            <DataTemplate>
-                                -->
-                    <!--<Grid>
-                                    <Label Text="{Binding TimeType}">
-                                        
-                                    </Label>
-                                </Grid>-->
-                    <!--
-                            </DataTemplate>
-                            
-                        </ListView.ItemTemplate>
-                        
-                    </ListView>-->
-                    <StackLayout BackgroundColor="Black">
-                        <RelativeLayout HeightRequest="100" BackgroundColor="DarkBlue">
-
-                            <ListView ItemsSource="{Binding TimesList}"
-                                      RowHeight="100"
-                                      Rotation="270"
-                                      BackgroundColor="Transparent"
-                                      RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width,Factor=0.5, Constant=-50}"
-                                      RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width,Factor=-0.5, Constant=50}"
-                                      RelativeLayout.HeightConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width,Factor=1}"
-                                      RelativeLayout.WidthConstraint="{ConstraintExpression Type=Constant,Constant=100}"
-                                      >
-                                <ListView.ItemTemplate>
-                                    <DataTemplate>
-                                        <ViewCell>
-                                            <!--<Grid FlowDirection="LeftToRight">
-                                            <Grid.ColumnDefinitions>
-                                                <ColumnDefinition Width="0.30*"/>
-                                                <ColumnDefinition Width="0.30*"/>
-                                                <ColumnDefinition Width="0.30*"/>
-                                            </Grid.ColumnDefinitions>
-                                            <Grid.RowDefinitions>
-                                                <RowDefinition Height="auto"/>
-                                            </Grid.RowDefinitions>
-                                            <Label  BackgroundColor="White" Text="{Binding TimeType}" TextColor="BLue"/>
-                                        </Grid>-->
-                                            <ViewCell.View>
-                                                <StackLayout BackgroundColor="Pink" Orientation="Horizontal" Rotation="90">
-                                                    <Label BackgroundColor="White" Text="{Binding TimeType}" TextColor="BLue"/>
-                                                </StackLayout>
-                                                <!--<Grid>
-                                                <Grid.ColumnDefinitions>
-                                                    <ColumnDefinition Width="0.30*"/>
-                                                    <ColumnDefinition Width="0.30*"/>
-                                                    <ColumnDefinition Width="0.30*"/>
-                                                </Grid.ColumnDefinitions>
-                                                <Label  BackgroundColor="White" Text="{Binding TimeType}" TextColor="BLue"/>
-                                            </Grid>-->
-
-                                            </ViewCell.View>
-                                        </ViewCell>
-                                    </DataTemplate>
-                                </ListView.ItemTemplate>
-                            </ListView>
-                        </RelativeLayout>
-                        <!--<Grid WidthRequest="300" BackgroundColor="AntiqueWhite" HorizontalOptions="FillAndExpand" VerticalOptions="CenterAndExpand">
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="*"/>
-                            </Grid.ColumnDefinitions>
+                    <StackLayout>
+                        <Grid Margin="10,0" HorizontalOptions="Center">
+                            <Grid.Resources>
+                                <ResourceDictionary>
+                                    <Style TargetType="Label">
+                                        <Setter Property="FontSize" Value="15"/>
+                                        <Setter Property="HorizontalOptions" Value="CenterAndExpand"/>
+                                        <Setter Property="TextColor" Value="White"/>
+                                    </Style>
+                                    <Style TargetType="StackLayout">
+                                        <Setter Property="HorizontalOptions" Value="FillAndExpand"/>
+                                        <Setter Property="VerticalOptions" Value="CenterAndExpand"/>
+                                    </Style>
+                                    <Style TargetType="Frame">
+                                        <Setter Property="BackgroundColor" Value="Transparent"/>
+                                        <Setter Property="HorizontalOptions" Value="FillAndExpand"/>
+                                        <Setter Property="VerticalOptions" Value="CenterAndExpand"/>
+                                        <Setter Property="BackgroundColor" Value="#20ffffff"/>
+                                        <Setter Property="CornerRadius" Value="10"/>
+                                        <Setter Property="Padding" Value="0"/>
+                                        <Setter Property="Margin" Value="5,0"/>
+                                    </Style>
+                                </ResourceDictionary>
+                            </Grid.Resources>
                             <Grid.RowDefinitions>
-                                <RowDefinition Height="200"/>
+                                <RowDefinition Height="auto"/>
                             </Grid.RowDefinitions>
-                            <CollectionView ItemsSource="{Binding TimesList}">
-                                <CollectionView.ItemsLayout>
-                                    <GridItemsLayout Orientation="Horizontal"/>
-                                </CollectionView.ItemsLayout>
-                                <CollectionView.ItemTemplate>
-                                    <DataTemplate>
-                                        <Label HorizontalOptions="FillAndExpand" BackgroundColor="Aquamarine" Text="{Binding TimeType}" TextColor="BLue"/>
-                                        --><!--<StackLayout  BackgroundColor="Black" WidthRequest="60" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
-                                            <Label HorizontalOptions="CenterAndExpand" BackgroundColor="Aquamarine" Text="{Binding TimeType}" TextColor="BLue"/>
-                                            <Label HorizontalOptions="CenterAndExpand" BackgroundColor="Aquamarine" Text="{Binding Duration}" TextColor="BLue"/>
-                                        </StackLayout>--><!--
-                                    </DataTemplate>
-                                </CollectionView.ItemTemplate>
-                            </CollectionView>
-                        </Grid>-->
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width=".2*"/>
+                                <ColumnDefinition Width=".2*"/>
+                                <ColumnDefinition Width=".2*"/>
+                            </Grid.ColumnDefinitions>
+                            <Frame x:Name="pomo"
+                                   Grid.Column="0"
+                                   HeightRequest="{Binding Width, Source={x:Reference pomo}}">
+                                <StackLayout>
+                                    <Label Text="{Binding TimesList, Converter={StaticResource timeListToStringConv},ConverterParameter=Pomodoro}"
+                                           VerticalOptions="EndAndExpand"
+                                           FontSize="50"/>
+                                    <Label Text="POMODORO"
+                                       Margin="0,0,0,20"
+                                       VerticalOptions="Start">
+                                    </Label>
+                                    <StackLayout.GestureRecognizers>
+                                        <TapGestureRecognizer Command="{Binding UpdateTimeCommand}" CommandParameter="Pomodoro"/>
+                                    </StackLayout.GestureRecognizers>
+                                </StackLayout>
+                                <Frame.GestureRecognizers>
+                                    <TapGestureRecognizer Command="{mark:NavigationCommand Route={x:Type views:UpdateTimePage} }"/>
+                                </Frame.GestureRecognizers>
+                            </Frame>
+                            <Frame Grid.Column="1"  
+                                         HeightRequest="{Binding Width, Source={x:Reference pomo}}">
+                                <StackLayout >
+                                    <Label Text="{Binding TimesList, Converter={StaticResource timeListToStringConv},ConverterParameter=Short}"
+                                       VerticalOptions="EndAndExpand"
+                                       FontSize="50"/>
+                                    <Label Margin="0,0,0,20"
+                                       VerticalOptions="Start"
+                                       HorizontalOptions="CenterAndExpand">
+                                        <Label.Text>
+                                            <mark:MessageExtention MessageKey="Pause"/>
+                                        </Label.Text>
+                                    </Label>
+                                </StackLayout>
+                            </Frame>
+                            <Frame Grid.Column="2" HeightRequest="{Binding Width, Source={x:Reference pomo}}">
+                                <StackLayout 
+                                         >
+                                    <Label Text="{Binding TimesList, Converter={StaticResource timeListToStringConv},ConverterParameter=Long}"
+                                       VerticalOptions="EndAndExpand"
+                                       FontSize="50"/>
+                                    <Label Margin="0,0,0,20"
+                                       VerticalOptions="Start">
+                                        <Label.Text>
+                                            <mark:MessageExtention MessageKey="LongPause"/>
+                                        </Label.Text>
+                                    </Label>
+                                </StackLayout>
+                            </Frame>
+
+                        </Grid>
                     </StackLayout>
-                    <!--<Grid>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="0.30*"/>
-                            <ColumnDefinition Width="0.30*"/>
-                            <ColumnDefinition Width="0.30*"/>
-                        </Grid.ColumnDefinitions>
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="100"/>
-                        </Grid.RowDefinitions>
-                        <Frame Grid.Column="0">
-                            <Label Text="POMODORO"/>
-                        </Frame>
-                        <Frame Grid.Column="1">
-                        </Frame>
-                        <Frame Grid.Column="2">
-                            <Label Text="POMODORO"/>
-                        </Frame>
-                    </Grid>-->
                 </StackLayout>
-                <Label>
+                <Label Style="{StaticResource SubTitle}">
                     <Label.Text>
                         <mark:MessageExtention MessageKey="ColorTheme"/>
                     </Label.Text>
@@ -412,51 +338,7 @@
                     </Grid>
                 </Frame>
             </StackLayout>
-            <StackLayout Orientation="Horizontal">
-                <StackLayout.Resources>
-                    <Style TargetType="Button">
-                        <Setter Property="HeightRequest" Value="80"/>
-                        <Setter Property="WidthRequest" Value="80"/>
-                    </Style>
-                </StackLayout.Resources>
-                <Button Command="{Binding AlterBackgroudColorCommand}"
-                        CommandParameter="#555555"
-                        BackgroundColor="Black"/>
-            </StackLayout>
-            <Grid>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="0.25*"/>
-                    <ColumnDefinition Width="0.25*"/>
-                    <ColumnDefinition Width="0.25*"/>
-                    <ColumnDefinition Width="0.25*"/>
-                </Grid.ColumnDefinitions>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="100"/>
-                </Grid.RowDefinitions>
-                <Button Grid.Column="0"
-                        Command="{Binding AlterBackgroudColorCommand}"
-                        CommandParameter="#4f3960"
-                        BackgroundColor="#4f3960"/>
-                <Button Grid.Column="1"
-                        Command="{Binding AlterBackgroudColorCommand}"
-                        CommandParameter="#0000fa"
-                        BackgroundColor="#0000fa"/>
-                <Button Grid.Column="2"
-                        Command="{Binding AlterBackgroudColorCommand}"
-                        CommandParameter="#ffffff"
-                        BackgroundColor="#ffffff"/>
-                <Button Grid.Column="3"
-                        Command="{Binding AlterBackgroudColorCommand}"
-                        CommandParameter="#555555"
-                        BackgroundColor="black"/>
-                <!--"-->
-            </Grid>
-            <Frame Grid.Column="1"
-                   BackgroundColor="#20ffffff"
-                   HeightRequest="50"
-                   WidthRequest="50">
-                <Button Text="TESTE" TextColor="White"/>
-            </Frame>
+            
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

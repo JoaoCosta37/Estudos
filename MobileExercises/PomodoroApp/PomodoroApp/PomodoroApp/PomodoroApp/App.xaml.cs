@@ -38,13 +38,14 @@ namespace PomodoroApp
         protected override async void OnInitialized()
         {
             InitializeComponent();
-            await NavigationService.NavigateAsync(nameof(Views.ConfigPage));
+            await NavigationService.NavigateAsync(nameof(Views.MainPage));
         }
         protected override void RegisterTypes(IContainerRegistry containerRegistry)
         {
             containerRegistry.RegisterForNavigation<NavigationPage>();
             containerRegistry.RegisterForNavigation<MainPage, MainPageViewModel>();
             containerRegistry.RegisterForNavigation<ConfigPage, ConfigPageViewModel>();
+            containerRegistry.RegisterForNavigation<UpdateTimePage, UpdateTimePageViewModel>();
             containerRegistry.Register<BackgColorRepository>();
             //containerRegistry.Register<TimeDurationRepository>();
             containerRegistry.Register<PomodoroControlRepository>();

@@ -67,7 +67,7 @@ namespace PomodoroApp.Views
 
         private void ViewModel_PropertyChanged(object sender, PropertyChangedEventArgs e)
         {
-            if (e.PropertyName == nameof(MainPageViewModel.CurrentTime) || e.PropertyName == nameof(MainPageViewModel.Pomodoro))
+            if (e.PropertyName == nameof(MainPageViewModel.CurrentTime) || e.PropertyName == nameof(MainPageViewModel.Pomodoro) || e.PropertyName == nameof(MainPageViewModel.IsRunning ))
             {
                 UpdateDraw();
             }
@@ -109,6 +109,11 @@ namespace PomodoroApp.Views
             }
             else
             {
+                if (!viewModel.IsRunning)
+                {
+                    drawPause(canvas);
+
+                }
 
                 using (SKPath path = new SKPath())
                 {
@@ -126,11 +131,7 @@ namespace PomodoroApp.Views
                     });
                 }
 
-                if (!viewModel.IsRunning)
-                {
-                    drawPause(canvas);
-                    
-                }
+                
             }
         }
         private void drawTriangle(SKCanvas canvas, float referencesRadius)

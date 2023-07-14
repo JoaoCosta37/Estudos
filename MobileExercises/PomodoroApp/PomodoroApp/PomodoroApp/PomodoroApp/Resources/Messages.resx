@@ -138,11 +138,17 @@
   <data name="KeepPhone" xml:space="preserve">
     <value>KEEP PHONE ON</value>
   </data>
+  <data name="LongPause" xml:space="preserve">
+    <value>LONG PAUSE</value>
+  </data>
   <data name="NotificationSound" xml:space="preserve">
     <value>NOTIFICATION SOUND</value>
   </data>
   <data name="Others" xml:space="preserve">
     <value>OTHER PREFERENCES</value>
+  </data>
+  <data name="Pause" xml:space="preserve">
+    <value>PAUSE</value>
   </data>
   <data name="PomodoroUntilLongBreack" xml:space="preserve">
     <value>POMODOROS UNTIL LONG BREACK</value>

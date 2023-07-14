@@ -70,7 +70,6 @@
   </ItemGroup>
   <ItemGroup>
     <AndroidAsset Include="Assets\pomodoroIcons.ttf" />
-    <AndroidAsset Include="Assets\fontello.ttf" />
     <None Include="Resources\AboutResources.txt" />
     <None Include="Assets\AboutAssets.txt" />
     <None Include="Properties\AndroidManifest.xml" />

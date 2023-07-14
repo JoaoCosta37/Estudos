@@ -1,0 +1,81 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:views="clr-namespace:PomodoroApp.Views"
+             xmlns:mark="clr-namespace:PomodoroApp.Views.Markup"
+             x:Class="PomodoroApp.Views.UpdateTimePage">
+    <ContentPage.Content>
+        <StackLayout Orientation="Vertical"
+                     BackgroundColor="{Binding BackgColor}">
+            <StackLayout VerticalOptions="CenterAndExpand">
+                <Label HorizontalOptions="CenterAndExpand"
+                       VerticalOptions="Center"
+                       Margin="20"
+                       Text="POMODORO"
+                       TextColor="White"
+                       FontSize="25">
+                </Label>
+                <StackLayout Orientation="Horizontal"
+                             VerticalOptions="Start"
+                             HorizontalOptions="Center">
+                    <StackLayout.Resources>
+                        <ResourceDictionary>
+                            <Style TargetType="Button">
+                                <Setter Property="BackgroundColor" Value="Transparent"/>
+                                <Setter Property="TextColor" Value="White"/>
+                                <Setter Property="FontSize" Value="100"/>
+                                <Setter Property="Padding" Value="0"/>
+                            </Style>
+                        </ResourceDictionary>
+                    </StackLayout.Resources>
+                    <Button Text="{x:Static views:FontIcons.PlusIcon}"
+                            FontFamily="{x:StaticResource PostFontIcon}"/>
+                    <Label Text="6"
+                       FontSize="90"
+                       TextColor="White"
+                       Margin="20,0"></Label>
+                    <Button Text="{x:Static views:FontIcons.MinusIcon}"
+                            FontFamily="{x:StaticResource PostFontIcon}"/>
+                </StackLayout>
+                <StackLayout>
+                    <Button Text="{x:Static views:FontIcons.CkeckIcon}"
+                            FontSize="100"
+                            Margin="30"
+                            TextColor="White"
+                            HorizontalOptions="Center"
+                            BackgroundColor="Transparent"
+                        FontFamily="{x:StaticResource PostFontIcon}"/>
+                </StackLayout>
+                <StackLayout Orientation="Horizontal" HorizontalOptions="CenterAndExpand">
+                    <StackLayout.Resources>
+                        <ResourceDictionary>
+                            <Style TargetType="Label">
+                                <Setter Property="TextColor" Value="White"/>
+                            </Style>
+                        </ResourceDictionary>
+                    </StackLayout.Resources>
+                    <StackLayout Orientation="Horizontal"
+                                 Margin="40,0">
+                        <Label Text="{x:Static views:FontIcons.InvertPlusIcon}"
+                               VerticalOptions="Center"
+                               FontSize="50"
+                               FontFamily="{x:StaticResource PostFontIcon}"/>
+                        <Label Text="10"
+                               VerticalOptions="Center"
+                               FontSize="60"/>
+                    </StackLayout>
+                    <StackLayout Orientation="Horizontal"
+                                 Margin="40,0">
+                        <Label Text="{x:Static views:FontIcons.InvertMinusIcon}"
+                               VerticalOptions="Center"
+                               FontSize="50"
+                               FontFamily="{x:StaticResource PostFontIcon}"/>
+                        <Label Text="10"
+                               VerticalOptions="Center"
+                               FontSize="60"/>
+                    </StackLayout>
+                </StackLayout>
+            </StackLayout>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

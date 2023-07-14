@@ -117,55 +117,7 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="AlarmSound" xml:space="preserve">
-    <value>SOM DO ALARME</value>
-  </data>
-  <data name="AutoPause" xml:space="preserve">
-    <value>PAUSA AUTOMÁTICA</value>
-  </data>
-  <data name="AutoPomodoro" xml:space="preserve">
-    <value>POMODORO AUTOMÁTICO</value>
-  </data>
-  <data name="ColorTheme" xml:space="preserve">
-    <value>COR DO TEMA</value>
-  </data>
-  <data name="DailyGoal" xml:space="preserve">
-    <value>META DIÁRIA</value>
-  </data>
-  <data name="Durations" xml:space="preserve">
-    <value>DURAÇÕES</value>
-  </data>
-  <data name="KeepPhone" xml:space="preserve">
-    <value>MANTER TELEFONE LIGADO</value>
-  </data>
-  <data name="Long" xml:space="preserve">
-    <value />
-  </data>
-  <data name="LongPause" xml:space="preserve">
-    <value>PAUSA LONGA</value>
-  </data>
-  <data name="NotificationSound" xml:space="preserve">
-    <value>SOM DA NOTIFICAÇÃO</value>
-  </data>
-  <data name="Others" xml:space="preserve">
-    <value>OUTRAS PREFERÊNCIAS</value>
-  </data>
-  <data name="Pause" xml:space="preserve">
-    <value>PAUSA</value>
-  </data>
-  <data name="PomodoroUntilLongBreack" xml:space="preserve">
-    <value>POMODOROS ATÉ PAUSA LONGA</value>
-  </data>
-  <data name="Restart" xml:space="preserve">
-    <value>Reiniciar</value>
-  </data>
-  <data name="ShowNotification" xml:space="preserve">
-    <value>MOSTRAR NOTIFICAÇÃO</value>
-  </data>
-  <data name="Sound" xml:space="preserve">
-    <value>SOM</value>
-  </data>
-  <data name="Vibration" xml:space="preserve">
-    <value>VIBRAÇÃO</value>
+  <data name="NEW" xml:space="preserve">
+    <value>Novo</value>
   </data>
 </root>

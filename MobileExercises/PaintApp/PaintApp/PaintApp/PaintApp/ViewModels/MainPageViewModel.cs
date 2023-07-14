@@ -1,4 +1,5 @@
 ﻿using PaintApp.Services;
+using Prism.Mvvm;
 using SkiaSharp;
 using System;
 using System.Collections.Generic;
@@ -9,9 +10,10 @@ using Xamarin.Forms;
 
 namespace PaintApp.ViewModels
 {
-    public class MainPageViewModel
+    public class MainPageViewModel : BindableBase
     {
         IPhotoPickerService photoPickerService;
+        private static SKColor brushColor =  SKColors.Blue;
 
         public event Action<Stream> OnStreamLoaded;
         public MainPageViewModel()
@@ -22,6 +24,14 @@ namespace PaintApp.ViewModels
         }
         public Command SaveCommand { get; set; }
         public Command OpenImageCommand { get; set; }
+        public static SKColor BrushColor
+        {
+            get => brushColor;
+            set
+            {
+                brushColor = value;
+            }
+        }
         private void save()
         {
 

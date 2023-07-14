@@ -124,6 +124,15 @@ namespace PomodoroApp.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to LONG PAUSE.
+        /// </summary>
+        internal static string LongPause {
+            get {
+                return ResourceManager.GetString("LongPause", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to NOTIFICATION SOUND.
         /// </summary>
         internal static string NotificationSound {
@@ -138,6 +147,15 @@ namespace PomodoroApp.Resources {
         internal static string Others {
             get {
                 return ResourceManager.GetString("Others", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to PAUSE.
+        /// </summary>
+        internal static string Pause {
+            get {
+                return ResourceManager.GetString("Pause", resourceCulture);
             }
         }
         

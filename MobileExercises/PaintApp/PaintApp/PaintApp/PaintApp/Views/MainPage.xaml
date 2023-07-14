@@ -1,0 +1,79 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:forms="clr-namespace:SkiaSharp.Views.Forms;assembly=SkiaSharp.Views.Forms"
+             xmlns:tt="clr-namespace:TouchTracking.Forms;assembly=TouchTracking.Forms"
+             xmlns:mark="clr-namespace:PaintApp.Views.Markups"
+             xmlns:views="clr-namespace:PaintApp.Views"
+             x:Class="PaintApp.Views.MainPage">
+
+    <StackLayout BackgroundColor="Black"
+                 Orientation="Vertical"
+                 VerticalOptions="FillAndExpand"
+                 HorizontalOptions="FillAndExpand">
+        <StackLayout BackgroundColor="DarkGreen"
+                     Orientation="Horizontal"
+                     HorizontalOptions="FillAndExpand">
+            <StackLayout BackgroundColor="Aquamarine"
+                         Orientation="Horizontal"
+                         HorizontalOptions="CenterAndExpand"
+                         Padding="10"
+                     >
+                <StackLayout.Resources>
+                    <ResourceDictionary>
+                        <Style TargetType="Button">
+                            <Setter Property="FontSize" Value="35"/>
+                            <Setter Property="HeightRequest" Value="50"/>
+                            <Setter Property="WidthRequest" Value="50"/>
+                            <Setter Property="BackgroundColor" Value="Blue"/>
+                            <Setter Property="CornerRadius" Value="5"/>
+                            <Setter Property="BorderColor" Value="Black"/>
+                            <Setter Property="Margin" Value="5,0,0,0"/>
+
+                        </Style>
+                    </ResourceDictionary>
+                </StackLayout.Resources>
+                <Button Text="{x:Static views:FontIcons.NewFile}"
+                        FontFamily="{x:StaticResource PostFontIcon}">
+                </Button>
+                <Button Text="{x:Static views:FontIcons.Save}"
+                        FontFamily="{x:StaticResource PostFontIcon}"
+                        Command="{Binding SaveCommand}">
+                </Button>
+                <Button Text="{x:Static views:FontIcons.Image}"
+                        FontFamily="{x:StaticResource PostFontIcon}"
+                        Command="{Binding OpenImageCommand}">
+                </Button>
+                <Button Text="{x:Static views:FontIcons.Brush}"
+                        FontFamily="{x:StaticResource PostFontIcon}">
+                </Button>
+                <Button Text="{x:Static views:FontIcons.Rubber}"
+                        FontFamily="{x:StaticResource PostFontIcon}">
+                </Button>
+                <Button Text="{x:Static views:FontIcons.Drop}"
+                        FontFamily="{x:StaticResource PostFontIcon}">
+                </Button>
+            </StackLayout >
+
+        </StackLayout>
+
+        <StackLayout VerticalOptions="FillAndExpand"
+                     HorizontalOptions="FillAndExpand"
+                     BackgroundColor="White">
+            <forms:SKCanvasView x:Name="SkCanvasView"
+                                VerticalOptions="FillAndExpand"
+                                HorizontalOptions="FillAndExpand"
+                                PaintSurface="SkCanvasView_PaintSurface">
+            </forms:SKCanvasView>
+            <StackLayout.Effects>
+                <tt:TouchEffect Capture="True" TouchAction="TouchEffect_TouchAction"/>
+            </StackLayout.Effects>
+        </StackLayout>
+
+        <!--<Button Text="SAVE" Command="{Binding SaveCommand}"></Button>
+        <Button Text="OPEN IMAGE" Command="{Binding OpenImageCommand}"></Button>-->
+
+    </StackLayout>
+
+
+</ContentPage>

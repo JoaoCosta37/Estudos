@@ -28,15 +28,15 @@ namespace PomodoroApp.Models
 
 
         [Column("CurrentType")]
-        private int currentType { get; set; }
+        public int CurrentTypeValue { get; set; }
 
         [Ignore]
         public TimeType CurrentType
         {
-            get => (TimeType)currentType;
+            get => (TimeType)CurrentTypeValue;
             set
             {
-                currentType = (int)value;
+                CurrentTypeValue = (int)value;
             }
         }
     }

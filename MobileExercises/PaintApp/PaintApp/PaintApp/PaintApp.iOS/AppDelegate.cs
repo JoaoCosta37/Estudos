@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 
 using Foundation;
+using Prism.Ioc;
 using UIKit;
 
 namespace PaintApp.iOS
@@ -26,6 +27,13 @@ namespace PaintApp.iOS
             LoadApplication(new App());
 
             return base.FinishedLaunching(app, options);
+        }
+        public class iOSInitializer : IPlatformInitializer
+        {
+            public void RegisterTypes(IContainerRegistry container)
+            {
+
+            }
         }
     }
 }

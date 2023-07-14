@@ -13,30 +13,46 @@ using TouchTracking;
 using Xamarin.Forms;
 using Xamarin.Forms.Shapes;
 
-namespace PaintApp
+namespace PaintApp.Views
 {
     public partial class MainPage : ContentPage
     {
         Dictionary<long, SKPath> inProgressPaths = new Dictionary<long, SKPath>();
         List<SKPath> completedPaths = new List<SKPath>();
-        
 
         private SKPaint paint = new SKPaint()
         {
             Style = SKPaintStyle.Stroke,
-            Color = SKColors.Blue,
+            Color = MainPageViewModel.BrushColor,
             StrokeWidth = 80,
             StrokeCap = SKStrokeCap.Round,
             StrokeJoin = SKStrokeJoin.Round
         };
 
+        MainPageViewModel viewModel { get => this.BindingContext as MainPageViewModel;}
+
         public MainPage()
         {
             InitializeComponent();
-            var vm = new MainPageViewModel();
-            BindingContext = vm;
-
-            vm.OnStreamLoaded += Vm_OnStreamLoaded;
+          //  var vm = new MainPageViewModel();
+           // this.BindingContext = vm;
+        //    vm.OnStreamLoaded += Vm_OnStreamLoaded;
+            this.BindingContextChanged += MainPage_BindingContextChanged;
+        }
+        private void MainPage_BindingContextChanged(object sender, EventArgs e)
+        {
+            if (viewModel != null)
+            {
+                viewModel.PropertyChanged += ViewModel_PropertyChanged;
+                viewModel.OnStreamLoaded += Vm_OnStreamLoaded;
+            }
+        }
+        private void ViewModel_PropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            //if (e.PropertyName == nameof(MainPageViewModel.CurrentTime) || e.PropertyName == nameof(MainPageViewModel.Pomodoro))
+            //{
+            //    UpdateDraw();
+            //}
         }
         SKBitmap imageBitmap;
         private void Vm_OnStreamLoaded(Stream obj)
