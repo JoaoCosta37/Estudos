@@ -12,14 +12,16 @@ namespace PomodoroApp.Views.Converters
         {
             var time = (TimeSpan)value;
             string format = @"mm\:ss";
-            //if (System.Convert.ToInt32(parameter) == 1)
-            //{
-            //    format = @"hh\:mm";
-            //}
-            //else if (System.Convert.ToInt32(parameter) == 2)
-            //{
-            //    format = "ss";
-            //}
+            if(time >= TimeSpan.FromMinutes(60))
+            {
+                format = @"hh\:mm\:ss";
+            }
+            if (System.Convert.ToInt32(parameter) == 1)
+            {
+                //format = time.TotalMinutes >= 10 ? "mm" : "%m";
+               var result =  time.TotalMinutes.ToString();  
+                return result;
+            }
             return $"{time.ToString(format, culture.DateTimeFormat)}";
         }
 

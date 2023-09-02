@@ -43,9 +43,9 @@ namespace PomodoroApp.Views
         public MainPage()
         {
             InitializeComponent();
-            
             this.BindingContextChanged += MainPage_BindingContextChanged;
         }
+
         //protected override void OnAppearing()
         //{
         //    base.OnAppearing();
@@ -67,7 +67,7 @@ namespace PomodoroApp.Views
 
         private void ViewModel_PropertyChanged(object sender, PropertyChangedEventArgs e)
         {
-            if (e.PropertyName == nameof(MainPageViewModel.CurrentTime) || e.PropertyName == nameof(MainPageViewModel.Pomodoro) || e.PropertyName == nameof(MainPageViewModel.IsRunning ))
+            if (e.PropertyName == nameof(MainPageViewModel.CurrentTime) || e.PropertyName == nameof(MainPageViewModel.Pomodoro) || e.PropertyName == nameof(MainPageViewModel.IsRunning) || e.PropertyName == nameof(MainPageViewModel.PomodoroControlVm))
             {
                 UpdateDraw();
             }
@@ -83,7 +83,8 @@ namespace PomodoroApp.Views
 
             this.referencesPoint = new SKPoint(info.Width / 2, info.Height / 2);
 
-            this.externalRadius = Math.Min(referencesPoint.X, referencesPoint.Y) - 140;
+            this.externalRadius = Math.Min(referencesPoint.X, referencesPoint.Y) - 80;
+
 
             this.drawExternalCircle(canvas);
 
@@ -112,7 +113,6 @@ namespace PomodoroApp.Views
                 if (!viewModel.IsRunning)
                 {
                     drawPause(canvas);
-
                 }
 
                 using (SKPath path = new SKPath())

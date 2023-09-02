@@ -1,4 +1,5 @@
 ﻿using PomodoroApp.Enums;
+using PomodoroApp.Features;
 using PomodoroApp.Models;
 using PomodoroApp.Repositorys;
 using PomodoroApp.Singles;
@@ -18,22 +19,24 @@ using static Xamarin.Forms.Internals.GIFBitmap;
 
 namespace PomodoroApp.ViewModels
 {
-    public class ConfigPageViewModel : BindableBase, INavigationAware
+    public class ConfigPageViewModel : BindableBase
     {
         //private List<TimeDurationViewModel> timesList = new List<TimeDurationViewModel>();
-        private PomodoroControlViewModel pomodoroControlVm;
         private readonly IEventAggregator eventAggregator;
-        private readonly PomodoroControlRepository pomodoroControlRepository;
         private readonly INavigationService navigationService;
 
-        public ConfigPageViewModel(IEventAggregator eventAggregator, PomodoroControlRepository pomodoroControlRepository, INavigationService navigationService)
+        public ConfigPageViewModel(IEventAggregator eventAggregator, INavigationService navigationService)
         {
-            this.PomodoroControlVm = new PomodoroControlViewModel(pomodoroControlRepository.GetPomodoroControlAsync().Result);
             this.AlterBackgroudColorCommand = new Command(((x) => alterBackgroudColor(x)));
             this.UpdateTimeCommand = new Command(((x) => updateTime(x)));
+            this.TestCommand = new Command((() => test()));
             this.eventAggregator = eventAggregator;
-            this.pomodoroControlRepository = pomodoroControlRepository;
             this.navigationService = navigationService;
+            this.eventAggregator.GetEvent<ConfigChangedEvent>().Subscribe(ConfigEventHandler);
+        }
+        private void test()
+        {
+            this.PomodoroControlVm.PomodoroTimesBeforeLongBreak += 1;
         }
         public Color BackgColor
         {
@@ -47,14 +50,14 @@ namespace PomodoroApp.ViewModels
         }
         public PomodoroControlViewModel PomodoroControlVm
         {
-            get => this.pomodoroControlVm;
+            get => PomodoroControlInstance.Instance;
             set
             {
-                this.pomodoroControlVm = value;
+                PomodoroControlInstance.Instance = value;
                 RaisePropertyChanged();
             }
         }
-        public List<TimeDuration> TimesList
+        public List<TimeDurationViewModel> TimesList
         {
             get => PomodoroControlVm.Durations;
             set
@@ -65,6 +68,7 @@ namespace PomodoroApp.ViewModels
         }
         public Command AlterBackgroudColorCommand { get; set; }
         public Command UpdateTimeCommand { get; set; }
+        public Command TestCommand { get; set; }
         private void alterBackgroudColor(object colorHex)
         {
             BackgColorInstance.Instance = (Color)colorHex;
@@ -74,22 +78,29 @@ namespace PomodoroApp.ViewModels
         private void updateTime(object parameter)
         {
             var param = (string)parameter;
-            var navigationParams = new NavigationParameters()
+            var index = (int)Enum.Parse(typeof(TimeType), param);
+            PomodoroControlInstance.IsSelectedToUpdate = index;
+
+            //this.timeToEdit =  (TimeType)Enum.Parse(typeof(TimeType),param);
+            //PomodoroControlInstance.IsSelectedTimeDuration = this.TimesList.Where((x) => Enum.GetName(typeof(TimeType), x.TimeType) == param).FirstOrDefault();
+            //var navigationParams = new NavigationParameters()
+            //{
+            //    {"TimeType", this.TimesList.Where((x) => Enum.GetName(typeof(TimeType), x.TimeType) == param).FirstOrDefault()}
+            //};
+            navigationService.NavigateAsync(nameof(UpdateTimePage));
+            //var result = this.TimesList.Where<TimeDuration>((x) => this.PomodoroControlVm.CurrentType == x.TimeType).FirstOrDefault();
+        }
+        private void ConfigEventHandler(ConfigChangedEventArgs args)
+        {
+            if (args.ConfigName == nameof(this.TimesList))
             {
-                {"TimeDuration", this.TimesList.Where((x) => Enum.GetName(typeof(TimeType), x.TimeTypeValue) == param).FirstOrDefault()}
-            };
-            navigationService.NavigateAsync(nameof(UpdateTimePage),navigationParams);
-            var result = this.TimesList.Where<TimeDuration>((x) => this.PomodoroControlVm.CurrentType == x.TimeType).FirstOrDefault();
+                RaisePropertyChanged(nameof(this.TimesList));
+            }
         }
-        public void OnNavigatedFrom(INavigationParameters parameters)
+        private void updatePomodoroControl()
         {
-
-        }
-
-        public void OnNavigatedTo(INavigationParameters parameters)
-        {
-            //var pomodoroControl = parameters.GetValue<PomodoroControlViewModel>("PomodoroControl");
-            //this.pomodoroControlVm = pomodoroControl;
+            PomodoroControlInstance.SavePomodoroControlAsync();
+            eventAggregator.GetEvent<ConfigChangedEvent>().Publish(new ConfigChangedEventArgs() { ConfigName = nameof(this.PomodoroControlVm)});
         }
     }
 }

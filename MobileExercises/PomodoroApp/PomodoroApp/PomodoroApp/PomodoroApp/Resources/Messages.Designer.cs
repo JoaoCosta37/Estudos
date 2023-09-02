@@ -70,20 +70,29 @@ namespace PomodoroApp.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to AUTO PAUSE.
+        ///   Looks up a localized string similar to AUTO START BREAKS.
         /// </summary>
-        internal static string AutoPause {
+        internal static string AutoBreak {
             get {
-                return ResourceManager.GetString("AutoPause", resourceCulture);
+                return ResourceManager.GetString("AutoBreak", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to AUTO POMODORO.
+        ///   Looks up a localized string similar to AUTO START POMODOROS.
         /// </summary>
         internal static string AutoPomodoro {
             get {
                 return ResourceManager.GetString("AutoPomodoro", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to BREAK.
+        /// </summary>
+        internal static string Break {
+            get {
+                return ResourceManager.GetString("Break", resourceCulture);
             }
         }
         
@@ -124,11 +133,20 @@ namespace PomodoroApp.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to LONG PAUSE.
+        ///   Looks up a localized string similar to L. BREAK.
         /// </summary>
-        internal static string LongPause {
+        internal static string L {
             get {
-                return ResourceManager.GetString("LongPause", resourceCulture);
+                return ResourceManager.GetString("L", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to LONG BREAK.
+        /// </summary>
+        internal static string LongBreak {
+            get {
+                return ResourceManager.GetString("LongBreak", resourceCulture);
             }
         }
         
@@ -151,20 +169,11 @@ namespace PomodoroApp.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to PAUSE.
+        ///   Looks up a localized string similar to POMODOROS UNTIL LONG BREAK.
         /// </summary>
-        internal static string Pause {
+        internal static string PomodoroUntilLongBreak {
             get {
-                return ResourceManager.GetString("Pause", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to POMODOROS UNTIL LONG BREACK.
-        /// </summary>
-        internal static string PomodoroUntilLongBreack {
-            get {
-                return ResourceManager.GetString("PomodoroUntilLongBreack", resourceCulture);
+                return ResourceManager.GetString("PomodoroUntilLongBreak", resourceCulture);
             }
         }
         
@@ -174,6 +183,24 @@ namespace PomodoroApp.Resources {
         internal static string Restart {
             get {
                 return ResourceManager.GetString("Restart", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to S.
+        /// </summary>
+        internal static string S {
+            get {
+                return ResourceManager.GetString("S", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to SHORT.
+        /// </summary>
+        internal static string Short {
+            get {
+                return ResourceManager.GetString("Short", resourceCulture);
             }
         }
         

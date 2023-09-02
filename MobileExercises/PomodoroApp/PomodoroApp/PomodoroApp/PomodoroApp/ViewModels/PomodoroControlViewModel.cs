@@ -1,8 +1,11 @@
-﻿using PomodoroApp.Enums;
+﻿using ImTools;
+using PomodoroApp.Enums;
 using PomodoroApp.Models;
 using Prism.Mvvm;
 using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Security.Cryptography;
 using System.Text;
 
 namespace PomodoroApp.ViewModels
@@ -24,62 +27,102 @@ namespace PomodoroApp.ViewModels
                 RaisePropertyChanged();
             }
         }
-        public int Count
+        public int DailyCount
         {
-            get { return PomodoroControl.Count; }
+            get { return PomodoroControl.DailyCount; }
             set
             {
-                this.PomodoroControl.Count = value;
+                this.PomodoroControl.DailyCount = value;
                 RaisePropertyChanged();
             }
         }
-        public int PomodoroTimesBeforeLongPause
+        public int CountToLongBreak
         {
-            get { return PomodoroControl.PomodoroTimesBeforeLongPause; }
+            get { return PomodoroControl.CountToLongBreak; }
             set
             {
-                this.PomodoroControl.PomodoroTimesBeforeLongPause = value;
+                this.PomodoroControl.CountToLongBreak = value;
                 RaisePropertyChanged();
             }
         }
-        public bool PomodoroFinished
+        public int PomodoroTimesBeforeLongBreak
         {
-            get { return PomodoroControl.PomodoroFinished; }
+            get { return PomodoroControl.PomodoroTimesBeforeLongBreak; }
             set
             {
-                this.PomodoroControl.PomodoroFinished = value;
+                this.PomodoroControl.PomodoroTimesBeforeLongBreak = value;
                 RaisePropertyChanged();
             }
         }
-        public int DailyTotal
+        //public bool PomodoroFinished
+        //{
+        //    get { return PomodoroControl.ProgressPosition == (int)TimeType.POMODORO; }
+        //    set
+        //    {
+        //        this.PomodoroControl.ProgressPosition = value;
+        //        RaisePropertyChanged();
+        //    }
+        //}
+        public int Progress
         {
-            get { return PomodoroControl.DailyTotal; }
+            get { return PomodoroControl.Progress; }
             set
             {
-                this.PomodoroControl.DailyTotal = value;
+                this.PomodoroControl.Progress = value;
                 RaisePropertyChanged();
             }
         }
-        public TimeType CurrentType
+        //public int DailyTotal
+        //{
+        //    get { return PomodoroControl.DailyTotal; }
+        //    set
+        //    {
+        //        this.PomodoroControl.DailyTotal = value;
+        //        RaisePropertyChanged();
+        //    }
+        //}
+        public int DailyGoal
         {
-            get {
-                return this.PomodoroControl.CurrentType;
-                //var result = (TimeType)Enum.Parse(typeof(TimeType), PomodoroControl.CurrentType);
-                //return result;
-            }
+            get { return PomodoroControl.DailyGoal; }
             set
             {
-                //this.PomodoroControl.CurrentType = value.ToString();
-                this.PomodoroControl.CurrentType = value;
+                this.PomodoroControl.DailyGoal = value;
                 RaisePropertyChanged();
             }
         }
-        public List<TimeDuration> Durations
+        public int TimeTypeValue
         {
-            get { return PomodoroControl.Durations; }
+            get { return this.PomodoroControl.TimeTypeValue; }
             set
             {
-                this.PomodoroControl.Durations = value;
+                this.PomodoroControl.TimeTypeValue = value;
+                RaisePropertyChanged();
+            }
+        }
+        //public TimeType CurrentType
+        //{
+        //    get
+        //    {
+        //        return this.PomodoroControl.CurrentType;
+        //        //var result = (TimeType)Enum.Parse(typeof(TimeType), PomodoroControl.CurrentType);
+        //        //return result;
+        //    }
+        //    set
+        //    {
+        //        //this.PomodoroControl.CurrentType = value.ToString();
+        //        this.PomodoroControl.CurrentType = value;
+        //        RaisePropertyChanged();
+        //    }
+        //}
+        public List<TimeDurationViewModel> Durations
+        {
+            get
+            {
+                return  this.PomodoroControl.Durations.Map((x) => new TimeDurationViewModel(x)).ToList();
+            }
+            set
+            {
+                this.PomodoroControl.Durations = value.Map((x) => x.TimeDuration).ToList();
                 RaisePropertyChanged();
             }
         }

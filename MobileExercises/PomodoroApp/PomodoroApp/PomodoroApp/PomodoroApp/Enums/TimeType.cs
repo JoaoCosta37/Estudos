@@ -6,8 +6,8 @@ namespace PomodoroApp.Enums
 {
     public enum TimeType
     {
-        Short,
-        Long,
-        Pomodoro,
+        POMODORO,
+        SHORT,
+        LONG,
     }
 }

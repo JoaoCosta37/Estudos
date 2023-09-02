@@ -3,21 +3,27 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:views="clr-namespace:PomodoroApp.Views"
              xmlns:mark="clr-namespace:PomodoroApp.Views.Markup"
+             xmlns:conv="clr-namespace:PomodoroApp.Views.Converters"
              x:Class="PomodoroApp.Views.UpdateTimePage">
+    <ContentPage.Resources>
+        <conv:TimeTypeToStringConverter x:Key="timeTypeToStringConv"/>
+        <conv:TimeSpanToStringConverter x:Key="timeSpanToStringConv"/>
+    </ContentPage.Resources>
     <ContentPage.Content>
         <StackLayout Orientation="Vertical"
                      BackgroundColor="{Binding BackgColor}">
-            <StackLayout VerticalOptions="CenterAndExpand">
+            <StackLayout VerticalOptions="CenterAndExpand" Margin="0,80,0,0">
                 <Label HorizontalOptions="CenterAndExpand"
                        VerticalOptions="Center"
                        Margin="20"
-                       Text="POMODORO"
+                       Text="{Binding TimeDurationVm.TimeDuration.TimeType, Converter={StaticResource timeTypeToStringConv}}"
                        TextColor="White"
                        FontSize="25">
                 </Label>
                 <StackLayout Orientation="Horizontal"
                              VerticalOptions="Start"
-                             HorizontalOptions="Center">
+                             Margin="18,0"
+                             HorizontalOptions="FillAndExpand">
                     <StackLayout.Resources>
                         <ResourceDictionary>
                             <Style TargetType="Button">
@@ -29,53 +35,98 @@
                         </ResourceDictionary>
                     </StackLayout.Resources>
                     <Button Text="{x:Static views:FontIcons.PlusIcon}"
-                            FontFamily="{x:StaticResource PostFontIcon}"/>
-                    <Label Text="6"
-                       FontSize="90"
-                       TextColor="White"
-                       Margin="20,0"></Label>
+                            FontFamily="{x:StaticResource PostFontIcon}"
+                            HorizontalOptions="Start"
+                            Command="{Binding AddDurationValueCommand}"
+                            CommandParameter="1"/>
+                    <Label Text="{Binding TimeDurationVm.TimeDuration.Duration, Converter={StaticResource timeSpanToStringConv}, ConverterParameter=1}"
+                           FontSize="90"
+                           HorizontalOptions="CenterAndExpand"
+                           TextColor="White"
+                           Margin="20,0"></Label>
                     <Button Text="{x:Static views:FontIcons.MinusIcon}"
-                            FontFamily="{x:StaticResource PostFontIcon}"/>
+                            FontFamily="{x:StaticResource PostFontIcon}"
+                            HorizontalOptions="End"
+                            Command="{Binding SubtractDurationValueCommand}"
+                            CommandParameter="1"/>
                 </StackLayout>
-                <StackLayout>
-                    <Button Text="{x:Static views:FontIcons.CkeckIcon}"
-                            FontSize="100"
-                            Margin="30"
-                            TextColor="White"
-                            HorizontalOptions="Center"
-                            BackgroundColor="Transparent"
-                        FontFamily="{x:StaticResource PostFontIcon}"/>
-                </StackLayout>
-                <StackLayout Orientation="Horizontal" HorizontalOptions="CenterAndExpand">
+                
+
+                <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand" Margin="50,100,50,0">
                     <StackLayout.Resources>
                         <ResourceDictionary>
                             <Style TargetType="Label">
-                                <Setter Property="TextColor" Value="White"/>
+                                <Setter Property="TextColor" Value="{Binding BackgColor}"/>
+                            </Style>
+                            <Style TargetType="StackLayout">
+                                <Setter Property="Orientation" Value="Horizontal"/>
+                                <Setter Property="HorizontalOptions" Value="Center"/>
+                                <Setter Property="VerticalOptions" Value="Center"/>
+                                
+                            </Style>
+                            <Style TargetType="Frame">
+                                <Setter Property="CornerRadius" Value="30"/>
+                                <Setter Property="HeightRequest" Value="60"/>
+                                <Setter Property="WidthRequest" Value="60"/>
+                                <Setter Property="Padding" Value="0"/>
+                                <Setter Property="VerticalOptions" Value="CenterAndExpand"/>
                             </Style>
                         </ResourceDictionary>
                     </StackLayout.Resources>
-                    <StackLayout Orientation="Horizontal"
-                                 Margin="40,0">
-                        <Label Text="{x:Static views:FontIcons.InvertPlusIcon}"
-                               VerticalOptions="Center"
-                               FontSize="50"
-                               FontFamily="{x:StaticResource PostFontIcon}"/>
-                        <Label Text="10"
-                               VerticalOptions="Center"
-                               FontSize="60"/>
+                    <Frame HorizontalOptions="Start">
+                        <StackLayout>
+                            <Label Text="{x:Static views:FontIcons.InvertPlusIcon}"
+                                   VerticalOptions="Center"
+                                   FontSize="20"
+                                   FontFamily="{x:StaticResource PostFontIcon}"/>
+                            <Label x:Name="ten"
+                                   Text="10"
+                                   VerticalOptions="Center"
+                                   FontSize="30"/>
+                        <!--<StackLayout.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding AddDurationValueCommand}"
+                            CommandParameter="{Binding Text, Source={x:Reference ten}}"/>
+                        </StackLayout.GestureRecognizers>-->
                     </StackLayout>
-                    <StackLayout Orientation="Horizontal"
-                                 Margin="40,0">
+                        <Frame.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding AddDurationValueCommand}"
+                                                  CommandParameter="{Binding Text, Source={x:Reference ten}}"/>
+                        </Frame.GestureRecognizers>
+                    </Frame>
+                    <Frame HorizontalOptions="EndAndExpand">
+                    <StackLayout>
                         <Label Text="{x:Static views:FontIcons.InvertMinusIcon}"
                                VerticalOptions="Center"
-                               FontSize="50"
+                               FontSize="20"
                                FontFamily="{x:StaticResource PostFontIcon}"/>
-                        <Label Text="10"
+                        <Label Text="{Binding Text, Source={x:Reference ten}}"
                                VerticalOptions="Center"
-                               FontSize="60"/>
+                               FontSize="30"/>
+                        <!--<StackLayout.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding SubtractDurationValueCommand}"
+                                                  CommandParameter="{Binding Text, Source={x:Reference ten}}"/>
+                        </StackLayout.GestureRecognizers>-->
                     </StackLayout>
+                        <Frame.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding SubtractDurationValueCommand}"
+                                                  CommandParameter="{Binding Text, Source={x:Reference ten}}"/>
+                        </Frame.GestureRecognizers>
+                    </Frame>
                 </StackLayout>
+
+
+
             </StackLayout>
+                <StackLayout Margin="0,30">
+                    <Button Text="{x:Static views:FontIcons.CkeckIcon}"
+                            Command="{Binding ConfirmCommand}"
+                            FontSize="100"
+                            TextColor="White"
+                            HorizontalOptions="Center"
+                            VerticalOptions="Start"
+                            BackgroundColor="Transparent"
+                        FontFamily="{x:StaticResource PostFontIcon}"/>
+                </StackLayout>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

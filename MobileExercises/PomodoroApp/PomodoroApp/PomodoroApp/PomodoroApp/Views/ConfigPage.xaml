@@ -16,8 +16,8 @@
         </ResourceDictionary>
     </ContentPage.Resources>
     <ContentPage.Content>
-        <StackLayout BackgroundColor="{Binding BackgColor}">
-            <StackLayout>
+        <ScrollView BackgroundColor="{Binding BackgColor}">
+            <StackLayout  Padding="20,0">
                 <StackLayout.Resources>
                     <ResourceDictionary>
                         <Style TargetType="Label">
@@ -42,7 +42,7 @@
                         </Label.Text>
                     </Label>
                     <StackLayout>
-                        <Grid Margin="10,0" HorizontalOptions="Center">
+                        <Grid Margin="0" HorizontalOptions="Center">
                             <Grid.Resources>
                                 <ResourceDictionary>
                                     <Style TargetType="Label">
@@ -61,7 +61,7 @@
                                         <Setter Property="BackgroundColor" Value="#20ffffff"/>
                                         <Setter Property="CornerRadius" Value="10"/>
                                         <Setter Property="Padding" Value="0"/>
-                                        <Setter Property="Margin" Value="5,0"/>
+                                        <Setter Property="Margin" Value="0"/>
                                     </Style>
                                 </ResourceDictionary>
                             </Grid.Resources>
@@ -77,49 +77,52 @@
                                    Grid.Column="0"
                                    HeightRequest="{Binding Width, Source={x:Reference pomo}}">
                                 <StackLayout>
-                                    <Label Text="{Binding TimesList, Converter={StaticResource timeListToStringConv},ConverterParameter=Pomodoro}"
+                                    <Label Text="{Binding TimesList, Converter={StaticResource timeListToStringConv},ConverterParameter=POMODORO}"
                                            VerticalOptions="EndAndExpand"
                                            FontSize="50"/>
                                     <Label Text="POMODORO"
                                        Margin="0,0,0,20"
                                        VerticalOptions="Start">
                                     </Label>
-                                    <StackLayout.GestureRecognizers>
-                                        <TapGestureRecognizer Command="{Binding UpdateTimeCommand}" CommandParameter="Pomodoro"/>
-                                    </StackLayout.GestureRecognizers>
                                 </StackLayout>
                                 <Frame.GestureRecognizers>
-                                    <TapGestureRecognizer Command="{mark:NavigationCommand Route={x:Type views:UpdateTimePage} }"/>
+                                    <TapGestureRecognizer Command="{Binding UpdateTimeCommand}" CommandParameter="POMODORO"/>
                                 </Frame.GestureRecognizers>
                             </Frame>
                             <Frame Grid.Column="1"  
                                          HeightRequest="{Binding Width, Source={x:Reference pomo}}">
                                 <StackLayout >
-                                    <Label Text="{Binding TimesList, Converter={StaticResource timeListToStringConv},ConverterParameter=Short}"
+                                    <Label Text="{Binding TimesList, Converter={StaticResource timeListToStringConv},ConverterParameter=SHORT}"
                                        VerticalOptions="EndAndExpand"
                                        FontSize="50"/>
                                     <Label Margin="0,0,0,20"
                                        VerticalOptions="Start"
                                        HorizontalOptions="CenterAndExpand">
                                         <Label.Text>
-                                            <mark:MessageExtention MessageKey="Pause"/>
+                                            <mark:MessageExtention MessageKey="Break"/>
                                         </Label.Text>
                                     </Label>
                                 </StackLayout>
+                                <Frame.GestureRecognizers>
+                                    <TapGestureRecognizer Command="{Binding UpdateTimeCommand}" CommandParameter="SHORT"/>
+                                </Frame.GestureRecognizers>
                             </Frame>
                             <Frame Grid.Column="2" HeightRequest="{Binding Width, Source={x:Reference pomo}}">
                                 <StackLayout 
                                          >
-                                    <Label Text="{Binding TimesList, Converter={StaticResource timeListToStringConv},ConverterParameter=Long}"
+                                    <Label Text="{Binding TimesList, Converter={StaticResource timeListToStringConv},ConverterParameter=LONG}"
                                        VerticalOptions="EndAndExpand"
                                        FontSize="50"/>
                                     <Label Margin="0,0,0,20"
                                        VerticalOptions="Start">
                                         <Label.Text>
-                                            <mark:MessageExtention MessageKey="LongPause"/>
+                                            <mark:MessageExtention MessageKey="LongBreak"/>
                                         </Label.Text>
                                     </Label>
                                 </StackLayout>
+                                <Frame.GestureRecognizers>
+                                    <TapGestureRecognizer Command="{Binding UpdateTimeCommand}" CommandParameter="LONG"/>
+                                </Frame.GestureRecognizers>
                             </Frame>
 
                         </Grid>
@@ -131,11 +134,11 @@
                     </Label.Text>
                 </Label>
                 <Frame BackgroundColor="#20ffffff"
-                       Margin="20,0"
+                       Margin="0"
                        CornerRadius="10"
                        Padding="10"
                        HorizontalOptions="CenterAndExpand"
-                       VerticalOptions="FillAndExpand"
+                       VerticalOptions="Start"
                        >
                     <Frame.Resources>
                         <ResourceDictionary>
@@ -337,8 +340,75 @@
                                 CommandParameter="{Binding Source={RelativeSource Self}, Path=BackgroundColor}"/>
                     </Grid>
                 </Frame>
+                <Label Style="{StaticResource SubTitle}">
+                    <Label.Text>
+                        <mark:MessageExtention MessageKey="Others"/>
+                    </Label.Text>
+                </Label>
+                <StackLayout VerticalOptions="Start"
+                             BackgroundColor="Transparent">
+                    <StackLayout.Resources>
+                        <ResourceDictionary>
+                            <Style TargetType="Frame">
+                                <Setter Property="BackgroundColor" Value="#20ffffff"/>
+                                <Setter Property="Padding" Value="0"/>
+                                <Setter Property="HeightRequest" Value="{Binding Width, Source={x:Reference pomo}}"/>
+                                <Setter Property="CornerRadius" Value="10"/>
+                            </Style>
+                        </ResourceDictionary>
+                    </StackLayout.Resources>
+                    <StackLayout HeightRequest="{Binding Width, Source={x:Reference pomo}}"
+                                 BackgroundColor="Transparent"
+                                 Orientation="Horizontal"
+                                 HorizontalOptions="FillAndExpand">
+                        <Frame Margin="0,0,3,0" HorizontalOptions="StartAndExpand" WidthRequest="1000">
+                            <StackLayout HorizontalOptions="FillAndExpand">
+                                <Label Text="{Binding PomodoroControlVm.PomodoroTimesBeforeLongBreak}"
+                                       FontSize="40"
+                                       Margin="0,15,0,0"
+                                       VerticalOptions="StartAndExpand" 
+                                       HorizontalOptions="CenterAndExpand">
+                                </Label>
+                                <Label FontSize="15"
+                                       VerticalOptions="End"
+                                       Margin="0,0,0,5"
+                                       HorizontalOptions="Center"
+                                       HorizontalTextAlignment="Center"
+                                       LineBreakMode="WordWrap">
+                                    <Label.Text>
+                                        <mark:MessageExtention MessageKey="PomodoroUntilLongBreak"/>
+                                    </Label.Text>
+                                </Label>
+                            </StackLayout>
+
+                        </Frame>
+                        <Frame HorizontalOptions="EndAndExpand" Margin="3,0,0,0" WidthRequest="1000">
+                            <StackLayout HorizontalOptions="FillAndExpand">
+                                <Label Text="{Binding PomodoroControlVm.DailyGoal}"
+                                       FontSize="40"
+                                       Margin="0,15,0,0"
+                                       VerticalOptions="StartAndExpand" 
+                                       HorizontalOptions="CenterAndExpand">
+                                </Label>
+                                <Label FontSize="15"
+                                       Margin="0,0,0,5"
+                                       VerticalOptions="End"
+                                       HorizontalOptions="Center"
+                                       HorizontalTextAlignment="Center"
+                                       LineBreakMode="WordWrap">
+                                    <Label.Text>
+                                        <mark:MessageExtention MessageKey="DailyGoal"/>
+                                    </Label.Text>
+                                    <!--<Label.GestureRecognizers>
+                                        <TapGestureRecognizer Command="{Binding TestCommand}" />
+                                    </Label.GestureRecognizers>-->
+                                </Label>
+                            </StackLayout>
+                        </Frame>
+                    </StackLayout>
+                </StackLayout>
             </StackLayout>
-            
-        </StackLayout>
+
+        </ScrollView>
     </ContentPage.Content>
 </ContentPage>

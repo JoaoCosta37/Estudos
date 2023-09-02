@@ -11,33 +11,31 @@ namespace PomodoroApp.Models
     {
         [PrimaryKey, AutoIncrement]
         public int Id { get; set; }
-        public int Count { get; set; }
-        public bool PomodoroFinished { get; set; }
-        public int DailyTotal { get; set; }
-        public int PomodoroTimesBeforeLongPause { get; set; }
+        public int CountToLongBreak { get; set; }
+        public int DailyCount { get; set; }
+        //public int DailyTotal { get; set; }
+        public int DailyGoal { get; set; }
+        public int Progress { get; set; }
+        public int PomodoroTimesBeforeLongBreak { get; set; }
 
+        //public bool PomodoroFinished { get; set; }
 
         [Column("Durations")]
-        public string DurationsJson { get; set; }
-        [Ignore]
-        public List<TimeDuration> Durations
-        {
-            get { return JsonConvert.DeserializeObject<List<TimeDuration>>(DurationsJson); }
-            set { DurationsJson = JsonConvert.SerializeObject(value);}
+        public string DurationsJson { get
+            {
+               return JsonConvert.SerializeObject(Durations);
+            }
+            set
+            {
+                Durations = JsonConvert.DeserializeObject<List<TimeDuration>>(value);
+            }
         }
+
+        [Ignore]
+        public List<TimeDuration> Durations { get; set; }
 
 
         [Column("CurrentType")]
-        public int CurrentTypeValue { get; set; }
-
-        [Ignore]
-        public TimeType CurrentType
-        {
-            get => (TimeType)CurrentTypeValue;
-            set
-            {
-                CurrentTypeValue = (int)value;
-            }
-        }
+        public int TimeTypeValue { get; set; }
     }
 }

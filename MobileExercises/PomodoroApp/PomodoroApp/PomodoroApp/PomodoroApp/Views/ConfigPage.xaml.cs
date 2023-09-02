@@ -1,5 +1,7 @@
 ﻿using PomodoroApp.Singles;
 using PomodoroApp.ViewModels;
+using PomodoroApp.ViewModels.Events;
+using Prism.Events;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,9 +16,12 @@ namespace PomodoroApp.Views
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class ConfigPage : ContentPage
     {
-        public ConfigPage()
+        private readonly IEventAggregator eventAggregator;
+
+        public ConfigPage(IEventAggregator eventAggregator)
         {
             InitializeComponent();
+            this.eventAggregator = eventAggregator;
             //SizeChanged += (sender, e) => sizeChangedHandler(sender, e);
 
         }
@@ -56,6 +61,7 @@ namespace PomodoroApp.Views
         protected override bool OnBackButtonPressed()
         {
             BackgColorInstance.UpdateBackgColor();
+            eventAggregator.GetEvent<ConfigChangedEvent>().Publish(new ConfigChangedEventArgs() { ConfigName = nameof(MainPageViewModel.PomodoroControlVm) });
             return base.OnBackButtonPressed() ;
         }
 

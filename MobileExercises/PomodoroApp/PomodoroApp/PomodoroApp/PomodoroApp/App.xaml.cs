@@ -38,7 +38,7 @@ namespace PomodoroApp
         protected override async void OnInitialized()
         {
             InitializeComponent();
-            await NavigationService.NavigateAsync(nameof(Views.MainPage));
+            await NavigationService.NavigateAsync(nameof(Views.ConfigPage));
         }
         protected override void RegisterTypes(IContainerRegistry containerRegistry)
         {

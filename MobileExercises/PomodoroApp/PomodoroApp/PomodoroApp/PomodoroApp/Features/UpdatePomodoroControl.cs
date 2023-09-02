@@ -8,6 +8,8 @@ using PomodoroApp.Models;
 using PomodoroApp.Enums;
 using PomodoroApp.ViewModels;
 using PomodoroApp.Repositorys;
+using PomodoroApp.Singles;
+using Xamarin.Forms.Internals;
 
 namespace PomodoroApp.Features
 {
@@ -15,92 +17,196 @@ namespace PomodoroApp.Features
     {
         public class Command : IRequest<OperationResult>
         {
-            public PomodoroControlViewModel PomodoroControlViewModel { get; set; }
-
+            //public bool IsStart { get; set; }
         }
-
-        //public class CommandValidator : IPipelineBehavior<Command, OperationResult>
-        //{
-        //    private readonly IChatRoomService chatRoomService;
-
-        //    public CommandValidator(IChatRoomService chatRoomService, IEnumerable<IRequestPreProcessor<Command>> preProcessors)
-        //    {
-        //        this.chatRoomService = chatRoomService;
-        //    }
-        //    public async Task<OperationResult> Handle(Command request, CancellationToken cancellationToken, RequestHandlerDelegate<OperationResult> next)
-        //    {
-        //        var exist = await chatRoomService.ExistChatRoom(request.ChatRoom.Id);
-        //        if (exist)
-        //        {
-        //            return OperationResult.Failure("*", "Chat já exite");
-        //        }
-        //        else
-        //        {
-        //            return await next();
-        //        }
-
-        //    }
-
-
-        //}
 
         public class Handler : IRequestHandler<Command, OperationResult>
         {
-            private readonly PomodoroControlRepository pomodoroControlRepository;
 
-            public Handler(PomodoroControlRepository pomodoroControlRepository)
+            public Handler()
             {
-                this.pomodoroControlRepository = pomodoroControlRepository;
+                string value;
+
+                var test = value == "POMO" ? TimeType.POMODORO : TimeType.SHORT;
             }
 
             public async Task<OperationResult> Handle(Command request, CancellationToken cancellationToken)
             {
-                switch (request.PomodoroControlViewModel.CurrentType)
+                //Esse Handle trabaha com Progress, que indica os que já foram rodados e o TimeTypeValue, que indica o que foi rodado antes
+                //de chamar o command.
+
+                int initialPosition = -1;
+                int pom = (int)TimeType.POMODORO;
+                int sht = (int)TimeType.SHORT;
+                int lon = (int)TimeType.LONG;
+                //if ((PomodoroControlInstance.Instance.Progress + 1) != PomodoroControlInstance.Instance.TimeTypeValue)
+                //{
+                //    PomodoroControlInstance.Instance.TimeTypeValue = PomodoroControlInstance.Instance.Progress + 1;
+                //    return OperationResult.Success("OK");
+                //}
+
+                //if (request.IsStart)
+                //{
+                //    if (PomodoroControlInstance.Instance.Progress == sht
+                //        && PomodoroControlInstance.Instance.CountToLongBreak < PomodoroControlInstance.Instance.PomodoroTimesBeforeLongBreak)
+
+                //        PomodoroControlInstance.Instance.Progress = initialPosition;
+                //    else if (PomodoroControlInstance.Instance.Progress == lon
+
+                //        && PomodoroControlInstance.Instance.CountToLongBreak == PomodoroControlInstance.Instance.PomodoroTimesBeforeLongBreak)
+                //    {
+                //        PomodoroControlInstance.Instance.Progress = initialPosition;
+                //        PomodoroControlInstance.Instance.CountToLongBreak = 0;
+                //    }
+
+                //    //else if (PomodoroControlInstance.Instance.CountToLongBreak == PomodoroControlInstance.Instance.PomodoroTimesBeforeLongBreak)
+                //    //{
+                //    //    PomodoroControlInstance.Instance.ProgressPosition = sht;
+                //    //    PomodoroControlInstance.Instance.TimeTypeValue = lon;
+                //    //}
+                //}
+                //else
+                //{
+                //switch (PomodoroControlInstance.Instance.TimeTypeValue)
+                //{
+                //    case pom:
+                //        {
+                //            if (PomodoroControlInstance.Instance.ProgressPosition == initialPosition)
+                //            {
+                //                PomodoroControlInstance.Instance.CountToLongBreak += 1;
+                //                PomodoroControlInstance.Instance.DailyCount += 1;
+                //            }
+
+                //            if (PomodoroControlInstance.Instance.CountToLongBreak == PomodoroControlInstance.Instance.PomodoroTimesBeforeLongBreak)
+                //            {
+                //                PomodoroControlInstance.Instance.ProgressPosition = shr;
+                //                PomodoroControlInstance.Instance.TimeTypeValue = lon;
+                //                break;
+                //            }
+                //            PomodoroControlInstance.Instance.ProgressPosition = pom;
+                //            PomodoroControlInstance.Instance.TimeTypeValue = shr;
+                //            break;
+
+                //        }
+                //    case shr:
+                //        {
+                //            if (PomodoroControlInstance.Instance.ProgressPosition == pom)
+                //            {
+                //                PomodoroControlInstance.Instance.ProgressPosition = shr;
+                //            }
+                //            else if (PomodoroControlInstance.Instance.ProgressPosition == shr
+                //                && PomodoroControlInstance.Instance.CountToLongBreak == PomodoroControlInstance.Instance.PomodoroTimesBeforeLongBreak)
+                //            {
+                //                PomodoroControlInstance.Instance.TimeTypeValue = lon;
+                //            }
+                //            PomodoroControlInstance.Instance.TimeTypeValue = pom;
+                //            break;
+                //        }
+                //    case lon:
+                //        {
+                //            if (PomodoroControlInstance.Instance.ProgressPosition == shr
+                //                && PomodoroControlInstance.Instance.CountToLongBreak == PomodoroControlInstance.Instance.PomodoroTimesBeforeLongBreak)
+                //            {
+                //                PomodoroControlInstance.Instance.ProgressPosition = lon;
+                //                PomodoroControlInstance.Instance.TimeTypeValue = pom;
+                //                break;
+                //            }
+                //            else if (PomodoroControlInstance.Instance.ProgressPosition == initialPosition)
+                //            {
+                //                PomodoroControlInstance.Instance.TimeTypeValue = pom;
+                //                break;
+                //            }
+                //            else if (PomodoroControlInstance.Instance.ProgressPosition == pom)
+                //            {
+                //                PomodoroControlInstance.Instance.TimeTypeValue = shr;
+                //                break;
+                //            }
+                //            else
+                //            {
+                //                PomodoroControlInstance.Instance.TimeTypeValue = pom;
+                //                break;
+                //            }
+
+                //        }
+                //}
+
+                switch (PomodoroControlInstance.Instance.Progress)
                 {
-                    case TimeType.Pomodoro:
+                    case -1:
                         {
-                            if (request.PomodoroControlViewModel.PomodoroFinished) break;
-                            request.PomodoroControlViewModel.PomodoroFinished = true;
-                            if (request.PomodoroControlViewModel.Count == request.PomodoroControlViewModel.PomodoroTimesBeforeLongPause)
+                            PomodoroControlInstance.Instance.CountToLongBreak += 1;
+                            PomodoroControlInstance.Instance.DailyCount += 1;
+                            if (PomodoroControlInstance.Instance.CountToLongBreak == PomodoroControlInstance.Instance.PomodoroTimesBeforeLongBreak)
                             {
-                                request.PomodoroControlViewModel.CurrentType = TimeType.Long;
+                                PomodoroControlInstance.Instance.Progress = sht;
+                                PomodoroControlInstance.Instance.TimeTypeValue = lon;
                                 break;
                             }
-                            request.PomodoroControlViewModel.Count += 1;
-                            request.PomodoroControlViewModel.CurrentType = TimeType.Short;
+                            PomodoroControlInstance.Instance.Progress = pom;
+                            PomodoroControlInstance.Instance.TimeTypeValue = sht;
                             break;
-                        }
-                    case TimeType.Short:
-                        {
-                            request.PomodoroControlViewModel.PomodoroFinished = false;
-                            request.PomodoroControlViewModel.CurrentType = TimeType.Pomodoro;
-                            break;
-                            //if (request.PomodoroControlViewModel.Count == 0)
+                            //if (PomodoroControlInstance.Instance.TimeTypeValue == pom)
                             //{
-                            //    request.PomodoroControlViewModel.Count = 0;
+                            //    PomodoroControlInstance.Instance.CountToLongBreak += 1;
+                            //    PomodoroControlInstance.Instance.DailyCount += 1;
+                            //    if (PomodoroControlInstance.Instance.CountToLongBreak == PomodoroControlInstance.Instance.PomodoroTimesBeforeLongBreak)
+                            //    {
+                            //        PomodoroControlInstance.Instance.Progress = sht;
+                            //        PomodoroControlInstance.Instance.TimeTypeValue = lon;
+                            //        break;
+                            //    }
+                            //    PomodoroControlInstance.Instance.Progress = pom;
+                            //    PomodoroControlInstance.Instance.TimeTypeValue = sht;
                             //    break;
                             //}
-
+                            //PomodoroControlInstance.Instance.TimeTypeValue = pom;
+                            //break;
                         }
-                    case TimeType.Long:
+                    case (int)TimeType.POMODORO:
                         {
-                            request.PomodoroControlViewModel.PomodoroFinished = false;
-                            request.PomodoroControlViewModel.CurrentType = TimeType.Pomodoro;
+                            //Se o progress está pomodoro, tinha que ter rodado short, pois quendo encerra o pomodoro e é hora de rodar o long
+                            //ele pula o progress para short direto.
+
+
+                            PomodoroControlInstance.Instance.Progress = sht;
+                            PomodoroControlInstance.Instance.TimeTypeValue = pom;
                             break;
+
+                            //if (PomodoroControlInstance.Instance.TimeTypeValue == sht)
+                            //{
+                            //    PomodoroControlInstance.Instance.Progress = sht;
+                            //    PomodoroControlInstance.Instance.TimeTypeValue = pom;
+                            //    break;
+                            //}
+                            //PomodoroControlInstance.Instance.TimeTypeValue = sht;
+                            //break;
+                        }
+                    case (int)TimeType.SHORT:
+                        {
+                            //Se está short, tinha que ter rodado long, uma vez que quando está short e ainda não deu o número
+                            //de pomodoros, ele seta o progess em -1.
+                            PomodoroControlInstance.Instance.Progress = lon;
+                            PomodoroControlInstance.Instance.TimeTypeValue = pom;
+                            PomodoroControlInstance.Instance.CountToLongBreak = 0;
+                            break;
+
+                            //if (PomodoroControlInstance.Instance.TimeTypeValue == lon)
+                            //{
+                            //    PomodoroControlInstance.Instance.Progress = lon;
+                            //    PomodoroControlInstance.Instance.TimeTypeValue = pom;
+                            //    break;
+                            //}
+                            //PomodoroControlInstance.Instance.TimeTypeValue = lon;
+                            //break;
                         }
                 }
-                await pomodoroControlRepository.SavePomodoroControlAsync(request.PomodoroControlViewModel.PomodoroControl);
+                //}
+
+                PomodoroControlInstance.SavePomodoroControlAsync();
 
                 return OperationResult.Success("OK");
 
             }
-
-            //public Task<OperationResult> IRequestHandler<Command, OperationResult>Handle(Command request, CancellationToken cancellationToken)
-            //{
-            //    await chatRoomService.CreateChatRoomAsync(request.ChatRoom);
-
-            //    throw new NotImplementedException();
-            //}
         }
     }
 }

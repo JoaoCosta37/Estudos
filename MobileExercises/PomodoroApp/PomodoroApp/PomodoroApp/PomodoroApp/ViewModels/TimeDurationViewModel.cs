@@ -44,6 +44,18 @@ namespace PomodoroApp.ViewModels
             }
         }
 
+        public override bool Equals(object obj)
+        {
+            return obj is TimeDurationViewModel model &&
+                   EqualityComparer<TimeDuration>.Default.Equals(timeDuration, model.timeDuration) &&
+                   EqualityComparer<TimeDuration>.Default.Equals(TimeDuration, model.TimeDuration) &&
+                   TimeType == model.TimeType &&
+                   Duration.Equals(model.Duration);
+        }
 
+        public override int GetHashCode()
+        {
+            return HashCode.Combine(timeDuration, TimeDuration, TimeType, Duration);
+        }
     }
 }

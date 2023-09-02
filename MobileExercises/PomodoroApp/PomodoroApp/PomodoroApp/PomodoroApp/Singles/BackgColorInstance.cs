@@ -10,7 +10,7 @@ using Xamarin.Forms;
 
 namespace PomodoroApp.Singles
 {
-    public class BackgColorInstance : BindableBase
+    public class BackgColorInstance
     {
         private static BackgColor instance;
         private static BackgColorRepository backgColorRepository;
@@ -33,8 +33,7 @@ namespace PomodoroApp.Singles
         private static void setBackgColor()
         {
             backgColorRepository = new BackgColorRepository();
-            var backgColor = backgColorRepository.GetBackgColor().Result;
-            instance = backgColor;
+            instance = backgColorRepository.GetBackgColor().Result;
         }
         public static void UpdateBackgColor()
         {

@@ -17,78 +17,105 @@ using System.Xml.Schema;
 using PomodoroApp.Features;
 using MediatR;
 using System.Linq;
+using PomodoroApp.Enums;
+using System.Globalization;
 
 namespace PomodoroApp.ViewModels
 {
-    public class MainPageViewModel : BindableBase, INavigationAware
+    public class MainPageViewModel : BindableBase
     {
-        private TimeSpan pomodoro;
+        private Timer timer;
+        public string backgColor;
         private TimeSpan currentTime;
         private TimeSpan remainingTime;
-        private Timer timer;
         private bool isStarted = false;
-        private List<TimeDurationViewModel> timesList = new List<TimeDurationViewModel>();
-        private PomodoroControlViewModel pomodoroControlVm;
-        public string backgColor;
-        private readonly INavigationService navigationService;
-        private readonly BackgColorRepository backgColorRepository;
-        private readonly PomodoroControlRepository pomodoroControlRepository;
-        private readonly IEventAggregator eventAggregator;
+        private int positionSelectedItem;
         private readonly IMediator mediator;
+        private readonly INavigationService navigationService;
+        private readonly IEventAggregator eventAggregator;
 
         public MainPageViewModel(INavigationService navigationService,
-                                 BackgColorRepository backgColorRepository,
-                                 PomodoroControlRepository pomodoroControlRepository,
                                  IEventAggregator eventAggregator,
                                  IMediator mediator)
         {
-            this.navigationService = navigationService;
-            this.backgColorRepository = backgColorRepository;
-            this.pomodoroControlRepository = pomodoroControlRepository;
-            this.eventAggregator = eventAggregator;
             this.mediator = mediator;
-            this.TimeControllerCommand = new Command((() => timeController()));
+            this.eventAggregator = eventAggregator;
+            this.navigationService = navigationService;
+
             this.RestartCommand = new Command((() => reset()));
+            this.TimeControllerCommand = new Command((() => timeController()));
 
             this.eventAggregator.GetEvent<ConfigChangedEvent>().Subscribe(ConfigEventHandler);
 
-            this.reset();
-            //this.setTimeList();
-            this.setPomodoroControl();
+
+            this.loadTimeType();
         }
-        public TimeDuration SelectedItem
+        #region Properties
+        public int PositionSelectedItem
         {
-            get
-            {
-                var result = this.TimesList.Where<TimeDuration>((x) => this.PomodoroControlVm.CurrentType == x.TimeType).FirstOrDefault();
-                return result;
-            }
+            get => this.positionSelectedItem;
             set
             {
-                this.Pomodoro = value.Duration;
-                this.PomodoroControlVm.CurrentType = value.TimeType;
-                RaisePropertyChanged();
-                RaisePropertyChanged("CurrentTime");
-            }
-        }
-        public List<TimeDuration> TimesList
-        {
-            get => this.PomodoroControlVm.PomodoroControl.Durations;
-            set
-            {
-                this.PomodoroControlVm.PomodoroControl.Durations = value;
+                this.positionSelectedItem = value;
+                this.RemainingTime = PomodoroControlVm.Durations[value].TimeDuration.Duration;
                 RaisePropertyChanged();
             }
         }
         public PomodoroControlViewModel PomodoroControlVm
         {
-            get => this.pomodoroControlVm;
+            get => PomodoroControlInstance.Instance;
             set
             {
-                this.pomodoroControlVm = value;
+                PomodoroControlInstance.Instance = value;
                 RaisePropertyChanged();
             }
 
+        }
+        public List<TimeDurationViewModel> TimesList
+        {
+            get => this.PomodoroControlVm.Durations;
+            set
+            {
+                this.PomodoroControlVm.Durations = value;
+                RaisePropertyChanged();
+            }
+        }
+        public int Progress
+        {
+            get => this.PomodoroControlVm.Progress;
+            set
+            {
+                this.PomodoroControlVm.Progress = value;
+                RaisePropertyChanged();
+            }
+        }
+        public double PomodoroProgressPorcent
+        {
+            get => this.porcentCustom(this.PomodoroControlVm.CountToLongBreak, this.PomodoroControlVm.PomodoroTimesBeforeLongBreak);
+        }
+        public string PomodoroProgressIndicator
+        {
+            get => $"{this.PomodoroControlVm.CountToLongBreak}/{this.PomodoroControlVm.PomodoroTimesBeforeLongBreak}";
+        }
+        public string DailyProgressIndicator
+        {
+            get => $"{this.PomodoroControlVm.DailyCount}/{this.PomodoroControlVm.DailyGoal}";
+        }
+        public double DailyProgressPorcent
+        {
+            get => this.porcentCustom(this.PomodoroControlVm.DailyCount, this.PomodoroControlVm.DailyGoal);
+
+        }
+
+        public TimeSpan CurrentTime
+        {
+            get => this.currentTime;
+            set
+            {
+                this.currentTime = value;
+                this.RemainingTime = this.Pomodoro - this.CurrentTime;
+                RaisePropertyChanged();
+            }
         }
         public Color BackgColor
         {
@@ -102,6 +129,18 @@ namespace PomodoroApp.ViewModels
                 BackgColorInstance.Instance = value;
             }
         }
+        bool isCorrectTimeType
+        {
+            get => this.PositionSelectedItem == this.PomodoroControlVm.TimeTypeValue;
+        }
+        public TimeType CurrentType
+        {
+            get => (TimeType)Enum.ToObject(typeof(TimeType), this.PositionSelectedItem);
+        }
+        public bool CanRestart
+        {
+            get => this.IsStarted && !IsRunning;
+        }
         public bool IsStarted
         {
             get => this.isStarted;
@@ -109,6 +148,14 @@ namespace PomodoroApp.ViewModels
             {
                 this.isStarted = value;
                 RaisePropertyChanged();
+            }
+        }
+        public bool IsRunning
+        {
+            get
+            {
+                var result = this.timer?.Enabled ?? false;
+                return result;
             }
         }
         public TimeSpan RemainingTime
@@ -122,108 +169,44 @@ namespace PomodoroApp.ViewModels
         }
         public TimeSpan Pomodoro
         {
-            get => this.pomodoro;
+            get => this.PomodoroControlVm.Durations[this.PositionSelectedItem].TimeDuration.Duration;
             set
             {
-                this.pomodoro = value;
+                //this.PomodoroControlVm.Durations[this.PositionSelectedItem].TimeDuration.Duration = value;
                 this.RemainingTime = value;
                 RaisePropertyChanged();
             }
         }
-        public bool IsRunning
-        {
-            get
-            {
-                var result = this.timer?.Enabled ?? false;
 
-                return result;
-            }
-        }
-        public TimeSpan CurrentTime
-        {
-            get => this.currentTime;
-            set
-            {
-                this.currentTime = value;
-                this.RemainingTime = this.pomodoro - this.currentTime;
-                RaisePropertyChanged();
-            }
-        }
+
+        #endregion
         public Command TimeControllerCommand { get; set; }
         public Command RestartCommand { get; set; }
 
+        #region Methods
         private void ConfigEventHandler(ConfigChangedEventArgs args)
         {
             if (args.ConfigName == nameof(this.BackgColor))
             {
                 RaisePropertyChanged(nameof(this.BackgColor));
             }
+            if (args.ConfigName == nameof(this.PomodoroControlVm))
+            {
+                RaisePropertyChanged();
+                RaisePropertyChanged(nameof(this.PomodoroControlVm));
+                RaisePropertyChanged(nameof(this.TimesList));
+            }
         }
-
-        private void timeController()
-        {
-            if (!this.IsStarted)
-            {
-                this.IsStarted = true;
-                this.timerStart();
-            }
-            else if (this.timer.Enabled)
-            {
-                this.timer.Stop();
-                RaisePropertyChanged(nameof(CurrentTime));
-            }
-            else
-            {
-                this.timerStart();
-            }
-            RaisePropertyChanged(nameof(this.IsRunning));
-        }
-
-        private void timerStart()
-        {
-            if (timer == null)
-            {
-                this.timer = new Timer();
-                this.timer.Interval = 1000;
-                this.timer.Elapsed += Timer_Elapsed;
-            }
-            timer.Start();
-        }
-
         private void Timer_Elapsed(object sender, ElapsedEventArgs e)
         {
+            CurrentTime = CurrentTime.Add(TimeSpan.FromSeconds(1));
             if (RemainingTime == TimeSpan.Zero)
             {
                 this.timer.Stop();
+                this.updatePomodoroControl();
                 return;
             }
-            CurrentTime = CurrentTime.Add(TimeSpan.FromSeconds(1));
-            if (RemainingTime == new TimeSpan())
-            {
-                this.updatePomodoroControl();
-            }
         }
-
-        //private void setTimeList()
-        //{
-        //    var timeL = this.timeDurationRepository.GetTimeDurationListAsync().Result;
-        //    foreach (var time in timeL)
-        //    {
-        //        this.TimesList.Add(new TimeDurationViewModel(time));
-        //    }
-        //}
-        private void setPomodoroControl()
-        {
-            var pomodoroC = this.pomodoroControlRepository.GetPomodoroControlAsync().Result;
-            this.pomodoroControlVm = new PomodoroControlViewModel(pomodoroC);
-        }
-        private async void updatePomodoroControl()
-        {
-            var command = new UpdatePomodoroControl.Command() { PomodoroControlViewModel = pomodoroControlVm };
-            var result = await mediator.Send(command);
-            this.reset();
-        }
-
         private void reset()
         {
             if (this.timer != null)
@@ -233,18 +216,80 @@ namespace PomodoroApp.ViewModels
             }
             this.IsStarted = false;
             this.CurrentTime = new TimeSpan();
-        }
+            setCorrectPosition();
+            RaisePropertyChanged(nameof(this.CanRestart));
 
-        public void OnNavigatedFrom(INavigationParameters parameters)
+        }
+        private void timeController()
         {
-            parameters.Add("PomodoroControl", this.pomodoroControlVm);
-
+            if (!this.IsStarted)
+            {
+                this.IsStarted = true;
+                this.timerStart();
+            }
+            else if (this.IsRunning)
+            {
+                this.timer.Stop();
+                RaisePropertyChanged(nameof(CurrentTime));
+            }
+            else
+            {
+                this.timerStart();
+            }
+            RaisePropertyChanged(nameof(this.IsRunning));
+            RaisePropertyChanged(nameof(this.CurrentType));
+            RaisePropertyChanged(nameof(this.CanRestart));
         }
-
-        public void OnNavigatedTo(INavigationParameters parameters)
+        private void timerStart()
         {
-            //RaisePropertyChanged(nameof(this.BackgColor));
+            if (timer == null)
+            {
+            if (this.isCorrectTimeType && this.PomodoroControlVm.TimeTypeValue == 0)
+            {
+                this.Progress = -1;
+            }
+                this.timer = new Timer();
+                this.timer.Interval = 1000;
+                this.timer.Elapsed += Timer_Elapsed;
+            }
+            timer.Start();
         }
+        private void loadTimeType()
+        {
+            //PomodoroControlInstance.UpdatePomodoroControlAsync(mediator, true);
+            setCorrectPosition();
+            //var command = new UpdateStatistics.Command();
+            //mediator.Send(command);
+            //RaisePropertyChanged(nameof(this.Progress));
+        }
+        private void updatePomodoroControl()
+        {
+            if (this.isCorrectTimeType)
+            {
+                PomodoroControlInstance.UpdatePomodoroControlAsync(mediator);
+            }
+            else
+            {
+                setCorrectPosition();
+            }
+            RaisePropertyChanged(nameof(this.Progress));
+            RaisePropertyChanged(nameof(this.DailyProgressIndicator));
+            RaisePropertyChanged(nameof(this.DailyProgressPorcent));
+            RaisePropertyChanged(nameof(this.PomodoroProgressPorcent));
+            RaisePropertyChanged(nameof(this.PomodoroProgressIndicator));
+            this.reset();
+        }
+        private void setCorrectPosition()
+        {
+            this.PositionSelectedItem = this.PomodoroControlVm.TimeTypeValue;
+        }
+        private double porcentCustom(int firstValue, int secundValue)
+        {
+            if (secundValue == 0) return 1;
+            var porcent = (double)firstValue/secundValue;
+            return porcent > 1 ? 1 : porcent;
+        }
+        #endregion
     }
 
 
