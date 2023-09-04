@@ -12,13 +12,13 @@ using Xamarin.Forms;
 
 namespace PomodoroApp.ViewModels
 {
-    public class UpdateTimePageViewModel : BindableBase, INavigatedAware
+    public class AlterValuePageViewModel : BindableBase, INavigatedAware
     {
         private readonly INavigationService navigationService;
         private readonly IEventAggregator eventAggregator;
         private TimeDurationViewModel timeDurationVm;
 
-        public UpdateTimePageViewModel( INavigationService navigationService, IEventAggregator eventAggregator)
+        public AlterValuePageViewModel( INavigationService navigationService, IEventAggregator eventAggregator)
         {
             AddDurationValueCommand = new Command((x) => updateDurationValue(true, x));
             SubtractDurationValueCommand = new Command((x) => updateDurationValue(false, x));

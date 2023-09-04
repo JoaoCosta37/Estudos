@@ -10,9 +10,9 @@ using Xamarin.Forms.Xaml;
 namespace PomodoroApp.Views
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class UpdateTimePage : ContentPage
+    public partial class AlterValuePage : ContentPage
     {
-        public UpdateTimePage()
+        public AlterValuePage()
         {
             InitializeComponent();
         }

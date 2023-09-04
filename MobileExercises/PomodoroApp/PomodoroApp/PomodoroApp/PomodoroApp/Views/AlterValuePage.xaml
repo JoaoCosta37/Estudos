@@ -4,16 +4,16 @@
              xmlns:views="clr-namespace:PomodoroApp.Views"
              xmlns:mark="clr-namespace:PomodoroApp.Views.Markup"
              xmlns:conv="clr-namespace:PomodoroApp.Views.Converters"
-             x:Class="PomodoroApp.Views.UpdateTimePage">
+             x:Class="PomodoroApp.Views.AlterValuePage">
     <ContentPage.Resources>
         <conv:TimeTypeToStringConverter x:Key="timeTypeToStringConv"/>
         <conv:TimeSpanToStringConverter x:Key="timeSpanToStringConv"/>
     </ContentPage.Resources>
     <ContentPage.Content>
         <StackLayout Orientation="Vertical"
-                     BackgroundColor="{Binding BackgColor}">
-            <StackLayout VerticalOptions="CenterAndExpand" Margin="0,80,0,0">
-                <Label HorizontalOptions="CenterAndExpand"
+                     BackgroundColor="{Binding BackgColor}" Padding="15,0">
+            <StackLayout VerticalOptions="CenterAndExpand" Margin="0,80,0,0" BackgroundColor="Black">
+                <Label HorizontalOptions="CenterAndExpand" BackgroundColor="DarkCyan"
                        VerticalOptions="Center"
                        Margin="20"
                        Text="{Binding TimeDurationVm.TimeDuration.TimeType, Converter={StaticResource timeTypeToStringConv}}"
@@ -23,13 +23,13 @@
                 <StackLayout Orientation="Horizontal"
                              VerticalOptions="Start"
                              Margin="18,0"
-                             HorizontalOptions="FillAndExpand">
+                             HorizontalOptions="FillAndExpand" BackgroundColor="DarkCyan">
                     <StackLayout.Resources>
                         <ResourceDictionary>
                             <Style TargetType="Button">
                                 <Setter Property="BackgroundColor" Value="Transparent"/>
                                 <Setter Property="TextColor" Value="White"/>
-                                <Setter Property="FontSize" Value="100"/>
+                                <Setter Property="FontSize" Value="70"/>
                                 <Setter Property="Padding" Value="0"/>
                             </Style>
                         </ResourceDictionary>
@@ -37,8 +37,9 @@
                     <Button Text="{x:Static views:FontIcons.PlusIcon}"
                             FontFamily="{x:StaticResource PostFontIcon}"
                             HorizontalOptions="Start"
+                            VerticalOptions="End"
                             Command="{Binding AddDurationValueCommand}"
-                            CommandParameter="1"/>
+                            CommandParameter="1" BackgroundColor="DarkGoldenrod" Padding="20,0,0,0" />
                     <Label Text="{Binding TimeDurationVm.TimeDuration.Duration, Converter={StaticResource timeSpanToStringConv}, ConverterParameter=1}"
                            FontSize="90"
                            HorizontalOptions="CenterAndExpand"
@@ -47,12 +48,19 @@
                     <Button Text="{x:Static views:FontIcons.MinusIcon}"
                             FontFamily="{x:StaticResource PostFontIcon}"
                             HorizontalOptions="End"
+                            VerticalOptions="End"
                             Command="{Binding SubtractDurationValueCommand}"
-                            CommandParameter="1"/>
+                            CommandParameter="1"
+                            BackgroundColor="DarkGoldenrod"
+                            Padding="0,0,20,0"/>
                 </StackLayout>
                 
 
-                <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand" Margin="50,100,50,0">
+                <StackLayout
+                    Orientation="Horizontal"
+                    HorizontalOptions="CenterAndExpand"
+                    Margin="50,50,50,0"
+                    BackgroundColor="DarkCyan">
                     <StackLayout.Resources>
                         <ResourceDictionary>
                             <Style TargetType="Label">
@@ -65,19 +73,21 @@
                                 
                             </Style>
                             <Style TargetType="Frame">
-                                <Setter Property="CornerRadius" Value="30"/>
-                                <Setter Property="HeightRequest" Value="60"/>
-                                <Setter Property="WidthRequest" Value="60"/>
+                                <Setter Property="CornerRadius" Value="24"/>
+                                <Setter Property="HeightRequest" Value="48"/>
+                                <Setter Property="WidthRequest" Value="48"/>
                                 <Setter Property="Padding" Value="0"/>
+                                <Setter Property="Margin" Value="20,0"/>
                                 <Setter Property="VerticalOptions" Value="CenterAndExpand"/>
                             </Style>
                         </ResourceDictionary>
                     </StackLayout.Resources>
-                    <Frame HorizontalOptions="Start">
+                    <Frame>
                         <StackLayout>
                             <Label Text="{x:Static views:FontIcons.InvertPlusIcon}"
                                    VerticalOptions="Center"
                                    FontSize="20"
+                                   BackgroundColor="DarkGray"
                                    FontFamily="{x:StaticResource PostFontIcon}"/>
                             <Label x:Name="ten"
                                    Text="10"
@@ -93,15 +103,16 @@
                                                   CommandParameter="{Binding Text, Source={x:Reference ten}}"/>
                         </Frame.GestureRecognizers>
                     </Frame>
-                    <Frame HorizontalOptions="EndAndExpand">
-                    <StackLayout>
+                    <Frame >
+                    <StackLayout BackgroundColor="DarkGoldenrod">
                         <Label Text="{x:Static views:FontIcons.InvertMinusIcon}"
                                VerticalOptions="Center"
                                FontSize="20"
-                               FontFamily="{x:StaticResource PostFontIcon}"/>
+                               BackgroundColor="DarkGray"
+                               FontFamily="{x:StaticResource PostFontIcon}" Padding="0"/>
                         <Label Text="{Binding Text, Source={x:Reference ten}}"
                                VerticalOptions="Center"
-                               FontSize="30"/>
+                               FontSize="30" BackgroundColor="DarkGray"/>
                         <!--<StackLayout.GestureRecognizers>
                             <TapGestureRecognizer Command="{Binding SubtractDurationValueCommand}"
                                                   CommandParameter="{Binding Text, Source={x:Reference ten}}"/>
@@ -117,16 +128,16 @@
 
 
             </StackLayout>
-                <StackLayout Margin="0,30">
-                    <Button Text="{x:Static views:FontIcons.CkeckIcon}"
-                            Command="{Binding ConfirmCommand}"
-                            FontSize="100"
-                            TextColor="White"
-                            HorizontalOptions="Center"
-                            VerticalOptions="Start"
-                            BackgroundColor="Transparent"
-                        FontFamily="{x:StaticResource PostFontIcon}"/>
-                </StackLayout>
+            <StackLayout Margin="0,30" BackgroundColor="Aquamarine">
+                <Button Text="{x:Static views:FontIcons.CkeckIcon}"
+                        Command="{Binding ConfirmCommand}"
+                        FontSize="80"
+                        TextColor="White"
+                        HorizontalOptions="Center"
+                        VerticalOptions="Start"
+                        BackgroundColor="Transparent"
+                    FontFamily="{x:StaticResource PostFontIcon}"/>
+            </StackLayout>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

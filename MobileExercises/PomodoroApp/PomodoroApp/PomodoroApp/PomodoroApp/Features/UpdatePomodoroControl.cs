@@ -25,9 +25,7 @@ namespace PomodoroApp.Features
 
             public Handler()
             {
-                string value;
 
-                var test = value == "POMO" ? TimeType.POMODORO : TimeType.SHORT;
             }
 
             public async Task<OperationResult> Handle(Command request, CancellationToken cancellationToken)

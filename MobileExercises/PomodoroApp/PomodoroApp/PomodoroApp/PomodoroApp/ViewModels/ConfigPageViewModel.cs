@@ -87,7 +87,7 @@ namespace PomodoroApp.ViewModels
             //{
             //    {"TimeType", this.TimesList.Where((x) => Enum.GetName(typeof(TimeType), x.TimeType) == param).FirstOrDefault()}
             //};
-            navigationService.NavigateAsync(nameof(UpdateTimePage));
+            navigationService.NavigateAsync(nameof(AlterValuePage));
             //var result = this.TimesList.Where<TimeDuration>((x) => this.PomodoroControlVm.CurrentType == x.TimeType).FirstOrDefault();
         }
         private void ConfigEventHandler(ConfigChangedEventArgs args)
