@@ -1,0 +1,416 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:conv="clr-namespace:PomodoroApp.Views.Converters"
+             xmlns:mark="clr-namespace:PomodoroApp.Views.Markup"
+             xmlns:views="clr-namespace:PomodoroApp.Views"
+             x:Class="PomodoroApp.Views.ConfigPage">
+    <ContentPage.Resources>
+        <conv:StringToColorConverter x:Key="stringToColorConv"/>
+        <conv:WidthToHeightConverter x:Key="widthToHeightConv"/>
+        <conv:TimeListToStringConverter x:Key="timeListToStringConv"/>
+        <ResourceDictionary>
+            <Style x:Key="ColorWithTransp" TargetType="Button">
+                <Setter Property="BackgroundColor" Value="White"/>
+            </Style>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <ContentPage.Content>
+        <ScrollView BackgroundColor="{Binding BackgColor}">
+            <StackLayout  Padding="20,0">
+                <StackLayout.Resources>
+                    <ResourceDictionary>
+                        <Style TargetType="Label">
+                            <Setter Property="TextColor" Value="White"/>
+                        </Style>
+                        <Style TargetType="Frame">
+                            <Setter Property="Margin" Value="0"/>
+                            <Setter Property="Padding" Value="0"/>
+                        </Style>
+                        <Style x:Key="SubTitle" TargetType="Label">
+                            <Setter Property="HorizontalOptions" Value="Center"/>
+                            <Setter Property="Margin" Value="0,15"/>
+                            <Setter Property="FontSize" Value="Large"/>
+                            <Setter Property="TextColor" Value="White"/>
+                        </Style>
+                    </ResourceDictionary>
+                </StackLayout.Resources>
+                <StackLayout HorizontalOptions="FillAndExpand">
+                    <Label Style="{StaticResource SubTitle}">
+                        <Label.Text>
+                            <mark:MessageExtention MessageKey="Durations"/>
+                        </Label.Text>
+                    </Label>
+                    <StackLayout>
+                        <Grid Margin="0" HorizontalOptions="Center">
+                            <Grid.Resources>
+                                <ResourceDictionary>
+                                    <Style TargetType="Label">
+                                        <Setter Property="FontSize" Value="15"/>
+                                        <Setter Property="HorizontalOptions" Value="CenterAndExpand"/>
+                                        <Setter Property="TextColor" Value="White"/>
+                                    </Style>
+                                    <Style TargetType="StackLayout">
+                                        <Setter Property="HorizontalOptions" Value="FillAndExpand"/>
+                                        <Setter Property="VerticalOptions" Value="CenterAndExpand"/>
+                                    </Style>
+                                    <Style TargetType="Frame">
+                                        <Setter Property="BackgroundColor" Value="Transparent"/>
+                                        <Setter Property="HorizontalOptions" Value="FillAndExpand"/>
+                                        <Setter Property="VerticalOptions" Value="CenterAndExpand"/>
+                                        <Setter Property="BackgroundColor" Value="#20ffffff"/>
+                                        <Setter Property="CornerRadius" Value="10"/>
+                                        <Setter Property="Padding" Value="0"/>
+                                        <Setter Property="Margin" Value="0"/>
+                                    </Style>
+                                </ResourceDictionary>
+                            </Grid.Resources>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="auto"/>
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width=".2*"/>
+                                <ColumnDefinition Width=".2*"/>
+                                <ColumnDefinition Width=".2*"/>
+                            </Grid.ColumnDefinitions>
+                            <Frame x:Name="pomo"
+                                   Grid.Column="0"
+                                   HeightRequest="{Binding Width, Source={x:Reference pomo}}">
+                                <StackLayout>
+                                    <Label Text="{Binding PomodoroControlVm.Durations, Converter={StaticResource timeListToStringConv},ConverterParameter=POMODORO}"
+                                           VerticalOptions="EndAndExpand"
+                                           FontSize="50"/>
+                                    <Label Text="POMODORO"
+                                       Margin="0,0,0,20"
+                                       VerticalOptions="Start">
+                                    </Label>
+                                </StackLayout>
+                                <Frame.GestureRecognizers>
+                                    <TapGestureRecognizer Command="{Binding UpdateTimeCommand}" CommandParameter="POMODORO"/>
+                                </Frame.GestureRecognizers>
+                            </Frame>
+                            <Frame Grid.Column="1"  
+                                         HeightRequest="{Binding Width, Source={x:Reference pomo}}">
+                                <StackLayout >
+                                    <Label Text="{Binding PomodoroControlVm.Durations, Converter={StaticResource timeListToStringConv},ConverterParameter=SHORT}"
+                                       VerticalOptions="EndAndExpand"
+                                       FontSize="50"/>
+                                    <Label Margin="0,0,0,20"
+                                       VerticalOptions="Start"
+                                       HorizontalOptions="CenterAndExpand">
+                                        <Label.Text>
+                                            <mark:MessageExtention MessageKey="Break"/>
+                                        </Label.Text>
+                                    </Label>
+                                </StackLayout>
+                                <Frame.GestureRecognizers>
+                                    <TapGestureRecognizer Command="{Binding UpdateTimeCommand}" CommandParameter="SHORT"/>
+                                </Frame.GestureRecognizers>
+                            </Frame>
+                            <Frame Grid.Column="2" HeightRequest="{Binding Width, Source={x:Reference pomo}}">
+                                <StackLayout 
+                                         >
+                                    <Label Text="{Binding PomodoroControlVm.Durations, Converter={StaticResource timeListToStringConv},ConverterParameter=LONG}"
+                                       VerticalOptions="EndAndExpand"
+                                       FontSize="50"/>
+                                    <Label Margin="0,0,0,20"
+                                       VerticalOptions="Start">
+                                        <Label.Text>
+                                            <mark:MessageExtention MessageKey="LongBreak"/>
+                                        </Label.Text>
+                                    </Label>
+                                </StackLayout>
+                                <Frame.GestureRecognizers>
+                                    <TapGestureRecognizer Command="{Binding UpdateTimeCommand}" CommandParameter="LONG"/>
+                                </Frame.GestureRecognizers>
+                            </Frame>
+
+                        </Grid>
+                    </StackLayout>
+                </StackLayout>
+                <Label Style="{StaticResource SubTitle}">
+                    <Label.Text>
+                        <mark:MessageExtention MessageKey="ColorTheme"/>
+                    </Label.Text>
+                </Label>
+                <Frame BackgroundColor="#20ffffff"
+                       Margin="0"
+                       CornerRadius="10"
+                       Padding="10"
+                       HorizontalOptions="CenterAndExpand"
+                       VerticalOptions="Start"
+                       >
+                    <Frame.Resources>
+                        <ResourceDictionary>
+                            <Style TargetType="Button">
+                                <Setter Property="CornerRadius" Value="10"/>
+                                <Setter Property="VerticalOptions" Value="CenterAndExpand"/>
+                                <Setter Property="HorizontalOptions" Value="Center"/>
+                            </Style>
+                        </ResourceDictionary>
+                    </Frame.Resources>
+                    <Grid x:Name="ColorThemeGrid" HorizontalOptions="Center">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="auto"/>
+                            <RowDefinition Height="auto"/>
+                            <RowDefinition Height="auto"/>
+                            <RowDefinition Height="auto"/>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width=".1*"/>
+                            <ColumnDefinition Width=".1*"/>
+                            <ColumnDefinition Width=".1*"/>
+                            <ColumnDefinition Width=".1*"/>
+                            <ColumnDefinition Width=".1*"/>
+                            <ColumnDefinition Width=".1*"/>
+                        </Grid.ColumnDefinitions>
+                        <Button Grid.Column="0"
+                                Grid.Row="0"
+                                x:Name="btn1"
+                                VerticalOptions="CenterAndExpand"
+                                HorizontalOptions="Center"
+                                HeightRequest="{Binding Width, Source={x:Reference btn1}}"
+                                BackgroundColor="#f87666"
+                                Command="{Binding AlterBackgroudColorCommand}"
+                                CommandParameter="{Binding Source={RelativeSource Self}, Path=BackgroundColor}"/>
+                        <Button Grid.Column="0"
+                                Grid.Row="1"
+                                HeightRequest="{Binding Width, Source={x:Reference btn1}}"
+                                BackgroundColor="#FF2400"
+                                Command="{Binding AlterBackgroudColorCommand}"
+                                CommandParameter="{Binding Source={RelativeSource Self}, Path=BackgroundColor}"/>
+                        <Button Grid.Column="0"
+                                Grid.Row="2"
+                                HeightRequest="{Binding Width, Source={x:Reference btn1}}"
+                                BackgroundColor="#8d714c"
+                                Command="{Binding AlterBackgroudColorCommand}"
+                                CommandParameter="{Binding Source={RelativeSource Self}, Path=BackgroundColor}"/>
+                        <Button Grid.Column="0"
+                                Grid.Row="3"
+                                HeightRequest="{Binding Width, Source={x:Reference btn1}}"
+                                BackgroundColor="#fea11f"
+                                Command="{Binding AlterBackgroudColorCommand}"
+                                CommandParameter="{Binding Source={RelativeSource Self}, Path=BackgroundColor}"/>
+
+                        <Button Grid.Column="1"
+                                Grid.Row="0"
+                                HeightRequest="{Binding Width, Source={x:Reference btn1}}"
+                                BackgroundColor="#bad8a2"
+                                Command="{Binding AlterBackgroudColorCommand}"
+                                CommandParameter="{Binding Source={RelativeSource Self}, Path=BackgroundColor}"/>
+                        <Button Grid.Column="1"
+                                Grid.Row="1"
+                                HeightRequest="{Binding Width, Source={x:Reference btn1}}"
+                                BackgroundColor="#efd55a"
+                                Command="{Binding AlterBackgroudColorCommand}"
+                                CommandParameter="{Binding Source={RelativeSource Self}, Path=BackgroundColor}"/>
+                        <Button Grid.Column="1"
+                                Grid.Row="2"
+                                HeightRequest="{Binding Width, Source={x:Reference btn1}}"
+                                BackgroundColor="#d7a954"
+                                Command="{Binding AlterBackgroudColorCommand}"
+                                CommandParameter="{Binding Source={RelativeSource Self}, Path=BackgroundColor}"/>
+                        <Button Grid.Column="1"
+                                Grid.Row="3"
+                                HeightRequest="{Binding Width, Source={x:Reference btn1}}"
+                                BackgroundColor="#af9f85"
+                                Command="{Binding AlterBackgroudColorCommand}"
+                                CommandParameter="{Binding Source={RelativeSource Self}, Path=BackgroundColor}"/>
+
+                        <Button Grid.Column="2"
+                                Grid.Row="0"
+                                HeightRequest="{Binding Width, Source={x:Reference btn1}}"
+                                BackgroundColor="#7dcd84"
+                                Command="{Binding AlterBackgroudColorCommand}"
+                                CommandParameter="{Binding Source={RelativeSource Self}, Path=BackgroundColor}"/>
+                        <Button Grid.Column="2"
+                                Grid.Row="1"
+                                HeightRequest="{Binding Width, Source={x:Reference btn1}}"
+                                
+                                BackgroundColor="#b7d9c9"
+                                Command="{Binding AlterBackgroudColorCommand}"
+                                CommandParameter="{Binding Source={RelativeSource Self}, Path=BackgroundColor}"/>
+                        <Button Grid.Column="2"
+                                Grid.Row="2"
+                                HeightRequest="{Binding Width, Source={x:Reference btn1}}"
+                                BackgroundColor="#9ec4b5"
+                                Command="{Binding AlterBackgroudColorCommand}"
+                                CommandParameter="{Binding Source={RelativeSource Self}, Path=BackgroundColor}"/>
+                        <Button Grid.Column="2"
+                                Grid.Row="3"
+                                HeightRequest="{Binding Width, Source={x:Reference btn1}}"
+                                BackgroundColor="#6dc2a3"
+                                Command="{Binding AlterBackgroudColorCommand}"
+                                CommandParameter="{Binding Source={RelativeSource Self}, Path=BackgroundColor}"/>
+
+                        <Button Grid.Column="3"
+                                Grid.Row="0"
+                                HeightRequest="{Binding Width, Source={x:Reference btn1}}"
+                                BackgroundColor="#7ebdc2"
+                                Command="{Binding AlterBackgroudColorCommand}"
+                                CommandParameter="{Binding Source={RelativeSource Self}, Path=BackgroundColor}"/>
+                        <Button Grid.Column="3"
+                                Grid.Row="1"
+                                HeightRequest="{Binding Width, Source={x:Reference btn1}}"
+                                BackgroundColor="#18bebc"
+                                Command="{Binding AlterBackgroudColorCommand}"
+                                CommandParameter="{Binding Source={RelativeSource Self}, Path=BackgroundColor}"/>
+                        <Button Grid.Column="3"
+                                Grid.Row="2"
+                                HeightRequest="{Binding Width, Source={x:Reference btn1}}"
+                                BackgroundColor="#68a691"
+                                Command="{Binding AlterBackgroudColorCommand}"
+                                CommandParameter="{Binding Source={RelativeSource Self}, Path=BackgroundColor}"/>
+                        <Button Grid.Column="3"
+                                Grid.Row="3"
+                                HeightRequest="{Binding Width, Source={x:Reference btn1}}"
+                                BackgroundColor="#3EB489"
+                                Command="{Binding AlterBackgroudColorCommand}"
+                                CommandParameter="{Binding Source={RelativeSource Self}, Path=BackgroundColor}"/>
+
+                        <Button Grid.Column="4"
+                                Grid.Row="0"
+                                HeightRequest="{Binding Width, Source={x:Reference btn1}}"
+                                BackgroundColor="#8fa4a7"
+                                Command="{Binding AlterBackgroudColorCommand}"
+                                CommandParameter="{Binding Source={RelativeSource Self}, Path=BackgroundColor}"/>
+                        <Button Grid.Column="4"
+                                Grid.Row="1"
+                                HeightRequest="{Binding Width, Source={x:Reference btn1}}"
+                                BackgroundColor="#a0d2db"
+                                Command="{Binding AlterBackgroudColorCommand}"
+                                CommandParameter="{Binding Source={RelativeSource Self}, Path=BackgroundColor}"/>
+                        <Button Grid.Column="4"
+                                Grid.Row="2"
+                                HeightRequest="{Binding Width, Source={x:Reference btn1}}"
+                                BackgroundColor="#385c76"
+                                Command="{Binding AlterBackgroudColorCommand}"
+                                CommandParameter="{Binding Source={RelativeSource Self}, Path=BackgroundColor}"/>
+                        <Button Grid.Column="4"
+                                Grid.Row="3"
+                                HeightRequest="{Binding Width, Source={x:Reference btn1}}"
+                                BackgroundColor="#246ee9"
+                                Command="{Binding AlterBackgroudColorCommand}"
+                                CommandParameter="{Binding Source={RelativeSource Self}, Path=BackgroundColor}"/>
+
+                        <!--<Button Grid.Column="0"
+                                Grid.Row="4"
+                                BackgroundColor="#4f3960"
+                                Command="{Binding AlterBackgroudColorCommand}"
+                                CommandParameter="{Binding Source={RelativeSource Self}, Path=BackgroundColor}"/>
+                        <Button Grid.Column="1"
+                                Grid.Row="4"
+                                BackgroundColor="#e6dff1"
+                                Command="{Binding AlterBackgroudColorCommand}"
+                                CommandParameter="{Binding Source={RelativeSource Self}, Path=BackgroundColor}"/>
+                        <Button Grid.Column="2"
+                                Grid.Row="4"
+                                BackgroundColor="#4a4b4f"
+                                Command="{Binding AlterBackgroudColorCommand}"
+                                CommandParameter="{Binding Source={RelativeSource Self}, Path=BackgroundColor}"/>
+                        <Button Grid.Column="3"
+                                Grid.Row="4"
+                                BackgroundColor="#7d8cc5"
+                                Command="{Binding AlterBackgroudColorCommand}"
+                                CommandParameter="{Binding Source={RelativeSource Self}, Path=BackgroundColor}"/>-->
+
+                        <Button Grid.Column="5"
+                                Grid.Row="0"
+                                HeightRequest="{Binding Width, Source={x:Reference btn1}}"
+                                BackgroundColor="#4f3960"
+                                Command="{Binding AlterBackgroudColorCommand}"
+                                CommandParameter="{Binding Source={RelativeSource Self}, Path=BackgroundColor}"/>
+                        <Button Grid.Column="5"
+                                Grid.Row="1"
+                                HeightRequest="{Binding Width, Source={x:Reference btn1}}"
+                                BackgroundColor="#e6dff1"
+                                Command="{Binding AlterBackgroudColorCommand}"
+                                CommandParameter="{Binding Source={RelativeSource Self}, Path=BackgroundColor}"/>
+                        <Button Grid.Column="5"
+                                Grid.Row="2"
+                                HeightRequest="{Binding Width, Source={x:Reference btn1}}"
+                                BackgroundColor="#4a4b4f"
+                                Command="{Binding AlterBackgroudColorCommand}"
+                                CommandParameter="{Binding Source={RelativeSource Self}, Path=BackgroundColor}"/>
+                        <Button Grid.Column="5"
+                                Grid.Row="3"
+                                HeightRequest="{Binding Width, Source={x:Reference btn1}}"
+                                BackgroundColor="#7d8cc5"
+                                Command="{Binding AlterBackgroudColorCommand}"
+                                CommandParameter="{Binding Source={RelativeSource Self}, Path=BackgroundColor}"/>
+                    </Grid>
+                </Frame>
+                <Label Style="{StaticResource SubTitle}">
+                    <Label.Text>
+                        <mark:MessageExtention MessageKey="Others"/>
+                    </Label.Text>
+                </Label>
+                <StackLayout VerticalOptions="Start"
+                             BackgroundColor="Transparent">
+                    <StackLayout.Resources>
+                        <ResourceDictionary>
+                            <Style TargetType="Frame">
+                                <Setter Property="BackgroundColor" Value="#20ffffff"/>
+                                <Setter Property="Padding" Value="0"/>
+                                <Setter Property="HeightRequest" Value="{Binding Width, Source={x:Reference pomo}}"/>
+                                <Setter Property="CornerRadius" Value="10"/>
+                            </Style>
+                        </ResourceDictionary>
+                    </StackLayout.Resources>
+                    <StackLayout HeightRequest="{Binding Width, Source={x:Reference pomo}}"
+                                 BackgroundColor="Transparent"
+                                 Orientation="Horizontal"
+                                 HorizontalOptions="FillAndExpand">
+                        <Frame Margin="0,0,3,0" HorizontalOptions="StartAndExpand" WidthRequest="1000">
+                            <StackLayout HorizontalOptions="FillAndExpand">
+                                <Label Text="{Binding PomodoroControlVm.PomodoroTimesBeforeLongBreak}"
+                                       FontSize="40"
+                                       Margin="0,15,0,0"
+                                       VerticalOptions="StartAndExpand" 
+                                       HorizontalOptions="CenterAndExpand">
+                                </Label>
+                                <Label FontSize="15"
+                                       VerticalOptions="End"
+                                       Margin="0,0,0,5"
+                                       HorizontalOptions="Center"
+                                       HorizontalTextAlignment="Center"
+                                       LineBreakMode="WordWrap">
+                                    <Label.Text>
+                                        <mark:MessageExtention MessageKey="PomodoroUntilLongBreak"/>
+                                    </Label.Text>
+                                </Label>
+                            </StackLayout>
+                            <Frame.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding UpdateTimeCommand}" CommandParameter="BEFORE"/>
+                            </Frame.GestureRecognizers>
+                        </Frame>
+                        <Frame HorizontalOptions="EndAndExpand" Margin="3,0,0,0" WidthRequest="1000">
+                            <StackLayout HorizontalOptions="FillAndExpand">
+                                <Label Text="{Binding PomodoroControlVm.DailyGoal}"
+                                       FontSize="40"
+                                       Margin="0,15,0,0"
+                                       VerticalOptions="StartAndExpand" 
+                                       HorizontalOptions="CenterAndExpand">
+                                </Label>
+                                <Label FontSize="15"
+                                       Margin="0,0,0,5"
+                                       VerticalOptions="End"
+                                       HorizontalOptions="Center"
+                                       HorizontalTextAlignment="Center"
+                                       LineBreakMode="WordWrap">
+                                    <Label.Text>
+                                        <mark:MessageExtention MessageKey="DailyGoal"/>
+                                    </Label.Text>
+                                </Label>
+                            </StackLayout>
+                            <Frame.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding UpdateTimeCommand}" CommandParameter="GOAL"/>
+                            </Frame.GestureRecognizers>
+                        </Frame>
+                    </StackLayout>
+                </StackLayout>
+            </StackLayout>
+
+        </ScrollView>
+    </ContentPage.Content>
+</ContentPage>

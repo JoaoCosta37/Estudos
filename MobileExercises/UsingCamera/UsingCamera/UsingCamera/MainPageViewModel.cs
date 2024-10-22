@@ -13,16 +13,28 @@ namespace UsingCamera
     public class MainPageViewModel : INotifyPropertyChanged
     {
         private string photoPath;
+        private string barcode;
         public MainPageViewModel()
         {
             GetImageCommand = new Command(() => getImage());
+            ClearCommand = new Command(() => clear());
         }
         public Command GetImageCommand { get; set; }
+        public Command ClearCommand { get; set; }
         public string PhotoPath
         {
             get => photoPath; set
             {
                 photoPath = value;
+                OnPropertyChanged();
+            }
+        }
+        public string Barcode
+        {
+            get => barcode;
+            set
+            {
+                barcode = value;
                 OnPropertyChanged();
             }
         }
@@ -48,6 +60,10 @@ namespace UsingCamera
             {
                 Console.WriteLine($"CapturePhotoAsync THREW: {ex.Message}");
             }
+        }
+        public void clear()
+        {
+            this.Barcode = null;
         }
         async Task LoadPhotoAsync(FileResult photo)
         {

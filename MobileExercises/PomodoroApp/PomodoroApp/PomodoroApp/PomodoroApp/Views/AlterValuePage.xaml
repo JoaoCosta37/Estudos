@@ -1,0 +1,123 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:views="clr-namespace:PomodoroApp.Views"
+             xmlns:mark="clr-namespace:PomodoroApp.Views.Markup"
+             xmlns:conv="clr-namespace:PomodoroApp.Views.Converters"
+             x:Class="PomodoroApp.Views.AlterValuePage">
+    <ContentPage.Resources>
+        <conv:TimeTypeToStringConverter x:Key="timeTypeToStringConv"/>
+        <conv:TimeSpanToStringConverter x:Key="timeSpanToStringConv"/>
+    </ContentPage.Resources>
+    <ContentPage.Content>
+        <StackLayout Orientation="Vertical"
+                     BackgroundColor="{Binding BackgColor}" Padding="15,0">
+            <StackLayout VerticalOptions="CenterAndExpand" Margin="0,80,0,0">
+                <Label HorizontalOptions="CenterAndExpand"
+                       VerticalOptions="Center"
+                       Margin="20"
+                       Text="{Binding TimeDurationVm.TimeDuration.TimeType, Converter={StaticResource timeTypeToStringConv}}"
+                       TextColor="White"
+                       FontSize="25">
+                </Label>
+                <StackLayout Orientation="Horizontal"
+                             VerticalOptions="Start"
+                             Margin="18,0"
+                             HorizontalOptions="FillAndExpand">
+                    <StackLayout.Resources>
+                        <ResourceDictionary>
+                            <Style TargetType="Button">
+                                <Setter Property="BackgroundColor" Value="Transparent"/>
+                                <Setter Property="TextColor" Value="White"/>
+                                <Setter Property="FontSize" Value="70"/>
+                                <Setter Property="Padding" Value="0"/>
+                            </Style>
+                        </ResourceDictionary>
+                    </StackLayout.Resources>
+                    <Button Text="{x:Static views:FontIcons.PlusIcon}"
+                            FontFamily="{x:StaticResource PostFontIcon}"
+                            HorizontalOptions="Start"
+                            VerticalOptions="End"
+                            Command="{Binding AddDurationValueCommand}"
+                            CommandParameter="1"
+                            Padding="20,0,0,0" />
+                    <Label Text="{Binding NewValue}"
+                           FontSize="90"
+                           HorizontalOptions="CenterAndExpand"
+                           TextColor="White"
+                           Margin="20,0"/>
+                    <Button Text="{x:Static views:FontIcons.MinusIcon}"
+                            FontFamily="{x:StaticResource PostFontIcon}"
+                            HorizontalOptions="End"
+                            VerticalOptions="End"
+                            Command="{Binding SubtractDurationValueCommand}"
+                            CommandParameter="1"
+                            Padding="0,0,20,0"/>
+                </StackLayout>
+
+                <StackLayout
+                    Orientation="Horizontal"
+                    HorizontalOptions="CenterAndExpand"
+                    Margin="50,50,50,0">
+                    <StackLayout.Resources>
+                        <ResourceDictionary>
+                            <Style TargetType="Label">
+                                <Setter Property="TextColor" Value="{Binding BackgColor}"/>
+                            </Style>
+                            <Style TargetType="StackLayout">
+                                <Setter Property="Orientation" Value="Horizontal"/>
+                                <Setter Property="HorizontalOptions" Value="Center"/>
+                                <Setter Property="VerticalOptions" Value="Center"/>
+
+                            </Style>
+                            <Style TargetType="Frame">
+                                <Setter Property="CornerRadius" Value="24"/>
+                                <Setter Property="HeightRequest" Value="48"/>
+                                <Setter Property="WidthRequest" Value="48"/>
+                                <Setter Property="Padding" Value="0"/>
+                                <Setter Property="Margin" Value="20,0"/>
+                                <Setter Property="VerticalOptions" Value="CenterAndExpand"/>
+                            </Style>
+                        </ResourceDictionary>
+                    </StackLayout.Resources>
+                    <Frame>
+                        <StackLayout>
+                            <Label Text="+10"
+                                   VerticalOptions="Center"
+                                   FontSize="30"/>
+                        </StackLayout>
+                        <Frame.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding AddDurationValueCommand}"
+                                                  CommandParameter="10"/>
+                        </Frame.GestureRecognizers>
+                    </Frame>
+                    <Frame >
+                        <StackLayout >
+                            <Label Text="-10"
+                                   VerticalOptions="Center"
+                                   FontSize="30"
+                                   />
+                        </StackLayout>
+                        <Frame.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding SubtractDurationValueCommand}"
+                                                  CommandParameter="10"/>
+                        </Frame.GestureRecognizers>
+                    </Frame>
+                </StackLayout>
+
+
+
+            </StackLayout>
+            <StackLayout Margin="0,30">
+                <Button Text="{x:Static views:FontIcons.CkeckIcon}"
+                        Command="{Binding ConfirmCommand}"
+                        FontSize="80"
+                        TextColor="White"
+                        HorizontalOptions="Center"
+                        VerticalOptions="Start"
+                        BackgroundColor="Transparent"
+                        FontFamily="{x:StaticResource PostFontIcon}"/>
+            </StackLayout>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

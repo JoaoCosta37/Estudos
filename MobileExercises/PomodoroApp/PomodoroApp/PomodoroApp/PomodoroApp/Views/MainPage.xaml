@@ -1,0 +1,208 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:es="Xamarin"
+             xmlns:control="clr-namespace:CarouselView.FormsPlugin.Abstractions;assembly=CarouselView.FormsPlugin.Abstractions"
+             xmlns:conv="clr-namespace:PomodoroApp.Views.Converters"
+             xmlns:forms="clr-namespace:SkiaSharp.Views.Forms;assembly=SkiaSharp.Views.Forms"
+             xmlns:mark="clr-namespace:PomodoroApp.Views.Markup"
+             xmlns:views="clr-namespace:PomodoroApp.Views"
+             x:Class="PomodoroApp.Views.MainPage">
+    <ContentPage.Resources>
+        <conv:TimeSpanToStringConverter x:Key="timeSpanToStringConv"/>
+        <conv:StringToColorConverter x:Key="stringToColorConv"/>
+        <conv:NegateBooleanConverter x:Key="negateBooleanConv"/>
+        <conv:TimeTypeToStringConverter x:Key="timeTypeToStringConv"/>
+        <conv:StatisticsToBooleanConverter x:Key="statisticsToBooleanConv"/>
+    </ContentPage.Resources>
+    <StackLayout BackgroundColor="{Binding BackgColor}"
+                 VerticalOptions="FillAndExpand"
+                 Padding="0">
+        <!--Config Button-->
+        <StackLayout Padding="10,10,10,20">
+            <Button BackgroundColor="Transparent"
+                    HorizontalOptions="End"
+                    Text="{x:Static views:FontIcons.ConfigIcon}"
+                    FontFamily="{x:StaticResource PostFontIcon}"
+                    FontSize="35"
+                    WidthRequest="40"
+                    HeightRequest="40"
+                    Padding="0"
+                    Margin="0"
+                    TextColor="White"
+                    IsEnabled="{Binding IsStarted, Converter={StaticResource negateBooleanConv}}"
+                    Command="{mark:NavigationCommand Route={x:Type views:ConfigPage} }"/>
+        </StackLayout>
+        <!--Canvas-->
+        <StackLayout Padding="0">
+            <forms:SKCanvasView x:Name="SkCanvasView"
+                                HeightRequest="350"
+                                WidthRequest="350"
+                                VerticalOptions="Start"
+                                HorizontalOptions="CenterAndExpand"
+                                PaintSurface="SkCanvasView_PaintSurface"
+                                Margin="0">
+            </forms:SKCanvasView>
+
+            <StackLayout.GestureRecognizers>
+                <TapGestureRecognizer Command="{Binding TimeControllerCommand}" />
+            </StackLayout.GestureRecognizers>
+        </StackLayout>
+        <!--Selector Timer-->
+        <StackLayout Margin="0,20,0,0" Orientation="Horizontal" HorizontalOptions="CenterAndExpand" >
+            <StackLayout.Resources>
+                <ResourceDictionary>
+                    <Style TargetType="Label">
+                        <Setter Property="FontSize" Value="20"/>
+                        <Setter Property="VerticalOptions" Value="CenterAndExpand"/>
+                        <Setter Property="HorizontalOptions" Value="Center"/>
+                        <Setter Property="TextColor" Value="White"/>
+                        <Setter Property="VerticalTextAlignment" Value="Center"/>
+                        <Setter Property="HorizontalTextAlignment" Value="Center"/>
+                    </Style>
+                </ResourceDictionary>
+            </StackLayout.Resources>
+            <!--Selector !IsStarted-->
+            <StackLayout WidthRequest="150"
+                         HeightRequest="40"
+                         HorizontalOptions="StartAndExpand"
+                         IsVisible="{Binding IsStarted, Converter={StaticResource negateBooleanConv}}">
+
+                <control:CarouselViewControl Orientation="Vertical"
+                                             InterPageSpacing="10"
+                                             ItemsSource="{Binding PomodoroControlVm.Durations,Mode=OneWay}"
+                                             VerticalOptions="CenterAndExpand"
+                                             HorizontalOptions="Center"
+                                             InfiniteScrolling="True"
+                                             Position="{Binding PositionSelectedItem}"
+                                             ShowArrows="True"
+                                             ArrowsSize="15"
+                                             VerticalArrowsPosition="Left"
+                                             ArrowsBackgroundColor="Transparent"
+                                             ArrowsTintColor="White"
+                                             WidthRequest="150"
+                                             HeightRequest="40">
+                    <control:CarouselViewControl.ItemTemplate>
+                        <DataTemplate>
+                            <Label Text="{Binding TimeType}"/>
+                        </DataTemplate>
+                    </control:CarouselViewControl.ItemTemplate>
+                </control:CarouselViewControl>
+            </StackLayout>
+            <!--Visual - IsStarted-->
+            <StackLayout WidthRequest="150"
+                         HeightRequest="40"
+                         HorizontalOptions="StartAndExpand"
+                         IsVisible="{Binding IsStarted}">
+                <Label Text="{Binding CurrentType}"
+                       HeightRequest="30"/>
+            </StackLayout>
+
+
+            <Label Text="{Binding RemainingTime,Converter={StaticResource timeSpanToStringConv}}"
+                   TextColor="White"
+                   WidthRequest="80"
+                   FontSize="20"
+                   HorizontalOptions="EndAndExpand">
+            </Label>
+
+        </StackLayout>
+        <!--Statistics-->
+        <StackLayout>
+            <StackLayout.Resources>
+                <ResourceDictionary>
+                    <Style TargetType="Label">
+                        <Setter Property="FontSize" Value="16"/>
+                        <Setter Property="VerticalOptions" Value="CenterAndExpand"/>
+                        <Setter Property="HorizontalOptions" Value="Center"/>
+                        <Setter Property="TextColor" Value="White"/>
+                        <Setter Property="VerticalTextAlignment" Value="Center"/>
+                        <Setter Property="HorizontalTextAlignment" Value="Center"/>
+                    </Style>
+                    <Style TargetType="CheckBox">
+                        <Setter Property="IsEnabled" Value="false"/>
+                        <Setter Property="Color" Value="white"/>
+                    </Style>
+                    <Style TargetType="ProgressBar">
+                        <Setter Property="ProgressColor" Value="white"/>
+                    </Style>
+                </ResourceDictionary>
+            </StackLayout.Resources>
+
+            <StackLayout HorizontalOptions="FillAndExpand"
+                         Orientation="Horizontal"
+                         HeightRequest="100">
+                <StackLayout VerticalOptions="CenterAndExpand">
+                    <StackLayout Orientation="Horizontal" Margin="10,5">
+                        <Label Text="P" TextColor="White"/>
+                        <CheckBox IsChecked="{Binding PomodoroControlVm.Progress, Mode=OneWay, Converter={StaticResource statisticsToBooleanConv}, ConverterParameter=POMODORO}"/>
+                    </StackLayout>
+                    <StackLayout Orientation="Horizontal" Margin="10,5">
+                        <Label TextColor="White">
+                            <Label.Text>
+                                <mark:MessageExtention MessageKey="S"/>
+                            </Label.Text>
+                        </Label>
+                        <CheckBox IsChecked="{Binding PomodoroControlVm.Progress, Mode=OneWay, Converter={StaticResource statisticsToBooleanConv}, ConverterParameter=SHORT}"/>
+                    </StackLayout>
+                </StackLayout>
+                <StackLayout VerticalOptions="FillAndExpand" Orientation="Vertical" Padding="0,20">
+
+                    <StackLayout Orientation="Horizontal" VerticalOptions="Center" HorizontalOptions="CenterAndExpand">
+                    <Label VerticalOptions="End" Margin="0,0,0,5">
+                        <Label.Text>
+                            <mark:MessageExtention MessageKey="L"/>
+                        </Label.Text>
+                    </Label>
+                        <CheckBox IsChecked="{Binding PomodoroControlVm.Progress, Mode=OneWay, Converter={StaticResource statisticsToBooleanConv}, ConverterParameter=LONG}"/>
+                    </StackLayout>
+
+                    <ProgressBar WidthRequest="100"
+                                 Progress="{Binding PomodoroProgressPorcent}"
+                                 ScaleY="2"
+                                 ScaleX="1"
+                                 VerticalOptions="CenterAndExpand"/>
+
+                    <Label Text="{Binding PomodoroProgressIndicator}" VerticalOptions="End" Margin="0,5,0,0"/>
+                </StackLayout>
+
+                <StackLayout VerticalOptions="CenterAndExpand" HorizontalOptions="EndAndExpand">
+                    <Label VerticalOptions="End" Margin="0,5,0,0">
+                        <Label.Text>
+                            <mark:MessageExtention MessageKey="DailyGoal"/>
+                        </Label.Text>
+                    </Label>
+                    <Label Text="{Binding DailyProgressIndicator}" VerticalOptions="End" Margin="0,5,0,0"/>
+                </StackLayout>
+
+                <RelativeLayout VerticalOptions="Center" HorizontalOptions="Start">
+                    <ProgressBar Progress="{Binding DailyProgressPorcent}"
+                                 Rotation="270"
+                                 WidthRequest="50"
+                                 HeightRequest="2"
+                                 ScaleY="8"
+                                 ScaleX="2"
+                                 />
+                </RelativeLayout>
+            </StackLayout>
+        </StackLayout>
+       
+        <!--Restart-->
+        <StackLayout VerticalOptions="EndAndExpand" HorizontalOptions="Center">
+            <Button BackgroundColor="Transparent"
+                    TextColor="White"
+                    FontSize="Large"
+                    Command="{Binding RestartCommand}"
+                    IsVisible="{Binding CanRestart}"
+                    >
+                <Button.Text>
+                    <mark:MessageExtention MessageKey="Restart"/>
+                </Button.Text>
+            </Button>
+        </StackLayout>
+
+    </StackLayout>
+
+
+
+</ContentPage>
